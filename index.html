@@ -59,105 +59,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    .menu-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 50;
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: var(--card-2);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-    }
-
-    .menu-btn span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: var(--text);
-      position: relative;
-    }
-
-    .menu-btn span::before,
-    .menu-btn span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 20px;
-      height: 2px;
-      background: var(--text);
-      transition: transform .2s ease;
-    }
-
-    .menu-btn span::before { top: -6px; }
-    .menu-btn span::after { top: 6px; }
-
-    .side-menu {
-      position: fixed;
-      inset: 0 auto 0 0;
-      width: min(300px, 80vw);
-      background: var(--card);
-      border-right: 1px solid var(--card-border);
-      padding: 28px 22px;
-      transform: translateX(-100%);
-      transition: transform .25s ease;
-      z-index: 60;
-      display: grid;
-      gap: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    body.menu-open .side-menu { transform: translateX(0); }
-
-    .side-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 700;
-    }
-
-    .menu-close {
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      background: transparent;
-      color: var(--text);
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-
-    .side-links {
-      display: grid;
-      gap: 12px;
-    }
-
-    .side-links a {
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: var(--card-2);
-      border: 1px solid var(--card-border);
-      font-weight: 600;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(2,6,23,.45);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease;
-      z-index: 55;
-    }
-
-    body.menu-open .overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     .app {
       width: min(1100px, 92vw);
       margin: 0 auto;
@@ -405,29 +306,10 @@
 
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
-      .menu-btn { top: 16px; left: 16px; }
     }
   </style>
 </head>
 <body>
-
-<button class="menu-btn" id="menuBtn" type="button" aria-label="메뉴 열기">
-  <span></span>
-</button>
-
-<aside class="side-menu" id="sideMenu" aria-hidden="true">
-  <div class="side-header">
-    <span>오늘의 운세</span>
-    <button class="menu-close" id="menuClose" type="button">닫기</button>
-  </div>
-  <nav class="side-links">
-    <a href="#home">홈</a>
-    <a href="#lotto">로또 추첨</a>
-    <a href="#menu">메뉴 추천</a>
-  </nav>
-</aside>
-
-<div class="overlay" id="overlay"></div>
 
 <main class="app" id="home">
   <header class="top-bar">
@@ -533,10 +415,6 @@
   const fortuneText = document.getElementById("fortuneText");
   const fortuneTags = document.getElementById("fortuneTags");
   const fortuneBtn = document.getElementById("fortuneBtn");
-  const menuBtn = document.getElementById("menuBtn");
-  const menuClose = document.getElementById("menuClose");
-  const sideMenu = document.getElementById("sideMenu");
-  const overlay = document.getElementById("overlay");
 
   const fortunes = [
     {
@@ -585,23 +463,6 @@
       .map(tag => `<span class="tag">${tag}</span>`)
       .join("");
   }
-
-  function openMenu() {
-    document.body.classList.add("menu-open");
-    sideMenu.setAttribute("aria-hidden", "false");
-  }
-
-  function closeMenu() {
-    document.body.classList.remove("menu-open");
-    sideMenu.setAttribute("aria-hidden", "true");
-  }
-
-  menuBtn.addEventListener("click", openMenu);
-  menuClose.addEventListener("click", closeMenu);
-  overlay.addEventListener("click", closeMenu);
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeMenu();
-  });
 
   function colorClass(n) {
     if (n <= 10) return "n1";
