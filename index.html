@@ -2,34 +2,42 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <title>ë¡œë˜ ë²ˆí˜¸ ì¶”ì²œê¸°</title>
+  <title>¿À´ÃÀÇ ¿î¼¼ ¡¤ ·Î¶Ç ÃßÃ· ¡¤ ¸Ş´º ÃßÃµ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
     :root {
-      --bg: #0b1220;
-      --card: #111a2e;
-      --card-border: rgba(255,255,255,.08);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --primary: linear-gradient(90deg, #6366f1, #22d3ee);
-      --bg-grad-1: #1e3a8a44;
-      --bg-grad-2: #22d3ee33;
+      --bg: #0b1020;
+      --card: #141b2d;
+      --card-2: #0f172a;
+      --card-border: rgba(148,163,184,.18);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #f59e0b;
+      --accent-2: #22c55e;
+      --primary: linear-gradient(90deg, #f59e0b, #22c55e);
+      --bg-grad-1: #0ea5e933;
+      --bg-grad-2: #f9731633;
       --btn-sub-bg: #0f172a;
       --btn-sub-text: var(--text);
+      --shadow: 0 20px 50px rgba(15,23,42,.35);
     }
 
     [data-theme="light"] {
       --bg: #f8fafc;
       --card: #ffffff;
+      --card-2: #f1f5f9;
       --card-border: rgba(15,23,42,.12);
       --text: #0f172a;
       --muted: #475569;
-      --primary: linear-gradient(90deg, #f97316, #22c55e);
-      --bg-grad-1: #f59e0b33;
-      --bg-grad-2: #38bdf833;
+      --accent: #f97316;
+      --accent-2: #0ea5e9;
+      --primary: linear-gradient(90deg, #f97316, #0ea5e9);
+      --bg-grad-1: #f59e0b22;
+      --bg-grad-2: #38bdf822;
       --btn-sub-bg: #ffffff;
       --btn-sub-text: #0f172a;
+      --shadow: 0 12px 30px rgba(15,23,42,.12);
     }
 
     * { box-sizing: border-box; }
@@ -37,42 +45,244 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: radial-gradient(800px 400px at 20% 0%, var(--bg-grad-1), transparent),
-                  radial-gradient(800px 400px at 80% 100%, var(--bg-grad-2), transparent),
+      background: radial-gradient(800px 400px at 15% 0%, var(--bg-grad-1), transparent),
+                  radial-gradient(900px 500px at 85% 100%, var(--bg-grad-2), transparent),
                   var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, "Noto Sans KR";
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    }
+
+    h1, h2, h3, .brand {
+      font-family: "Gowun Batang", "Noto Serif KR", serif;
+      margin: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 50;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--card-2);
       display: grid;
       place-items: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      position: relative;
+    }
+
+    .menu-btn span::before,
+    .menu-btn span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      transition: transform .2s ease;
+    }
+
+    .menu-btn span::before { top: -6px; }
+    .menu-btn span::after { top: 6px; }
+
+    .side-menu {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(300px, 80vw);
+      background: var(--card);
+      border-right: 1px solid var(--card-border);
+      padding: 28px 22px;
+      transform: translateX(-100%);
+      transition: transform .25s ease;
+      z-index: 60;
+      display: grid;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    body.menu-open .side-menu { transform: translateX(0); }
+
+    .side-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 700;
+    }
+
+    .menu-close {
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .side-links {
+      display: grid;
+      gap: 12px;
+    }
+
+    .side-links a {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--card-2);
+      border: 1px solid var(--card-border);
+      font-weight: 600;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      z-index: 55;
+    }
+
+    body.menu-open .overlay {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .app {
-      width: min(1000px, 95vw);
-      padding: 28px;
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 30px 0 80px;
+      display: grid;
+      gap: 36px;
     }
 
-    /* ===== Header ===== */
-    .header {
-      margin-bottom: 20px;
-    }
-
-    .title {
-      font-size: 26px;
-      font-weight: 900;
+    .top-bar {
+      margin-top: 10px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
     }
 
-    .desc {
-      margin-top: 6px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .brand-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #0b1020;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .fortune-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .fortune-text {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .fortune-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--card-2);
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .focus-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .focus-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+    }
+
+    .focus-label {
+      font-weight: 700;
+    }
+
+    .focus-score {
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .section {
+      display: grid;
+      gap: 16px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
     }
 
-    /* ===== Controls ===== */
     .controls {
-      margin-top: 20px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
@@ -88,17 +298,18 @@
       font-weight: 900;
       font-size: 15px;
       background: var(--primary);
-      color: #020617;
-      box-shadow: 0 10px 30px rgba(99,102,241,.5);
+      color: #0b1020;
+      box-shadow: 0 10px 30px rgba(15,23,42,.25);
     }
 
     .btn-sub {
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 14px;
       border: 1px solid var(--card-border);
       background: var(--btn-sub-bg);
       color: var(--btn-sub-text);
       cursor: pointer;
+      font-weight: 600;
     }
 
     .checkbox {
@@ -109,11 +320,9 @@
       color: var(--muted);
     }
 
-    /* ===== Games Grid ===== */
     .grid {
-      margin-top: 24px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
     }
 
@@ -153,10 +362,9 @@
       place-items: center;
       font-weight: 900;
       font-size: 14px;
-      color: #020617;
+      color: #0b1020;
     }
 
-    /* ë¡œë˜ ìƒ‰ìƒ */
     .n1 { background: #facc15; }
     .n2 { background: #60a5fa; }
     .n3 { background: #fb7185; }
@@ -164,39 +372,157 @@
     .n5 { background: #4ade80; }
     .bonus { background: #a855f7; color: #fff; }
 
-    /* ===== Footer ===== */
     .footer {
-      margin-top: 20px;
       text-align: center;
       font-size: 13px;
       color: var(--muted);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .menu-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: grid;
+      gap: 8px;
+    }
+
+    .menu-card h3 {
+      font-size: 18px;
+    }
+
+    .menu-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .menu-btn { top: 16px; left: 16px; }
     }
   </style>
 </head>
 <body>
 
-<div class="app">
-  <div class="header">
-    <div class="title">ğŸ² ë¡œë˜ ë²ˆí˜¸ ì¶”ì²œê¸° </div>
-    <div class="desc">
-      ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ 1~45 ì‚¬ì´ì—ì„œ ì¤‘ë³µ ì—†ì´ 6ê°œ ë²ˆí˜¸ë¥¼ 5ê²Œì„ í•œ ë²ˆì— ë½‘ì•„ì¤˜ìš”.
+<button class="menu-btn" id="menuBtn" type="button" aria-label="¸Ş´º ¿­±â">
+  <span></span>
+</button>
+
+<aside class="side-menu" id="sideMenu" aria-hidden="true">
+  <div class="side-header">
+    <span>¿À´ÃÀÇ ¿î¼¼</span>
+    <button class="menu-close" id="menuClose" type="button">´İ±â</button>
+  </div>
+  <nav class="side-links">
+    <a href="#home">È¨</a>
+    <a href="#lotto">·Î¶Ç ÃßÃ·</a>
+    <a href="#menu">¸Ş´º ÃßÃµ</a>
+  </nav>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+
+<main class="app" id="home">
+  <header class="top-bar">
+    <div class="brand">
+      <span class="brand-badge">¿À´Ã</span>
+      ¿À´ÃÀÇ ¿î¼¼
+    </div>
+    <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+  </header>
+
+  <section class="hero">
+    <div class="card">
+      <div class="fortune-title">
+        <h1>¿À´ÃÀÇ ¿î¼¼</h1>
+        <span class="tag">Çà¿î Áö¼ö</span>
+      </div>
+      <div id="fortuneText" class="fortune-text"></div>
+      <div id="fortuneTags" class="fortune-tags"></div>
+      <button id="fortuneBtn" class="btn-main" type="button">¿À´ÃÀÇ ¿î¼¼ ´Ù½Ã »Ì±â</button>
+    </div>
+
+    <div class="focus-grid">
+      <div class="focus-item">
+        <div>
+          <div class="focus-label">¿¬¾Ö¿î</div>
+          <div class="tag">´ëÈ­°¡ ±æÀ» ¿¬´Ù</div>
+        </div>
+        <div class="focus-score">87</div>
+      </div>
+      <div class="focus-item">
+        <div>
+          <div class="focus-label">±İÀü¿î</div>
+          <div class="tag">ÁöÃâ Àü¿¡ ÇÑ ¹ø ´õ</div>
+        </div>
+        <div class="focus-score">72</div>
+      </div>
+      <div class="focus-item">
+        <div>
+          <div class="focus-label">°Ç°­¿î</div>
+          <div class="tag">ÂªÀº ½ºÆ®·¹Äª</div>
+        </div>
+        <div class="focus-score">90</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lotto">
+    <div class="section-head">
+      <h2>·Î¶Ç ÃßÃ·</h2>
+      <p>¹öÆ°À» ´©¸£¸é 1~45 »çÀÌ¿¡¼­ Áßº¹ ¾øÀÌ 6°³ ¹øÈ£¸¦ 5°ÔÀÓ ÇÑ ¹ø¿¡ »Ì¾ÆÁà¿ä.</p>
     </div>
 
     <div class="controls">
-      <button id="pickBtn" class="btn-main">5ê²Œì„ ì¶”ì²œ ë°›ê¸°</button>
-      <button id="copyBtn" class="btn-sub">ì „ì²´ ë³µì‚¬</button>
-      <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+      <button id="pickBtn" class="btn-main">5°ÔÀÓ ÃßÃµ ¹Ş±â</button>
+      <button id="copyBtn" class="btn-sub">ÀüÃ¼ º¹»ç</button>
       <label class="checkbox">
         <input type="checkbox" id="bonusCheck" checked />
-        ë³´ë„ˆìŠ¤ ë²ˆí˜¸ë„ í¬í•¨
+        º¸³Ê½º ¹øÈ£ Æ÷ÇÔ
       </label>
     </div>
-  </div>
 
-  <div id="grid" class="grid"></div>
+    <div id="grid" class="grid"></div>
+    <div id="footer" class="footer"></div>
+  </section>
 
-  <div id="footer" class="footer"></div>
-</div>
+  <section class="section" id="menu">
+    <div class="section-head">
+      <h2>¿À´ÃÀÇ ¸Ş´º ÃßÃµ</h2>
+      <p>±âºĞ°ú ³¯¾¾¿¡ ¾î¿ï¸®´Â ¸Ş´º¸¦ °ñ¶ú¾î¿ä. ¿À´ÃÀº ÀÌ Áß ÇÏ³ª·Î Á¤ÇØº¸¼¼¿ä.</p>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card">
+        <h3>¾óÅ« Ä®±¹¼ö</h3>
+        <p>ÄÁµğ¼ÇÀÌ »ìÂ¦ ´Ù¿îµÈ ³¯¿£ µû¶æÇÑ ±¹¹°·Î ¸®¼Â.</p>
+        <span class="tag">µû¶æÇÔ</span>
+      </div>
+      <div class="menu-card">
+        <h3>¿¬¾î Æ÷ÄÉ</h3>
+        <p>°¡º±°Ô ¸Ô°í ÁıÁß·ÂÀ» ²ø¾î¿Ã¸®°í ½ÍÀ» ¶§.</p>
+        <span class="tag">°¡º­¿ò</span>
+      </div>
+      <div class="menu-card">
+        <h3>Æ®·¯ÇÃ Å©¸² ÆÄ½ºÅ¸</h3>
+        <p>¿À´ÃÀº ½º½º·Î¿¡°Ô ÀÛÀº ¼±¹°À» ÁÖ´Â ´À³¦À¸·Î.</p>
+        <span class="tag">À§·Î</span>
+      </div>
+      <div class="menu-card">
+        <h3>½¡ºÒ ´ß°¥ºñ</h3>
+        <p>¿¡³ÊÁö°¡ ÇÊ¿äÇÒ ¶§ È®½ÇÇÑ ÇÑ ³¢.</p>
+        <span class="tag">È°·Â</span>
+      </div>
+    </div>
+  </section>
+</main>
 
 <script>
   const grid = document.getElementById("grid");
@@ -204,6 +530,32 @@
   const bonusCheck = document.getElementById("bonusCheck");
   const themeToggle = document.getElementById("themeToggle");
   const themeRoot = document.documentElement;
+  const fortuneText = document.getElementById("fortuneText");
+  const fortuneTags = document.getElementById("fortuneTags");
+  const fortuneBtn = document.getElementById("fortuneBtn");
+  const menuBtn = document.getElementById("menuBtn");
+  const menuClose = document.getElementById("menuClose");
+  const sideMenu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  const fortunes = [
+    {
+      text: "¿À´ÃÀº ÃµÃµÈ÷ ¿òÁ÷ÀÏ¼ö·Ï ÁÁÀº ¼±ÅÃÀÌ µû¶ó¿É´Ï´Ù. ¼­µÎ¸£Áö ¸»°í Èå¸§À» Áñ°Üº¸¼¼¿ä.",
+      tags: ["Â÷ºĞÇÔ", "¼±ÅÃ", "ÁıÁß"]
+    },
+    {
+      text: "±âÈ¸°¡ ¹®À» µÎµå¸± ¶§ ¸Á¼³ÀÓº¸´Ù ÇÑ °ÉÀ½ÀÌ ´õ Å« ¼±¹°À» °¡Á®´ÙÁà¿ä.",
+      tags: ["±âÈ¸", "¿ë±â", "ÀüÈ¯Á¡"]
+    },
+    {
+      text: "Æò¼Ò ½ºÃÄ Áö³ª´ø »ç¶÷ÀÌ ¿À´ÃÀº µçµçÇÑ Á¶·ÂÀÚ°¡ µÉ ¼ö ÀÖ¾î¿ä.",
+      tags: ["ÀÎ¿¬", "Çù·Â", "½Å·Ú"]
+    },
+    {
+      text: "ÀÛÀº ¼ºÃë°¡ Å« ÀÚ½Å°¨À» ºÎ¸£´Â ³¯. ¿À´ÃÀÇ Ã¼Å©¸®½ºÆ®¸¦ °¡º±°Ô ¿Ï·áÇØ¿ä.",
+      tags: ["¼ºÃë", "·çÆ¾", "ÀÚ½Å°¨"]
+    }
+  ];
 
   function applyTheme(theme) {
     if (theme === "light") {
@@ -225,6 +577,31 @@
       window.matchMedia("(prefers-color-scheme: light)").matches;
     applyTheme(prefersLight ? "light" : "dark");
   }
+
+  function pickFortune() {
+    const selected = fortunes[Math.floor(Math.random() * fortunes.length)];
+    fortuneText.textContent = selected.text;
+    fortuneTags.innerHTML = selected.tags
+      .map(tag => `<span class="tag">${tag}</span>`)
+      .join("");
+  }
+
+  function openMenu() {
+    document.body.classList.add("menu-open");
+    sideMenu.setAttribute("aria-hidden", "false");
+  }
+
+  function closeMenu() {
+    document.body.classList.remove("menu-open");
+    sideMenu.setAttribute("aria-hidden", "true");
+  }
+
+  menuBtn.addEventListener("click", openMenu);
+  menuClose.addEventListener("click", closeMenu);
+  overlay.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
 
   function colorClass(n) {
     if (n <= 10) return "n1";
@@ -262,8 +639,8 @@
 
       card.innerHTML = `
         <div class="game-header">
-          <span>ê²Œì„ ${i}</span>
-          <span>${bonusNum ? "ë³´ë„ˆìŠ¤ í¬í•¨" : ""}</span>
+          <span>°ÔÀÓ ${i}</span>
+          <span>${bonusNum ? "º¸³Ê½º Æ÷ÇÔ" : ""}</span>
         </div>
         <div class="numbers">
           ${mainNums.map(n =>
@@ -277,17 +654,15 @@
       grid.appendChild(card);
     }
 
-    // footer
     footer.textContent =
-      `ì¶”ì²œ ì™„ë£Œ Â· ${new Date().toLocaleString("ko-KR")} Â· ì´ 5ê²Œì„`;
+      `ÃßÃµ ¿Ï·á ¡¤ ${new Date().toLocaleString("ko-KR")} ¡¤ ÃÑ 5°ÔÀÓ`;
 
-    // copy
     document.getElementById("copyBtn").onclick = () => {
       const text = allGames.map(g =>
         g.mainNums.join(", ") + (g.bonusNum ? ` + ${g.bonusNum}` : "")
       ).join("\n");
       navigator.clipboard.writeText(text);
-      alert("ì „ì²´ ë²ˆí˜¸ë¥¼ ë³µì‚¬í–ˆì–´ìš”!");
+      alert("ÀüÃ¼ ¹øÈ£¸¦ º¹»çÇß¾î¿ä.");
     };
   }
 
@@ -300,7 +675,10 @@
     localStorage.setItem("theme", next);
   };
 
+  fortuneBtn.addEventListener("click", pickFortune);
+
   initTheme();
+  pickFortune();
   renderGames();
 </script>
 
