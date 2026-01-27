@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>로또 번호 추천기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #111a2e;
+      --card-border: rgba(255,255,255,.08);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --primary: linear-gradient(90deg, #6366f1, #22d3ee);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(800px 400px at 20% 0%, #1e3a8a44, transparent),
+                  radial-gradient(800px 400px at 80% 100%, #22d3ee33, transparent),
+                  var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Noto Sans KR";
+      display: grid;
+      place-items: center;
+    }
+
+    .app {
+      width: min(1000px, 95vw);
+      padding: 28px;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 26px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .desc {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ===== Controls ===== */
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-main {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 15px;
+      background: var(--primary);
+      color: #020617;
+      box-shadow: 0 10px 30px rgba(99,102,241,.5);
+    }
+
+    .btn-sub {
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: #0f172a;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ===== Games Grid ===== */
+    .grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .game-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .numbers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .plus {
+      color: var(--muted);
+      font-weight: 900;
+      margin: 0 4px;
+    }
+
+    .ball {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 14px;
+      color: #020617;
+    }
+
+    /* 로또 색상 */
+    .n1 { background: #facc15; }
+    .n2 { background: #60a5fa; }
+    .n3 { background: #fb7185; }
+    .n4 { background: #a3a3a3; }
+    .n5 { background: #4ade80; }
+    .bonus { background: #a855f7; color: #fff; }
+
+    /* ===== Footer ===== */
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="title">🎲 로또 번호 추천기 </div>
+    <div class="desc">
+      버튼을 누르면 1~45 사이에서 중복 없이 6개 번호를 5게임 한 번에 뽑아줘요.
+    </div>
+
+    <div class="controls">
+      <button id="pickBtn" class="btn-main">5게임 추천 받기</button>
+      <button id="copyBtn" class="btn-sub">전체 복사</button>
+      <label class="checkbox">
+        <input type="checkbox" id="bonusCheck" checked />
+        보너스 번호도 포함
+      </label>
+    </div>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <div id="footer" class="footer"></div>
+</div>
+
+<script>
+  const grid = document.getElementById("grid");
+  const footer = document.getElementById("footer");
+  const bonusCheck = document.getElementById("bonusCheck");
+
+  function colorClass(n) {
+    if (n <= 10) return "n1";
+    if (n <= 20) return "n2";
+    if (n <= 30) return "n3";
+    if (n <= 40) return "n4";
+    return "n5";
+  }
+
+  function pickNumbers(count, exclude = []) {
+    const pool = [];
+    for (let i = 1; i <= 45; i++) {
+      if (!exclude.includes(i)) pool.push(i);
+    }
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, count);
+  }
+
+  function renderGames() {
+    grid.innerHTML = "";
+
+    const allGames = [];
+
+    for (let i = 1; i <= 5; i++) {
+      const mainNums = pickNumbers(6).sort((a,b)=>a-b);
+      const bonusNum = bonusCheck.checked ? pickNumbers(1, mainNums)[0] : null;
+
+      allGames.push({ mainNums, bonusNum });
+
+      const card = document.createElement("div");
+      card.className = "game-card";
+
+      card.innerHTML = `
+        <div class="game-header">
+          <span>게임 ${i}</span>
+          <span>${bonusNum ? "보너스 포함" : ""}</span>
+        </div>
+        <div class="numbers">
+          ${mainNums.map(n =>
+            `<div class="ball ${colorClass(n)}">${n}</div>`
+          ).join("")}
+          ${bonusNum ? `<span class="plus">+</span>
+            <div class="ball bonus">${bonusNum}</div>` : ""}
+        </div>
+      `;
+
+      grid.appendChild(card);
+    }
+
+    // footer
+    footer.textContent =
+      `추천 완료 · ${new Date().toLocaleString("ko-KR")} · 총 5게임`;
+
+    // copy
+    document.getElementById("copyBtn").onclick = () => {
+      const text = allGames.map(g =>
+        g.mainNums.join(", ") + (g.bonusNum ? ` + ${g.bonusNum}` : "")
+      ).join("\n");
+      navigator.clipboard.writeText(text);
+      alert("전체 번호를 복사했어요!");
+    };
+  }
+
+  document.getElementById("pickBtn").onclick = renderGames;
+
+  renderGames();
+</script>
+
+</body>
+</html>
