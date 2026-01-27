@@ -744,7 +744,7 @@
       { value: "pisces", ko: "물고기자리", en: "Pisces", range_ko: "2/19 ~ 3/20", range_en: "Feb 19 - Mar 20" }
     ];
 
-    const ASTRO_ENDPOINT = "https://aztro.sameerkumar.website/";
+    const ASTRO_ENDPOINT = "/api/horoscope";
     const zodiacNameMap = {
       Aries: "양자리",
       Taurus: "황소자리",
@@ -1031,7 +1031,7 @@
 
     async function fetchHoroscope(sign, day = "today") {
       const url = `${ASTRO_ENDPOINT}?sign=${encodeURIComponent(sign)}&day=${encodeURIComponent(day)}`;
-      const response = await fetch(url, { method: "POST" });
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Horoscope API error");
       return response.json();
     }
@@ -1065,7 +1065,9 @@
 
       try {
         const data = await fetchHoroscope(signValue, "today");
-        const normalized = data && data.description ? data : buildFallbackHoroscope(signValue);
+        const fallback = buildFallbackHoroscope(signValue);
+        const description = data && (data.description || data.horoscope);
+        const normalized = description ? { ...fallback, ...data, description } : fallback;
         fortuneText.textContent = normalized.description || i18n[currentLang].zodiac_error;
         renderHoroscopeTags(normalized, signLabel);
         if (focusCompatibilityValue) focusCompatibilityValue.textContent = localizeCompatibility(normalized.compatibility);
