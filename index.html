@@ -236,6 +236,33 @@
       background-repeat: no-repeat;
     }
 
+    .select-field {
+      appearance: none;
+      padding: 12px 36px 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      font-weight: 600;
+      cursor: pointer;
+      background-image: linear-gradient(45deg, transparent 50%, var(--btn-sub-text) 50%),
+                        linear-gradient(135deg, var(--btn-sub-text) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 18px, calc(100% - 12px) 18px;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .fortune-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .fortune-controls .btn-main {
+      flex: 0 0 auto;
+    }
+
     .checkbox {
       display: flex;
       align-items: center;
@@ -442,12 +469,15 @@
   <section class="hero">
     <div class="card">
       <div class="fortune-title">
-        <h1 data-i18n="fortune_title">오늘의 운세</h1>
-        <span class="tag" data-i18n="fortune_tag">행운 지수</span>
+        <h1 data-i18n="fortune_title">??? ??? ??</h1>
+        <span class="tag" data-i18n="fortune_tag">??? ???</span>
       </div>
       <div id="fortuneText" class="fortune-text"></div>
       <div id="fortuneTags" class="fortune-tags"></div>
-      <button id="fortuneBtn" class="btn-main" type="button" data-i18n="fortune_btn">오늘의 운세 다시 뽑기</button>
+      <div class="fortune-controls">
+        <select id="zodiacSelect" class="select-field" aria-label="Zodiac selector"></select>
+        <button id="zodiacBtn" class="btn-main" type="button" data-i18n="fortune_btn">?? ????</button>
+      </div>
     </div>
 
     <div class="focus-grid">
@@ -561,7 +591,8 @@
   const themeRoot = document.documentElement;
   const fortuneText = document.getElementById("fortuneText");
   const fortuneTags = document.getElementById("fortuneTags");
-  const fortuneBtn = document.getElementById("fortuneBtn");
+  const zodiacBtn = document.getElementById("zodiacBtn");
+  const zodiacSelect = document.getElementById("zodiacSelect");
   const menuGrid = document.getElementById("menuGrid");
   const menuPickBtn = document.getElementById("menuPickBtn");
   const langSelect = document.getElementById("langSelect");
@@ -574,9 +605,18 @@
       brand_title: "오늘의 운세",
       nav_animal: "동물상 테스트",
       nav_about: "사이트 소개",
-      fortune_title: "오늘의 운세",
-      fortune_tag: "행운 지수",
-      fortune_btn: "오늘의 운세 다시 뽑기",
+      fortune_title: "??? ??? ??",
+      fortune_tag: "??? ???",
+      fortune_btn: "?? ????",
+      zodiac_loading: "??? ??? ???? ?...",
+      zodiac_error: "??? ??? ???? ????. ?? ? ?? ??? ???.",
+      zodiac_compatibility: "??",
+      zodiac_lucky_number: "?? ??",
+      zodiac_lucky_time: "?? ??",
+      zodiac_color: "?? ??",
+      zodiac_mood: "??? ??",
+      zodiac_sign: "???",
+      zodiac_range: "??",
       focus_love_label: "연애운",
       focus_love_tag: "대화가 길을 연다",
       focus_money_label: "금전운",
@@ -627,9 +667,18 @@
       brand_title: "Today's Fortune",
       nav_animal: "Animal Face Test",
       nav_about: "About",
-      fortune_title: "Today's Fortune",
-      fortune_tag: "Lucky Index",
-      fortune_btn: "Pick Another Fortune",
+      fortune_title: "Today's Zodiac Horoscope",
+      fortune_tag: "Zodiac Guide",
+      fortune_btn: "Get Horoscope",
+      zodiac_loading: "Loading your horoscope...",
+      zodiac_error: "Unable to load the horoscope. Please try again.",
+      zodiac_compatibility: "Compatibility",
+      zodiac_lucky_number: "Lucky number",
+      zodiac_lucky_time: "Lucky time",
+      zodiac_color: "Lucky color",
+      zodiac_mood: "Today's mood",
+      zodiac_sign: "Zodiac",
+      zodiac_range: "Date range",
       focus_love_label: "Love",
       focus_love_tag: "Conversation opens doors",
       focus_money_label: "Money",
@@ -677,48 +726,22 @@
 
   let currentLang = localStorage.getItem("lang") || "ko";
 
-  const fortunes = [
-    {
-      text: {
-        ko: "오늘은 천천히 움직일수록 좋은 선택이 따라옵니다. 서두르지 말고 흐름을 즐겨보세요.",
-        en: "Move slowly today and better choices will follow. Enjoy the flow without rushing."
-      },
-      tags: {
-        ko: ["차분함", "선택", "집중"],
-        en: ["Calm", "Choice", "Focus"]
-      }
-    },
-    {
-      text: {
-        ko: "기회가 문을 두드릴 때 망설임보다 한 걸음이 더 큰 선물을 가져다줘요.",
-        en: "When opportunity knocks, a small step brings a bigger gift than hesitation."
-      },
-      tags: {
-        ko: ["기회", "용기", "전환점"],
-        en: ["Opportunity", "Courage", "Turning point"]
-      }
-    },
-    {
-      text: {
-        ko: "평소 스쳐 지나던 사람이 오늘은 든든한 조력자가 될 수 있어요.",
-        en: "Someone you usually pass by could become a strong ally today."
-      },
-      tags: {
-        ko: ["인연", "협력", "신뢰"],
-        en: ["Connection", "Collaboration", "Trust"]
-      }
-    },
-    {
-      text: {
-        ko: "작은 성취가 큰 자신감을 부르는 날. 오늘의 체크리스트를 가볍게 완료해요.",
-        en: "Small wins spark big confidence today. Clear your checklist with ease."
-      },
-      tags: {
-        ko: ["성취", "루틴", "자신감"],
-        en: ["Achievement", "Routine", "Confidence"]
-      }
-    }
+  const zodiacSigns = [
+    { value: "aries", ko: "???", en: "Aries" },
+    { value: "taurus", ko: "????", en: "Taurus" },
+    { value: "gemini", ko: "?????", en: "Gemini" },
+    { value: "cancer", ko: "???", en: "Cancer" },
+    { value: "leo", ko: "????", en: "Leo" },
+    { value: "virgo", ko: "????", en: "Virgo" },
+    { value: "libra", ko: "????", en: "Libra" },
+    { value: "scorpio", ko: "????", en: "Scorpio" },
+    { value: "sagittarius", ko: "????", en: "Sagittarius" },
+    { value: "capricorn", ko: "????", en: "Capricorn" },
+    { value: "aquarius", ko: "????", en: "Aquarius" },
+    { value: "pisces", ko: "?????", en: "Pisces" }
   ];
+
+  const ASTRO_ENDPOINT = "https://aztro.sameerkumar.website/";
 
   const fallbackMenuOptions = [
     {
@@ -893,16 +916,67 @@
     const theme = localStorage.getItem("theme");
     if (theme === "light" || theme === "dark") applyTheme(theme);
     renderMenu();
-    pickFortune();
+    renderZodiacOptions();
+    renderHoroscope();
     renderGames();
   }
 
-  function pickFortune() {
-    const selected = fortunes[Math.floor(Math.random() * fortunes.length)];
-    fortuneText.textContent = selected.text[currentLang];
-    fortuneTags.innerHTML = selected.tags[currentLang]
-      .map(tag => `<span class="tag">${tag}</span>`)
+  function renderZodiacOptions() {
+    if (!zodiacSelect) return;
+    const saved = localStorage.getItem("zodiacSign") || zodiacSigns[0].value;
+    zodiacSelect.innerHTML = zodiacSigns
+      .map(sign => {
+        const label = currentLang === "ko" ? sign.ko : sign.en;
+        return `<option value="${sign.value}">${label}</option>`;
+      })
       .join("");
+    zodiacSelect.value = saved;
+  }
+
+  function getZodiacLabel(signValue) {
+    const sign = zodiacSigns.find(item => item.value === signValue) || zodiacSigns[0];
+    return currentLang === "ko" ? sign.ko : sign.en;
+  }
+
+  async function fetchHoroscope(sign, day = "today") {
+    const url = `${ASTRO_ENDPOINT}?sign=${encodeURIComponent(sign)}&day=${encodeURIComponent(day)}`;
+    const response = await fetch(url, { method: "POST" });
+    if (!response.ok) throw new Error("Horoscope API error");
+    return response.json();
+  }
+
+  function renderHoroscopeTags(data, signLabel) {
+    const tags = [
+      `${i18n[currentLang].zodiac_sign}: ${signLabel}`,
+      data.date_range ? `${i18n[currentLang].zodiac_range}: ${data.date_range}` : null,
+      data.compatibility ? `${i18n[currentLang].zodiac_compatibility}: ${data.compatibility}` : null,
+      data.lucky_number ? `${i18n[currentLang].zodiac_lucky_number}: ${data.lucky_number}` : null,
+      data.lucky_time ? `${i18n[currentLang].zodiac_lucky_time}: ${data.lucky_time}` : null,
+      data.color ? `${i18n[currentLang].zodiac_color}: ${data.color}` : null,
+      data.mood ? `${i18n[currentLang].zodiac_mood}: ${data.mood}` : null
+    ].filter(Boolean);
+
+    fortuneTags.innerHTML = tags
+      .map(tag => `<span class="tag">${escapeHTML(tag)}</span>`)
+      .join("");
+  }
+
+  async function renderHoroscope() {
+    if (!fortuneText || !fortuneTags) return;
+    const signValue = zodiacSelect ? zodiacSelect.value : zodiacSigns[0].value;
+    const signLabel = getZodiacLabel(signValue);
+
+    fortuneText.textContent = i18n[currentLang].zodiac_loading;
+    fortuneTags.innerHTML = `<span class="tag">${escapeHTML(signLabel)}</span>`;
+
+    try {
+      const data = await fetchHoroscope(signValue, "today");
+      fortuneText.textContent = data.description || i18n[currentLang].zodiac_error;
+      renderHoroscopeTags(data, signLabel);
+    } catch (error) {
+      fortuneText.textContent = i18n[currentLang].zodiac_error;
+      fortuneTags.innerHTML = `<span class="tag">${escapeHTML(signLabel)}</span>`;
+    }
   }
 
   function shuffle(list) {
@@ -1016,7 +1090,13 @@
   }
 
   document.getElementById("pickBtn").onclick = renderGames;
-  fortuneBtn.addEventListener("click", pickFortune);
+  if (zodiacBtn) zodiacBtn.addEventListener("click", renderHoroscope);
+  if (zodiacSelect) {
+    zodiacSelect.addEventListener("change", (event) => {
+      localStorage.setItem("zodiacSign", event.target.value);
+      renderHoroscope();
+    });
+  }
   menuPickBtn.addEventListener("click", renderMenu);
 
   themeToggle.onclick = () => {
