@@ -10,6 +10,8 @@
     const menuGrid = document.getElementById("menuGrid");
     const menuPickBtn = document.getElementById("menuPickBtn");
     const langSelect = document.getElementById("langSelect");
+    const birthDateInput = document.getElementById("birthDateInput");
+    const birthDateBtn = document.getElementById("birthDateBtn");
     const luckScoreValue = document.getElementById("luckScoreValue");
     const luckScoreFill = document.getElementById("luckScoreFill");
     const focusCompatibilityValue = document.getElementById("focusCompatibilityValue");
@@ -28,6 +30,9 @@
         fortune_title: "오늘의 별자리 운세",
         fortune_tag: "별자리 가이드",
         luck_score_label: "오늘의 운빨 지수",
+        birth_label: "생일로 별자리 찾기",
+        birth_btn: "생일 적용",
+        birth_hint: "생일을 입력하면 별자리가 자동으로 선택됩니다.",
         fortune_btn: "운세 보기",
         zodiac_loading: "운세를 불러오는 중...",
         zodiac_error: "운세를 불러오지 못했어요. 잠시 후 다시 시도해주세요.",
@@ -87,6 +92,9 @@
         fortune_title: "Today's Zodiac Horoscope",
         fortune_tag: "Zodiac Guide",
         luck_score_label: "Today's Luck Score",
+        birth_label: "Find by birthday",
+        birth_btn: "Apply birthday",
+        birth_hint: "Enter your birthday to auto-select your zodiac sign.",
         fortune_btn: "Get Horoscope",
         zodiac_loading: "Loading your horoscope...",
         zodiac_error: "Unable to load the horoscope. Please try again.",
@@ -325,6 +333,37 @@
       const numericScore = Math.max(0, Math.min(100, Number(score)));
       luckScoreValue.textContent = `${numericScore} / 100`;
       if (luckScoreFill) luckScoreFill.style.width = `${numericScore}%`;
+    }
+
+    function getZodiacByDate(month, day) {
+      if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "aries";
+      if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "taurus";
+      if ((month === 5 && day >= 21) || (month === 6 && day <= 21)) return "gemini";
+      if ((month === 6 && day >= 22) || (month === 7 && day <= 22)) return "cancer";
+      if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "leo";
+      if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "virgo";
+      if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "libra";
+      if ((month === 10 && day >= 23) || (month === 11 && day <= 22)) return "scorpio";
+      if ((month === 11 && day >= 23) || (month === 12 && day <= 21)) return "sagittarius";
+      if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "capricorn";
+      if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "aquarius";
+      if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "pisces";
+      return null;
+    }
+
+    function applyZodiacFromBirthDate() {
+      if (!birthDateInput || !zodiacSelect) return;
+      const value = birthDateInput.value;
+      if (!value) return;
+      const parts = value.split("-");
+      if (parts.length !== 3) return;
+      const month = Number(parts[1]);
+      const day = Number(parts[2]);
+      const signValue = getZodiacByDate(month, day);
+      if (!signValue) return;
+      zodiacSelect.value = signValue;
+      localStorage.setItem("zodiacSign", signValue);
+      renderHoroscope();
     }
 
 
@@ -655,6 +694,12 @@
         localStorage.setItem("zodiacSign", event.target.value);
         renderHoroscope();
       });
+    }
+    if (birthDateInput) {
+      birthDateInput.addEventListener("change", applyZodiacFromBirthDate);
+    }
+    if (birthDateBtn) {
+      birthDateBtn.addEventListener("click", applyZodiacFromBirthDate);
     }
     if (menuPickBtn) menuPickBtn.addEventListener("click", renderMenu);
 
