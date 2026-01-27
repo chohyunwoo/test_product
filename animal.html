@@ -6,7 +6,15 @@
   <title>동물상 테스트</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="사진을 업로드하면 강아지상/고양이상 확률을 보여주는 동물상 테스트 페이지입니다." />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7201410532556676"
+  <script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      var theme = saved === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7201410532556676"
      crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/common.css" />
@@ -42,7 +50,7 @@
           </div>
           <div class="settings-row">
             <span class="settings-label" data-i18n="settings_theme">테마</span>
-            <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+            <button id="themeToggle" class="btn-sub theme-icon" type="button">🌙</button>
           </div>
         </div>
       </details>
@@ -91,5 +99,8 @@
 
 </body>
 </html>
+
+
+
 
 

@@ -17,6 +17,9 @@
       menu_label: "메뉴",
       menu_animal: "동물상 테스트",
       menu_menu: "메뉴 추천",
+      menu_label: "메뉴",
+      menu_animal: "동물상 테스트",
+      menu_menu: "메뉴 추천",
       settings_label: "설정",
       settings_language: "언어",
       settings_theme: "테마",
@@ -44,6 +47,9 @@
       nav_animal: "Animal Face Test",
       nav_menu: "Menu Picks",
       nav_about: "About",
+      menu_label: "Menu",
+      menu_animal: "Animal Face Test",
+      menu_menu: "Menu Picks",
       menu_label: "Menu",
       menu_animal: "Animal Face Test",
       menu_menu: "Menu Picks",
@@ -246,22 +252,16 @@
   function applyTheme(theme) {
     if (theme === "light") {
       themeRoot.setAttribute("data-theme", "light");
-      themeToggle.textContent = i18n[currentLang].theme_light;
+      themeToggle.textContent = "🌙";
     } else {
       themeRoot.removeAttribute("data-theme");
-      themeToggle.textContent = i18n[currentLang].theme_dark;
+      themeToggle.textContent = "☀️";
     }
   }
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "light" || saved === "dark") {
-      applyTheme(saved);
-      return;
-    }
-    const prefersLight = window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: light)").matches;
-    applyTheme(prefersLight ? "light" : "dark");
+    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
   }
 
   function applyLanguage(lang) {
@@ -301,3 +301,5 @@
 
   initTheme();
   applyLanguage(currentLang);
+
+

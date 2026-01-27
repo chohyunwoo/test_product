@@ -12,8 +12,7 @@
     const langSelect = document.getElementById("langSelect");
     const birthDateInput = document.getElementById("birthDateInput");
     const birthDateBtn = document.getElementById("birthDateBtn");
-    const birthInteraction = document.getElementById("birthInteraction");
-    const birthLabel = document.querySelector(".birth-trigger");
+    const birthPickerBtn = document.getElementById("birthPickerBtn");
     const luckScoreValue = document.getElementById("luckScoreValue");
     const luckScoreFill = document.getElementById("luckScoreFill");
     const focusCompatibilityValue = document.getElementById("focusCompatibilityValue");
@@ -40,6 +39,7 @@
         settings_theme: "테마",
         birth_label: "생일로 별자리 찾기",
         birth_btn: "생일 적용",
+        birth_placeholder: "생일을 선택하세요",
         birth_hint: "생일을 입력하면 별자리가 자동으로 선택됩니다.",
         fortune_btn: "운세 보기",
         zodiac_loading: "운세를 불러오는 중...",
@@ -109,6 +109,7 @@
         settings_theme: "Theme",
         birth_label: "Find by birthday",
         birth_btn: "Apply birthday",
+        birth_placeholder: "Select your birthday",
         birth_hint: "Enter your birthday to auto-select your zodiac sign.",
         fortune_btn: "Get Horoscope",
         zodiac_loading: "Loading your horoscope...",
@@ -382,16 +383,6 @@
       renderHoroscope();
     }
 
-    function openBirthPicker() {
-      if (!birthDateInput) return;
-      if (typeof birthDateInput.showPicker === "function") {
-        birthDateInput.showPicker();
-        return;
-      }
-      birthDateInput.focus();
-      birthDateInput.click();
-    }
-
 
     function escapeHTML(value) {
       return String(value)
@@ -480,22 +471,20 @@
     function applyTheme(theme) {
       if (theme === "light") {
         themeRoot.setAttribute("data-theme", "light");
-        themeToggle.textContent = i18n[currentLang].theme_light;
+        themeToggle.textContent = "🌙";
       } else {
         themeRoot.removeAttribute("data-theme");
-        themeToggle.textContent = i18n[currentLang].theme_dark;
+        themeToggle.textContent = "☀️";
       }
     }
 
     function initTheme() {
       const saved = localStorage.getItem("theme");
-      if (saved === "light" || saved === "dark") {
-        applyTheme(saved);
+      if (saved === "dark") {
+        applyTheme("dark");
         return;
       }
-      const prefersLight = window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: light)").matches;
-      applyTheme(prefersLight ? "light" : "dark");
+      applyTheme("light");
     }
 
     function applyLanguage(lang) {
@@ -727,17 +716,15 @@
     if (birthDateBtn) {
       birthDateBtn.addEventListener("click", applyZodiacFromBirthDate);
     }
-    if (birthInteraction) {
-      birthInteraction.addEventListener("click", openBirthPicker);
-      birthInteraction.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          openBirthPicker();
+    if (birthPickerBtn && birthDateInput) {
+      birthPickerBtn.addEventListener("click", () => {
+        if (typeof birthDateInput.showPicker === "function") {
+          birthDateInput.showPicker();
+          return;
         }
+        birthDateInput.focus();
+        birthDateInput.click();
       });
-    }
-    if (birthLabel) {
-      birthLabel.addEventListener("click", openBirthPicker);
     }
     if (menuPickBtn) menuPickBtn.addEventListener("click", renderMenu);
 
@@ -756,3 +743,5 @@
 
     initTheme();
     applyLanguage(currentLang);
+
+

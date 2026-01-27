@@ -5,7 +5,15 @@
   <title>사이트 소개</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="사이트 목적, 제공 기능, 운영 방식에 대한 소개 페이지입니다." />
-    <link rel="stylesheet" href="css/common.css" />
+    <script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      var theme = saved === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script><link rel="stylesheet" href="css/common.css" />
   <link rel="stylesheet" href="css/about.css" />
 </head>
 <body>
@@ -38,7 +46,7 @@
           </div>
           <div class="settings-row">
             <span class="settings-label" data-i18n="settings_theme">테마</span>
-            <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+            <button id="themeToggle" class="btn-sub theme-icon" type="button">🌙</button>
           </div>
         </div>
       </details>
@@ -76,5 +84,8 @@
 
 </body>
 </html>
+
+
+
 
 

@@ -131,65 +131,59 @@
 
     .birth-controls {
       display: grid;
-      gap: 8px;
+      gap: 10px;
       margin-top: 6px;
     }
 
     .birth-label {
+      margin: 0;
       font-size: 13px;
       color: var(--muted);
     }
 
-    .birth-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .birth-interaction {
+    .birth-picker {
       position: relative;
       display: flex;
       align-items: center;
-      min-width: 180px;
-      flex: 1;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      min-height: 48px;
       padding: 12px 14px;
       border-radius: 14px;
       border: 1px solid var(--card-border);
       background: var(--btn-sub-bg);
       color: var(--btn-sub-text);
-      font-weight: 600;
       cursor: pointer;
+      font-weight: 600;
+      transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
     }
 
-    .birth-interaction::after {
-      content: "";
-      position: absolute;
-      right: 14px;
-      width: 8px;
-      height: 8px;
-      border-right: 2px solid var(--btn-sub-text);
-      border-bottom: 2px solid var(--btn-sub-text);
-      transform: rotate(45deg);
-      opacity: 0.7;
-      pointer-events: none;
+    .birth-picker:hover {
+      border-color: rgba(148,163,184,.5);
     }
 
-    .birth-interaction:focus-within {
+    .birth-picker:focus {
+      outline: none;
       box-shadow: 0 0 0 2px rgba(148,163,184,.25);
     }
 
-    .birth-row .date-field {
-      width: 100%;
-      border: none;
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      padding: 0 24px 0 0;
-      cursor: pointer;
+    .birth-placeholder {
+      color: var(--muted);
     }
 
-    .birth-row .date-field:focus {
-      outline: none;
+    .birth-icon {
+      opacity: 0.8;
+      font-size: 16px;
+    }
+
+    .birth-input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
     }
 
     .birth-hint {
@@ -658,4 +652,15 @@
     left: 0;
     right: auto;
   }
+}
+.theme-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.birth-picker {
+  text-align: left;
 }

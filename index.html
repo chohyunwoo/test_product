@@ -6,7 +6,15 @@
   <title>오늘의 운세 · 로또 추첨 · 메뉴 추천 · 동물상 테스트</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="오늘의 운세, 로또 번호 추천, 메뉴 추천, 동물상 테스트까지 한 번에 즐길 수 있는 엔터테인먼트 사이트입니다." />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7201410532556676"
+  <script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      var theme = saved === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7201410532556676"
      crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/common.css" />
@@ -42,7 +50,7 @@
           </div>
           <div class="settings-row">
             <span class="settings-label" data-i18n="settings_theme">테마</span>
-            <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+            <button id="themeToggle" class="btn-sub theme-icon" type="button">🌙</button>
           </div>
         </div>
       </details>
@@ -71,13 +79,13 @@
         <button id="zodiacBtn" class="btn-main" type="button" data-i18n="fortune_btn">운세 보기</button>
       </div>
       <div class="birth-controls">
-        <label for="birthDateInput" class="birth-label birth-trigger" data-i18n="birth_label">생일로 별자리 찾기</label>
-        <div class="birth-row">
-          <div class="birth-interaction" id="birthInteraction" role="button" tabindex="0" aria-label="Birthday picker">
-            <input id="birthDateInput" class="date-field" type="date" aria-label="Birth date" />
-          </div>
-          <button id="birthDateBtn" class="btn-sub" type="button" data-i18n="birth_btn">생일 적용</button>
-        </div>
+        <p class="birth-label" data-i18n="birth_label">생일로 별자리 찾기</p>
+        <button class="birth-picker" type="button" id="birthPickerBtn" aria-label="Birthday picker">
+          <span class="birth-placeholder" data-i18n="birth_placeholder">생일을 선택하세요</span>
+          <span class="birth-icon" aria-hidden="true">📅</span>
+          <input id="birthDateInput" class="birth-input" type="date" aria-label="Birth date" />
+        </button>
+        <button id="birthDateBtn" class="btn-sub" type="button" data-i18n="birth_btn">생일 적용</button>
         <p class="birth-hint" data-i18n="birth_hint">생일을 입력하면 별자리가 자동으로 선택됩니다.</p>
       </div>
     </div>
@@ -178,5 +186,7 @@
 
 </body>
 </html>
+
+
 
 
