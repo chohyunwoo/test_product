@@ -220,6 +220,22 @@
       font-weight: 600;
     }
 
+    .lang-select {
+      appearance: none;
+      padding: 12px 36px 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      font-weight: 600;
+      cursor: pointer;
+      background-image: linear-gradient(45deg, transparent 50%, var(--btn-sub-text) 50%),
+                        linear-gradient(135deg, var(--btn-sub-text) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 18px, calc(100% - 12px) 18px;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
     .checkbox {
       display: flex;
       align-items: center;
@@ -379,12 +395,16 @@
 <main class="app" id="home">
   <header class="top-bar">
     <div class="brand">
-      <span class="brand-badge">오늘</span>
-      오늘의 운세
+      <span class="brand-badge" data-i18n="badge_today">오늘</span>
+      <span data-i18n="brand_title">오늘의 운세</span>
     </div>
     <div>
-      <a class="btn-sub" href="animal.html">동물상 테스트</a>
-      <a class="btn-sub" href="about.html">사이트 소개</a>
+      <a class="btn-sub" href="animal.html" data-i18n="nav_animal">동물상 테스트</a>
+      <a class="btn-sub" href="about.html" data-i18n="nav_about">사이트 소개</a>
+      <select id="langSelect" class="lang-select" aria-label="Language selector">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+      </select>
       <button id="themeToggle" class="btn-sub" type="button">Dark</button>
     </div>
   </header>
@@ -392,33 +412,33 @@
   <section class="hero">
     <div class="card">
       <div class="fortune-title">
-        <h1>오늘의 운세</h1>
-        <span class="tag">행운 지수</span>
+        <h1 data-i18n="fortune_title">오늘의 운세</h1>
+        <span class="tag" data-i18n="fortune_tag">행운 지수</span>
       </div>
       <div id="fortuneText" class="fortune-text"></div>
       <div id="fortuneTags" class="fortune-tags"></div>
-      <button id="fortuneBtn" class="btn-main" type="button">오늘의 운세 다시 뽑기</button>
+      <button id="fortuneBtn" class="btn-main" type="button" data-i18n="fortune_btn">오늘의 운세 다시 뽑기</button>
     </div>
 
     <div class="focus-grid">
       <div class="focus-item">
         <div>
-          <div class="focus-label">연애운</div>
-          <div class="tag">대화가 길을 연다</div>
+          <div class="focus-label" data-i18n="focus_love_label">연애운</div>
+          <div class="tag" data-i18n="focus_love_tag">대화가 길을 연다</div>
         </div>
         <div class="focus-score">87</div>
       </div>
       <div class="focus-item">
         <div>
-          <div class="focus-label">금전운</div>
-          <div class="tag">지출 전에 한 번 더</div>
+          <div class="focus-label" data-i18n="focus_money_label">금전운</div>
+          <div class="tag" data-i18n="focus_money_tag">지출 전에 한 번 더</div>
         </div>
         <div class="focus-score">72</div>
       </div>
       <div class="focus-item">
         <div>
-          <div class="focus-label">건강운</div>
-          <div class="tag">짧은 스트레칭</div>
+          <div class="focus-label" data-i18n="focus_health_label">건강운</div>
+          <div class="tag" data-i18n="focus_health_tag">짧은 스트레칭</div>
         </div>
         <div class="focus-score">90</div>
       </div>
@@ -427,16 +447,16 @@
 
   <section class="section" id="lotto">
     <div class="section-head">
-      <h2>로또 추첨</h2>
-      <p>버튼을 누르면 1~45 사이에서 중복 없이 6개 번호를 5게임 한 번에 뽑아줘요.</p>
+      <h2 data-i18n="lotto_title">로또 추첨</h2>
+      <p data-i18n="lotto_desc">버튼을 누르면 1~45 사이에서 중복 없이 6개 번호를 5게임 한 번에 뽑아줘요.</p>
     </div>
 
     <div class="controls">
-      <button id="pickBtn" class="btn-main">5게임 추천 받기</button>
-      <button id="copyBtn" class="btn-sub">전체 복사</button>
+      <button id="pickBtn" class="btn-main" data-i18n="lotto_pick">5게임 추천 받기</button>
+      <button id="copyBtn" class="btn-sub" data-i18n="lotto_copy">전체 복사</button>
       <label class="checkbox">
         <input type="checkbox" id="bonusCheck" checked />
-        보너스 번호 포함
+        <span data-i18n="lotto_bonus">보너스 번호 포함</span>
       </label>
     </div>
 
@@ -446,12 +466,12 @@
 
   <section class="section" id="menu">
     <div class="section-head">
-      <h2>오늘의 메뉴 추천</h2>
-      <p>기분과 날씨에 어울리는 메뉴를 골랐어요. 오늘은 이 중 하나로 정해보세요.</p>
+      <h2 data-i18n="menu_title">오늘의 메뉴 추천</h2>
+      <p data-i18n="menu_desc">기분과 날씨에 어울리는 메뉴를 골랐어요. 오늘은 이 중 하나로 정해보세요.</p>
     </div>
 
     <div class="controls">
-      <button id="menuPickBtn" class="btn-sub" type="button">다시 추천하기</button>
+      <button id="menuPickBtn" class="btn-sub" type="button" data-i18n="menu_reroll">다시 추천하기</button>
     </div>
 
     <div id="menuGrid" class="menu-grid"></div>
@@ -459,47 +479,47 @@
 
   <section class="section" id="note">
     <div class="section-head">
-      <h2>오늘의 큐레이션 노트</h2>
-      <p>운세 문구와 메뉴 추천은 하루의 흐름과 기분을 상상해 만든 오리지널 문장으로 구성돼요.</p>
+      <h2 data-i18n="note_title">오늘의 큐레이션 노트</h2>
+      <p data-i18n="note_desc">운세 문구와 메뉴 추천은 하루의 흐름과 기분을 상상해 만든 오리지널 문장으로 구성돼요.</p>
     </div>
     <div class="card">
-      오늘의 운세는 “여유, 선택, 전환점” 같은 키워드를 중심으로 매일 다른 문장을 구성합니다.
-      메뉴 추천은 계절·컨디션·기분의 조합을 기준으로 제안하고 있으며, 요청이 많은 메뉴는 주기적으로 반영합니다.
+      <p data-i18n="note_line_1">오늘의 운세는 “여유, 선택, 전환점” 같은 키워드를 중심으로 매일 다른 문장을 구성합니다.</p>
+      <p data-i18n="note_line_2">메뉴 추천은 계절·컨디션·기분의 조합을 기준으로 제안하고 있으며, 요청이 많은 메뉴는 주기적으로 반영합니다.</p>
     </div>
   </section>
 
   <section class="section" id="contact">
     <div class="section-head">
-      <h2>재휴 문의</h2>
-      <p>간단한 정보만 남겨주시면 빠르게 연락드릴게요.</p>
+      <h2 data-i18n="contact_title">재휴 문의</h2>
+      <p data-i18n="contact_desc">간단한 정보만 남겨주시면 빠르게 연락드릴게요.</p>
     </div>
 
     <form class="card form-grid" action="https://formspree.io/f/xgokpwwl" method="POST">
       <div class="field">
-        <label for="name">이름</label>
-        <input id="name" name="name" type="text" placeholder="홍길동" required />
+        <label for="name" data-i18n="contact_name_label">이름</label>
+        <input id="name" name="name" type="text" placeholder="홍길동" data-i18n-placeholder="contact_name_placeholder" required />
       </div>
       <div class="field">
-        <label for="email">이메일</label>
+        <label for="email" data-i18n="contact_email_label">이메일</label>
         <input id="email" name="email" type="email" placeholder="name@example.com" required />
       </div>
       <div class="field">
-        <label for="message">문의 내용</label>
-        <textarea id="message" name="message" placeholder="문의 내용을 입력해주세요." required></textarea>
+        <label for="message" data-i18n="contact_message_label">문의 내용</label>
+        <textarea id="message" name="message" placeholder="문의 내용을 입력해주세요." data-i18n-placeholder="contact_message_placeholder" required></textarea>
       </div>
-      <button class="btn-main" type="submit">문의 보내기</button>
+      <button class="btn-main" type="submit" data-i18n="contact_submit">문의 보내기</button>
     </form>
   </section>
 
   <footer class="site-footer">
     <div class="footer-links">
-      <a href="about.html">사이트 소개</a>
-      <a href="privacy.html">개인정보 처리방침</a>
-      <a href="terms.html">이용약관</a>
-      <a href="menu-request.html">메뉴 추가 요청</a>
+      <a href="about.html" data-i18n="footer_about">사이트 소개</a>
+      <a href="privacy.html" data-i18n="footer_privacy">개인정보 처리방침</a>
+      <a href="terms.html" data-i18n="footer_terms">이용약관</a>
+      <a href="menu-request.html" data-i18n="footer_menu_request">메뉴 추가 요청</a>
     </div>
-    <div>문의는 재휴 문의 폼을 통해 접수하고 있습니다.</div>
-    <div>© 2026 TodayLab. All rights reserved.</div>
+    <div data-i18n="footer_contact_note">문의는 재휴 문의 폼을 통해 접수하고 있습니다.</div>
+    <div data-i18n="footer_copyright">© 2026 TodayLab. All rights reserved.</div>
   </footer>
 </main>
 
@@ -514,44 +534,206 @@
   const fortuneBtn = document.getElementById("fortuneBtn");
   const menuGrid = document.getElementById("menuGrid");
   const menuPickBtn = document.getElementById("menuPickBtn");
+  const langSelect = document.getElementById("langSelect");
+
+  const i18n = {
+    ko: {
+      title: "오늘의 운세 · 로또 추첨 · 메뉴 추천 · 동물상 테스트",
+      description: "오늘의 운세, 로또 번호 추천, 메뉴 추천, 동물상 테스트까지 한 번에 즐길 수 있는 엔터테인먼트 사이트입니다.",
+      badge_today: "오늘",
+      brand_title: "오늘의 운세",
+      nav_animal: "동물상 테스트",
+      nav_about: "사이트 소개",
+      fortune_title: "오늘의 운세",
+      fortune_tag: "행운 지수",
+      fortune_btn: "오늘의 운세 다시 뽑기",
+      focus_love_label: "연애운",
+      focus_love_tag: "대화가 길을 연다",
+      focus_money_label: "금전운",
+      focus_money_tag: "지출 전에 한 번 더",
+      focus_health_label: "건강운",
+      focus_health_tag: "짧은 스트레칭",
+      lotto_title: "로또 추첨",
+      lotto_desc: "버튼을 누르면 1~45 사이에서 중복 없이 6개 번호를 5게임 한 번에 뽑아줘요.",
+      lotto_pick: "5게임 추천 받기",
+      lotto_copy: "전체 복사",
+      lotto_bonus: "보너스 번호 포함",
+      menu_title: "오늘의 메뉴 추천",
+      menu_desc: "기분과 날씨에 어울리는 메뉴를 골랐어요. 오늘은 이 중 하나로 정해보세요.",
+      menu_reroll: "다시 추천하기",
+      note_title: "오늘의 큐레이션 노트",
+      note_desc: "운세 문구와 메뉴 추천은 하루의 흐름과 기분을 상상해 만든 오리지널 문장으로 구성돼요.",
+      note_line_1: "오늘의 운세는 “여유, 선택, 전환점” 같은 키워드를 중심으로 매일 다른 문장을 구성합니다.",
+      note_line_2: "메뉴 추천은 계절·컨디션·기분의 조합을 기준으로 제안하고 있으며, 요청이 많은 메뉴는 주기적으로 반영합니다.",
+      contact_title: "재휴 문의",
+      contact_desc: "간단한 정보만 남겨주시면 빠르게 연락드릴게요.",
+      contact_name_label: "이름",
+      contact_name_placeholder: "홍길동",
+      contact_email_label: "이메일",
+      contact_message_label: "문의 내용",
+      contact_message_placeholder: "문의 내용을 입력해주세요.",
+      contact_submit: "문의 보내기",
+      footer_about: "사이트 소개",
+      footer_privacy: "개인정보 처리방침",
+      footer_terms: "이용약관",
+      footer_menu_request: "메뉴 추가 요청",
+      footer_contact_note: "문의는 재휴 문의 폼을 통해 접수하고 있습니다.",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark",
+      game_label: "게임",
+      bonus_label: "보너스 포함",
+      complete_label: "추천 완료",
+      total_games: "총 5게임",
+      copy_success: "전체 번호를 복사했어요."
+    },
+    en: {
+      title: "Today Fortune · Lotto Picks · Menu Picks · Animal Face Test",
+      description: "A fun hub for daily fortune, lotto numbers, menu picks, and animal-face test in one place.",
+      badge_today: "Today",
+      brand_title: "Today's Fortune",
+      nav_animal: "Animal Face Test",
+      nav_about: "About",
+      fortune_title: "Today's Fortune",
+      fortune_tag: "Lucky Index",
+      fortune_btn: "Pick Another Fortune",
+      focus_love_label: "Love",
+      focus_love_tag: "Conversation opens doors",
+      focus_money_label: "Money",
+      focus_money_tag: "Pause before spending",
+      focus_health_label: "Health",
+      focus_health_tag: "Short stretches help",
+      lotto_title: "Lotto Picks",
+      lotto_desc: "Tap the button to draw 5 games of 6 numbers between 1 and 45 without duplicates.",
+      lotto_pick: "Get 5 Picks",
+      lotto_copy: "Copy All",
+      lotto_bonus: "Include bonus number",
+      menu_title: "Today's Menu Picks",
+      menu_desc: "We picked menus that match your mood and the weather. Choose one for today.",
+      menu_reroll: "Pick Again",
+      note_title: "Curation Note",
+      note_desc: "Fortunes and menu picks are crafted as original copy inspired by the day's mood.",
+      note_line_1: "Daily fortunes rotate around themes like ease, choice, and turning points.",
+      note_line_2: "Menu picks are based on season, condition, and mood, and popular requests get updated regularly.",
+      contact_title: "Partnership Inquiry",
+      contact_desc: "Leave a short note and we will get back to you soon.",
+      contact_name_label: "Name",
+      contact_name_placeholder: "Your name",
+      contact_email_label: "Email",
+      contact_message_label: "Message",
+      contact_message_placeholder: "Tell us about your inquiry.",
+      contact_submit: "Send Inquiry",
+      footer_about: "About",
+      footer_privacy: "Privacy Policy",
+      footer_terms: "Terms",
+      footer_menu_request: "Menu Request",
+      footer_contact_note: "Please submit inquiries via the partnership form.",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark",
+      game_label: "Game",
+      bonus_label: "Bonus included",
+      complete_label: "Completed",
+      total_games: "Total 5 games",
+      copy_success: "All numbers copied."
+    }
+  };
+
+  let currentLang = localStorage.getItem("lang") || "ko";
 
   const fortunes = [
     {
-      text: "오늘은 천천히 움직일수록 좋은 선택이 따라옵니다. 서두르지 말고 흐름을 즐겨보세요.",
-      tags: ["차분함", "선택", "집중"]
+      text: {
+        ko: "오늘은 천천히 움직일수록 좋은 선택이 따라옵니다. 서두르지 말고 흐름을 즐겨보세요.",
+        en: "Move slowly today and better choices will follow. Enjoy the flow without rushing."
+      },
+      tags: {
+        ko: ["차분함", "선택", "집중"],
+        en: ["Calm", "Choice", "Focus"]
+      }
     },
     {
-      text: "기회가 문을 두드릴 때 망설임보다 한 걸음이 더 큰 선물을 가져다줘요.",
-      tags: ["기회", "용기", "전환점"]
+      text: {
+        ko: "기회가 문을 두드릴 때 망설임보다 한 걸음이 더 큰 선물을 가져다줘요.",
+        en: "When opportunity knocks, a small step brings a bigger gift than hesitation."
+      },
+      tags: {
+        ko: ["기회", "용기", "전환점"],
+        en: ["Opportunity", "Courage", "Turning point"]
+      }
     },
     {
-      text: "평소 스쳐 지나던 사람이 오늘은 든든한 조력자가 될 수 있어요.",
-      tags: ["인연", "협력", "신뢰"]
+      text: {
+        ko: "평소 스쳐 지나던 사람이 오늘은 든든한 조력자가 될 수 있어요.",
+        en: "Someone you usually pass by could become a strong ally today."
+      },
+      tags: {
+        ko: ["인연", "협력", "신뢰"],
+        en: ["Connection", "Collaboration", "Trust"]
+      }
     },
     {
-      text: "작은 성취가 큰 자신감을 부르는 날. 오늘의 체크리스트를 가볍게 완료해요.",
-      tags: ["성취", "루틴", "자신감"]
+      text: {
+        ko: "작은 성취가 큰 자신감을 부르는 날. 오늘의 체크리스트를 가볍게 완료해요.",
+        en: "Small wins spark big confidence today. Clear your checklist with ease."
+      },
+      tags: {
+        ko: ["성취", "루틴", "자신감"],
+        en: ["Achievement", "Routine", "Confidence"]
+      }
     }
   ];
 
   const menuOptions = [
-    { title: "얼큰 칼국수", desc: "컨디션이 살짝 다운된 날엔 따뜻한 국물로 리셋.", tag: "따뜻함" },
-    { title: "연어 포케", desc: "가볍게 먹고 집중력을 끌어올리고 싶을 때.", tag: "가벼움" },
-    { title: "트러플 크림 파스타", desc: "오늘은 스스로에게 작은 선물을 주는 느낌으로.", tag: "위로" },
-    { title: "숯불 닭갈비", desc: "에너지가 필요할 때 확실한 한 끼.", tag: "활력" },
-    { title: "새우 로제 리조또", desc: "부드러운 크림과 살짝 매콤한 기분 전환.", tag: "기분전환" },
-    { title: "불고기 비빔밥", desc: "속을 든든하게 채우고 싶을 때 딱 좋아요.", tag: "든든함" },
-    { title: "치킨 샐러드", desc: "가볍지만 단백질은 챙기고 싶은 날.", tag: "균형" },
-    { title: "매콤 제육덮밥", desc: "활력이 필요한 오후에 기분을 끌어올려요.", tag: "활력" }
+    {
+      title: { ko: "얼큰 칼국수", en: "Spicy Kalguksu" },
+      desc: { ko: "컨디션이 살짝 다운된 날엔 따뜻한 국물로 리셋.", en: "Warm soup to reset on low-energy days." },
+      tag: { ko: "따뜻함", en: "Warm" }
+    },
+    {
+      title: { ko: "연어 포케", en: "Salmon Poke" },
+      desc: { ko: "가볍게 먹고 집중력을 끌어올리고 싶을 때.", en: "Light but satisfying when you need focus." },
+      tag: { ko: "가벼움", en: "Light" }
+    },
+    {
+      title: { ko: "트러플 크림 파스타", en: "Truffle Cream Pasta" },
+      desc: { ko: "오늘은 스스로에게 작은 선물을 주는 느낌으로.", en: "A small treat for yourself today." },
+      tag: { ko: "위로", en: "Comfort" }
+    },
+    {
+      title: { ko: "숯불 닭갈비", en: "Charcoal Dakgalbi" },
+      desc: { ko: "에너지가 필요할 때 확실한 한 끼.", en: "A bold meal when you need energy." },
+      tag: { ko: "활력", en: "Energy" }
+    },
+    {
+      title: { ko: "새우 로제 리조또", en: "Shrimp Rose Risotto" },
+      desc: { ko: "부드러운 크림과 살짝 매콤한 기분 전환.", en: "Creamy with a hint of spice for a mood lift." },
+      tag: { ko: "기분전환", en: "Refresh" }
+    },
+    {
+      title: { ko: "불고기 비빔밥", en: "Bulgogi Bibimbap" },
+      desc: { ko: "속을 든든하게 채우고 싶을 때 딱 좋아요.", en: "Perfect when you want a hearty bowl." },
+      tag: { ko: "든든함", en: "Hearty" }
+    },
+    {
+      title: { ko: "치킨 샐러드", en: "Chicken Salad" },
+      desc: { ko: "가볍지만 단백질은 챙기고 싶은 날.", en: "Light yet protein-rich for balance." },
+      tag: { ko: "균형", en: "Balance" }
+    },
+    {
+      title: { ko: "매콤 제육덮밥", en: "Spicy Pork Rice Bowl" },
+      desc: { ko: "활력이 필요한 오후에 기분을 끌어올려요.", en: "Boost your afternoon with a spicy kick." },
+      tag: { ko: "활력", en: "Energy" }
+    }
   ];
 
   function applyTheme(theme) {
     if (theme === "light") {
       themeRoot.setAttribute("data-theme", "light");
-      themeToggle.textContent = "Light";
+      themeToggle.textContent = i18n[currentLang].theme_light;
     } else {
       themeRoot.removeAttribute("data-theme");
-      themeToggle.textContent = "Dark";
+      themeToggle.textContent = i18n[currentLang].theme_dark;
     }
   }
 
@@ -566,10 +748,37 @@
     applyTheme(prefersLight ? "light" : "dark");
   }
 
+  function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("lang", lang);
+    document.documentElement.setAttribute("lang", lang);
+    if (langSelect) langSelect.value = lang;
+
+    document.title = i18n[lang].title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", i18n[lang].description);
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      if (i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      const key = el.dataset.i18nPlaceholder;
+      if (i18n[lang][key]) el.setAttribute("placeholder", i18n[lang][key]);
+    });
+
+    const theme = localStorage.getItem("theme");
+    if (theme === "light" || theme === "dark") applyTheme(theme);
+    renderMenu();
+    pickFortune();
+    renderGames();
+  }
+
   function pickFortune() {
     const selected = fortunes[Math.floor(Math.random() * fortunes.length)];
-    fortuneText.textContent = selected.text;
-    fortuneTags.innerHTML = selected.tags
+    fortuneText.textContent = selected.text[currentLang];
+    fortuneTags.innerHTML = selected.tags[currentLang]
       .map(tag => `<span class="tag">${tag}</span>`)
       .join("");
   }
@@ -587,9 +796,9 @@
     const picks = shuffle(menuOptions).slice(0, 4);
     menuGrid.innerHTML = picks.map(item => `
       <div class="menu-card">
-        <h3>${item.title}</h3>
-        <p>${item.desc}</p>
-        <span class="tag">${item.tag}</span>
+        <h3>${item.title[currentLang]}</h3>
+        <p>${item.desc[currentLang]}</p>
+        <span class="tag">${item.tag[currentLang]}</span>
       </div>
     `).join("");
   }
@@ -631,8 +840,8 @@
 
       card.innerHTML = `
         <div class="game-header">
-          <span>게임 ${i}</span>
-          <span>${bonusNum ? "보너스 포함" : ""}</span>
+          <span>${i18n[currentLang].game_label} ${i}</span>
+          <span>${bonusNum ? i18n[currentLang].bonus_label : ""}</span>
         </div>
         <div class="numbers">
           ${mainNums.map(n =>
@@ -646,15 +855,16 @@
       grid.appendChild(card);
     }
 
+    const dateLocale = currentLang === "ko" ? "ko-KR" : "en-US";
     footer.textContent =
-      `추천 완료 · ${new Date().toLocaleString("ko-KR")} · 총 5게임`;
+      `${i18n[currentLang].complete_label} · ${new Date().toLocaleString(dateLocale)} · ${i18n[currentLang].total_games}`;
 
     document.getElementById("copyBtn").onclick = () => {
       const text = allGames.map(g =>
         g.mainNums.join(", ") + (g.bonusNum ? ` + ${g.bonusNum}` : "")
       ).join("\n");
       navigator.clipboard.writeText(text);
-      alert("전체 번호를 복사했어요.");
+      alert(i18n[currentLang].copy_success);
     };
   }
 
@@ -669,10 +879,14 @@
     localStorage.setItem("theme", next);
   };
 
+  if (langSelect) {
+    langSelect.addEventListener("change", (event) => {
+      applyLanguage(event.target.value);
+    });
+  }
+
   initTheme();
-  pickFortune();
-  renderMenu();
-  renderGames();
+  applyLanguage(currentLang);
 </script>
 
 </body>
