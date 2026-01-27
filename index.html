@@ -338,54 +338,8 @@
       resize: vertical;
     }
 
-    .ai-grid {
-      display: grid;
-      grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr);
-      gap: 16px;
-      align-items: start;
-    }
-
-    .ai-card {
-      padding: 18px;
-      border-radius: 18px;
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      display: grid;
-      gap: 12px;
-      min-height: 260px;
-    }
-
-    .ai-card h3 {
-      font-size: 18px;
-    }
-
-    .ai-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .webcam-wrap {
-      width: 100%;
-      display: grid;
-      place-items: center;
-      padding: 8px 0 2px;
-    }
-
-    #webcam-container canvas {
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-    }
-
-    .labels {
-      display: grid;
-      gap: 8px;
-      font-size: 14px;
-    }
-
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
-      .ai-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -397,7 +351,10 @@
       <span class="brand-badge">오늘</span>
       오늘의 운세
     </div>
-    <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+    <div>
+      <a class="btn-sub" href="animal.html">동물상 테스트</a>
+      <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+    </div>
   </header>
 
   <section class="hero">
@@ -432,28 +389,6 @@
           <div class="tag">짧은 스트레칭</div>
         </div>
         <div class="focus-score">90</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="animal">
-    <div class="section-head">
-      <h2>동물상 테스트</h2>
-      <p>카메라를 켜고 강아지상인지 고양이상인지 확인해보세요.</p>
-    </div>
-
-    <div class="ai-grid">
-      <div class="ai-card">
-        <h3>실시간 분석</h3>
-        <p>Start 버튼을 누르면 카메라가 켜지고 결과가 표시돼요.</p>
-        <button id="aiStartBtn" class="btn-main" type="button">Start</button>
-        <div class="webcam-wrap" id="webcam-container"></div>
-      </div>
-
-      <div class="ai-card">
-        <h3>예측 결과</h3>
-        <p>확률이 높은 동물상이 위에 표시됩니다.</p>
-        <div id="label-container" class="labels"></div>
       </div>
     </div>
   </section>
@@ -514,8 +449,6 @@
   </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 <script>
   const grid = document.getElementById("grid");
   const footer = document.getElementById("footer");
@@ -527,10 +460,6 @@
   const fortuneBtn = document.getElementById("fortuneBtn");
   const menuGrid = document.getElementById("menuGrid");
   const menuPickBtn = document.getElementById("menuPickBtn");
-  const aiStartBtn = document.getElementById("aiStartBtn");
-
-  const URL = "https://teachablemachine.withgoogle.com/models/0JKL623Vr/";
-  let model, webcam, labelContainer, maxPredictions;
 
   const fortunes = [
     {
@@ -611,45 +540,6 @@
     `).join("");
   }
 
-  async function initAnimalTest() {
-    if (model) return;
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
-
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
-
-    const flip = true;
-    webcam = new tmImage.Webcam(220, 220, flip);
-    await webcam.setup();
-    await webcam.play();
-    window.requestAnimationFrame(loop);
-
-    const webcamContainer = document.getElementById("webcam-container");
-    webcamContainer.innerHTML = "";
-    webcamContainer.appendChild(webcam.canvas);
-
-    labelContainer = document.getElementById("label-container");
-    labelContainer.innerHTML = "";
-    for (let i = 0; i < maxPredictions; i++) {
-      labelContainer.appendChild(document.createElement("div"));
-    }
-  }
-
-  async function loop() {
-    webcam.update();
-    await predict();
-    window.requestAnimationFrame(loop);
-  }
-
-  async function predict() {
-    const prediction = await model.predict(webcam.canvas);
-    for (let i = 0; i < maxPredictions; i++) {
-      const classPrediction =
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-      labelContainer.childNodes[i].innerHTML = classPrediction;
-    }
-  }
 
   function colorClass(n) {
     if (n <= 10) return "n1";
@@ -717,7 +607,6 @@
   document.getElementById("pickBtn").onclick = renderGames;
   fortuneBtn.addEventListener("click", pickFortune);
   menuPickBtn.addEventListener("click", renderMenu);
-  aiStartBtn.addEventListener("click", initAnimalTest);
 
   themeToggle.onclick = () => {
     const isLight = themeRoot.getAttribute("data-theme") === "light";

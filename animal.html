@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>동물상 테스트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+    @import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&display=swap");
+
+    :root {
+      --bg: #0b1020;
+      --card: #141b2d;
+      --card-2: #0f172a;
+      --card-border: rgba(148,163,184,.18);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --primary: linear-gradient(90deg, #f59e0b, #22c55e);
+      --bg-grad-1: #0ea5e933;
+      --bg-grad-2: #f9731633;
+      --btn-sub-bg: #0f172a;
+      --btn-sub-text: var(--text);
+      --shadow: 0 20px 50px rgba(15,23,42,.35);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-2: #f1f5f9;
+      --card-border: rgba(15,23,42,.12);
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: linear-gradient(90deg, #f97316, #0ea5e9);
+      --bg-grad-1: #f59e0b22;
+      --bg-grad-2: #38bdf822;
+      --btn-sub-bg: #ffffff;
+      --btn-sub-text: #0f172a;
+      --shadow: 0 12px 30px rgba(15,23,42,.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(800px 400px at 15% 0%, var(--bg-grad-1), transparent),
+                  radial-gradient(900px 500px at 85% 100%, var(--bg-grad-2), transparent),
+                  var(--bg);
+      color: var(--text);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    }
+
+    h1, h2, h3, .brand {
+      font-family: "Sora", "Pretendard", "Noto Sans KR", sans-serif;
+      margin: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      width: min(900px, 92vw);
+      margin: 0 auto;
+      padding: 30px 0 80px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .top-bar {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 22px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .brand-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #0b1020;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .btn-main {
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 15px;
+      background: var(--primary);
+      color: #0b1020;
+      box-shadow: 0 10px 30px rgba(15,23,42,.25);
+    }
+
+    .btn-sub {
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .ai-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: grid;
+      gap: 12px;
+      min-height: 260px;
+    }
+
+    .ai-card h3 {
+      font-size: 18px;
+    }
+
+    .ai-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .webcam-wrap {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      padding: 8px 0 2px;
+    }
+
+    #webcam-container canvas {
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+    }
+
+    .labels {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .ai-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="app">
+  <header class="top-bar">
+    <div class="brand">
+      <span class="brand-badge">AI</span>
+      동물상 테스트
+    </div>
+    <div>
+      <a class="btn-sub" href="index.html">홈으로</a>
+      <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+    </div>
+  </header>
+
+  <section class="card">
+    <div class="section-head">
+      <h2>강아지상 vs 고양이상</h2>
+      <p>카메라를 켜고 본인의 동물상을 확인해보세요.</p>
+    </div>
+    <div class="ai-grid" style="margin-top:16px;">
+      <div class="ai-card">
+        <h3>실시간 분석</h3>
+        <p>Start 버튼을 누르면 카메라가 켜지고 결과가 표시돼요.</p>
+        <button id="aiStartBtn" class="btn-main" type="button">Start</button>
+        <div class="webcam-wrap" id="webcam-container"></div>
+      </div>
+      <div class="ai-card">
+        <h3>예측 결과</h3>
+        <p>확률이 높은 동물상이 위에 표시됩니다.</p>
+        <div id="label-container" class="labels"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+  const themeRoot = document.documentElement;
+  const aiStartBtn = document.getElementById("aiStartBtn");
+
+  const URL = "https://teachablemachine.withgoogle.com/models/0JKL623Vr/";
+  let model, webcam, labelContainer, maxPredictions;
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      themeRoot.setAttribute("data-theme", "light");
+      themeToggle.textContent = "Light";
+    } else {
+      themeRoot.removeAttribute("data-theme");
+      themeToggle.textContent = "Dark";
+    }
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      applyTheme(saved);
+      return;
+    }
+    const prefersLight = window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches;
+    applyTheme(prefersLight ? "light" : "dark");
+  }
+
+  async function initAnimalTest() {
+    if (model) return;
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    const flip = true;
+    webcam = new tmImage.Webcam(220, 220, flip);
+    await webcam.setup();
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+
+    const webcamContainer = document.getElementById("webcam-container");
+    webcamContainer.innerHTML = "";
+    webcamContainer.appendChild(webcam.canvas);
+
+    labelContainer = document.getElementById("label-container");
+    labelContainer.innerHTML = "";
+    for (let i = 0; i < maxPredictions; i++) {
+      labelContainer.appendChild(document.createElement("div"));
+    }
+  }
+
+  async function loop() {
+    webcam.update();
+    await predict();
+    window.requestAnimationFrame(loop);
+  }
+
+  async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+    for (let i = 0; i < maxPredictions; i++) {
+      const classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+      labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+  }
+
+  aiStartBtn.addEventListener("click", initAnimalTest);
+  themeToggle.onclick = () => {
+    const isLight = themeRoot.getAttribute("data-theme") === "light";
+    const next = isLight ? "dark" : "light";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  };
+
+  initTheme();
+</script>
+
+</body>
+</html>
