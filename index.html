@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <title>ì˜¤ëŠ˜ì˜ ìš´ì„¸ Â· ë¡œë˜ ì¶”ì²¨ Â· ë©”ë‰´ ì¶”ì²œ</title>
+  <title>¿À´ÃÀÇ ¿î¼¼ ¡¤ ·Î¶Ç ÃßÃ· ¡¤ ¸Ş´º ÃßÃµ ¡¤ µ¿¹°»ó Å×½ºÆ®</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -338,8 +338,54 @@
       resize: vertical;
     }
 
+    .ai-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .ai-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: grid;
+      gap: 12px;
+      min-height: 260px;
+    }
+
+    .ai-card h3 {
+      font-size: 18px;
+    }
+
+    .ai-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .webcam-wrap {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      padding: 8px 0 2px;
+    }
+
+    #webcam-container canvas {
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+    }
+
+    .labels {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+    }
+
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
+      .ai-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -348,8 +394,8 @@
 <main class="app" id="home">
   <header class="top-bar">
     <div class="brand">
-      <span class="brand-badge">ì˜¤ëŠ˜</span>
-      ì˜¤ëŠ˜ì˜ ìš´ì„¸
+      <span class="brand-badge">¿À´Ã</span>
+      ¿À´ÃÀÇ ¿î¼¼
     </div>
     <button id="themeToggle" class="btn-sub" type="button">Dark</button>
   </header>
@@ -357,51 +403,73 @@
   <section class="hero">
     <div class="card">
       <div class="fortune-title">
-        <h1>ì˜¤ëŠ˜ì˜ ìš´ì„¸</h1>
-        <span class="tag">í–‰ìš´ ì§€ìˆ˜</span>
+        <h1>¿À´ÃÀÇ ¿î¼¼</h1>
+        <span class="tag">Çà¿î Áö¼ö</span>
       </div>
       <div id="fortuneText" class="fortune-text"></div>
       <div id="fortuneTags" class="fortune-tags"></div>
-      <button id="fortuneBtn" class="btn-main" type="button">ì˜¤ëŠ˜ì˜ ìš´ì„¸ ë‹¤ì‹œ ë½‘ê¸°</button>
+      <button id="fortuneBtn" class="btn-main" type="button">¿À´ÃÀÇ ¿î¼¼ ´Ù½Ã »Ì±â</button>
     </div>
 
     <div class="focus-grid">
       <div class="focus-item">
         <div>
-          <div class="focus-label">ì—°ì• ìš´</div>
-          <div class="tag">ëŒ€í™”ê°€ ê¸¸ì„ ì—°ë‹¤</div>
+          <div class="focus-label">¿¬¾Ö¿î</div>
+          <div class="tag">´ëÈ­°¡ ±æÀ» ¿¬´Ù</div>
         </div>
         <div class="focus-score">87</div>
       </div>
       <div class="focus-item">
         <div>
-          <div class="focus-label">ê¸ˆì „ìš´</div>
-          <div class="tag">ì§€ì¶œ ì „ì— í•œ ë²ˆ ë”</div>
+          <div class="focus-label">±İÀü¿î</div>
+          <div class="tag">ÁöÃâ Àü¿¡ ÇÑ ¹ø ´õ</div>
         </div>
         <div class="focus-score">72</div>
       </div>
       <div class="focus-item">
         <div>
-          <div class="focus-label">ê±´ê°•ìš´</div>
-          <div class="tag">ì§§ì€ ìŠ¤íŠ¸ë ˆì¹­</div>
+          <div class="focus-label">°Ç°­¿î</div>
+          <div class="tag">ÂªÀº ½ºÆ®·¹Äª</div>
         </div>
         <div class="focus-score">90</div>
       </div>
     </div>
   </section>
 
+  <section class="section" id="animal">
+    <div class="section-head">
+      <h2>µ¿¹°»ó Å×½ºÆ®</h2>
+      <p>Ä«¸Ş¶ó¸¦ ÄÑ°í °­¾ÆÁö»óÀÎÁö °í¾çÀÌ»óÀÎÁö È®ÀÎÇØº¸¼¼¿ä.</p>
+    </div>
+
+    <div class="ai-grid">
+      <div class="ai-card">
+        <h3>½Ç½Ã°£ ºĞ¼®</h3>
+        <p>Start ¹öÆ°À» ´©¸£¸é Ä«¸Ş¶ó°¡ ÄÑÁö°í °á°ú°¡ Ç¥½ÃµÅ¿ä.</p>
+        <button id="aiStartBtn" class="btn-main" type="button">Start</button>
+        <div class="webcam-wrap" id="webcam-container"></div>
+      </div>
+
+      <div class="ai-card">
+        <h3>¿¹Ãø °á°ú</h3>
+        <p>È®·üÀÌ ³ôÀº µ¿¹°»óÀÌ À§¿¡ Ç¥½ÃµË´Ï´Ù.</p>
+        <div id="label-container" class="labels"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="lotto">
     <div class="section-head">
-      <h2>ë¡œë˜ ì¶”ì²¨</h2>
-      <p>ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ 1~45 ì‚¬ì´ì—ì„œ ì¤‘ë³µ ì—†ì´ 6ê°œ ë²ˆí˜¸ë¥¼ 5ê²Œì„ í•œ ë²ˆì— ë½‘ì•„ì¤˜ìš”.</p>
+      <h2>·Î¶Ç ÃßÃ·</h2>
+      <p>¹öÆ°À» ´©¸£¸é 1~45 »çÀÌ¿¡¼­ Áßº¹ ¾øÀÌ 6°³ ¹øÈ£¸¦ 5°ÔÀÓ ÇÑ ¹ø¿¡ »Ì¾ÆÁà¿ä.</p>
     </div>
 
     <div class="controls">
-      <button id="pickBtn" class="btn-main">5ê²Œì„ ì¶”ì²œ ë°›ê¸°</button>
-      <button id="copyBtn" class="btn-sub">ì „ì²´ ë³µì‚¬</button>
+      <button id="pickBtn" class="btn-main">5°ÔÀÓ ÃßÃµ ¹Ş±â</button>
+      <button id="copyBtn" class="btn-sub">ÀüÃ¼ º¹»ç</button>
       <label class="checkbox">
         <input type="checkbox" id="bonusCheck" checked />
-        ë³´ë„ˆìŠ¤ ë²ˆí˜¸ í¬í•¨
+        º¸³Ê½º ¹øÈ£ Æ÷ÇÔ
       </label>
     </div>
 
@@ -411,12 +479,12 @@
 
   <section class="section" id="menu">
     <div class="section-head">
-      <h2>ì˜¤ëŠ˜ì˜ ë©”ë‰´ ì¶”ì²œ</h2>
-      <p>ê¸°ë¶„ê³¼ ë‚ ì”¨ì— ì–´ìš¸ë¦¬ëŠ” ë©”ë‰´ë¥¼ ê³¨ëì–´ìš”. ì˜¤ëŠ˜ì€ ì´ ì¤‘ í•˜ë‚˜ë¡œ ì •í•´ë³´ì„¸ìš”.</p>
+      <h2>¿À´ÃÀÇ ¸Ş´º ÃßÃµ</h2>
+      <p>±âºĞ°ú ³¯¾¾¿¡ ¾î¿ï¸®´Â ¸Ş´º¸¦ °ñ¶ú¾î¿ä. ¿À´ÃÀº ÀÌ Áß ÇÏ³ª·Î Á¤ÇØº¸¼¼¿ä.</p>
     </div>
 
     <div class="controls">
-      <button id="menuPickBtn" class="btn-sub" type="button">ë‹¤ì‹œ ì¶”ì²œí•˜ê¸°</button>
+      <button id="menuPickBtn" class="btn-sub" type="button">´Ù½Ã ÃßÃµÇÏ±â</button>
     </div>
 
     <div id="menuGrid" class="menu-grid"></div>
@@ -424,29 +492,30 @@
 
   <section class="section" id="contact">
     <div class="section-head">
-      <h2>ì¬íœ´ ë¬¸ì˜</h2>
-      <p>ê°„ë‹¨í•œ ì •ë³´ë§Œ ë‚¨ê²¨ì£¼ì‹œë©´ ë¹ ë¥´ê²Œ ì—°ë½ë“œë¦´ê²Œìš”.</p>
+      <h2>ÀçÈŞ ¹®ÀÇ</h2>
+      <p>°£´ÜÇÑ Á¤º¸¸¸ ³²°ÜÁÖ½Ã¸é ºü¸£°Ô ¿¬¶ôµå¸±°Ô¿ä.</p>
     </div>
 
     <form class="card form-grid" action="https://formspree.io/f/xgokpwwl" method="POST">
       <div class="field">
-        <label for="name">ì´ë¦„</label>
-        <input id="name" name="name" type="text" placeholder="í™ê¸¸ë™" required />
+        <label for="name">ÀÌ¸§</label>
+        <input id="name" name="name" type="text" placeholder="È«±æµ¿" required />
       </div>
       <div class="field">
-        <label for="email">ì´ë©”ì¼</label>
+        <label for="email">ÀÌ¸ŞÀÏ</label>
         <input id="email" name="email" type="email" placeholder="name@example.com" required />
       </div>
       <div class="field">
-        <label for="message">ë¬¸ì˜ ë‚´ìš©</label>
-        <textarea id="message" name="message" placeholder="ë¬¸ì˜ ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”." required></textarea>
+        <label for="message">¹®ÀÇ ³»¿ë</label>
+        <textarea id="message" name="message" placeholder="¹®ÀÇ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä." required></textarea>
       </div>
-      <button class="btn-main" type="submit">ë¬¸ì˜ ë³´ë‚´ê¸°</button>
+      <button class="btn-main" type="submit">¹®ÀÇ º¸³»±â</button>
     </form>
   </section>
-
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 <script>
   const grid = document.getElementById("grid");
   const footer = document.getElementById("footer");
@@ -458,35 +527,39 @@
   const fortuneBtn = document.getElementById("fortuneBtn");
   const menuGrid = document.getElementById("menuGrid");
   const menuPickBtn = document.getElementById("menuPickBtn");
+  const aiStartBtn = document.getElementById("aiStartBtn");
+
+  const URL = "https://teachablemachine.withgoogle.com/models/0JKL623Vr/";
+  let model, webcam, labelContainer, maxPredictions;
 
   const fortunes = [
     {
-      text: "ì˜¤ëŠ˜ì€ ì²œì²œíˆ ì›€ì§ì¼ìˆ˜ë¡ ì¢‹ì€ ì„ íƒì´ ë”°ë¼ì˜µë‹ˆë‹¤. ì„œë‘ë¥´ì§€ ë§ê³  íë¦„ì„ ì¦ê²¨ë³´ì„¸ìš”.",
-      tags: ["ì°¨ë¶„í•¨", "ì„ íƒ", "ì§‘ì¤‘"]
+      text: "¿À´ÃÀº ÃµÃµÈ÷ ¿òÁ÷ÀÏ¼ö·Ï ÁÁÀº ¼±ÅÃÀÌ µû¶ó¿É´Ï´Ù. ¼­µÎ¸£Áö ¸»°í Èå¸§À» Áñ°Üº¸¼¼¿ä.",
+      tags: ["Â÷ºĞÇÔ", "¼±ÅÃ", "ÁıÁß"]
     },
     {
-      text: "ê¸°íšŒê°€ ë¬¸ì„ ë‘ë“œë¦´ ë•Œ ë§ì„¤ì„ë³´ë‹¤ í•œ ê±¸ìŒì´ ë” í° ì„ ë¬¼ì„ ê°€ì ¸ë‹¤ì¤˜ìš”.",
-      tags: ["ê¸°íšŒ", "ìš©ê¸°", "ì „í™˜ì "]
+      text: "±âÈ¸°¡ ¹®À» µÎµå¸± ¶§ ¸Á¼³ÀÓº¸´Ù ÇÑ °ÉÀ½ÀÌ ´õ Å« ¼±¹°À» °¡Á®´ÙÁà¿ä.",
+      tags: ["±âÈ¸", "¿ë±â", "ÀüÈ¯Á¡"]
     },
     {
-      text: "í‰ì†Œ ìŠ¤ì³ ì§€ë‚˜ë˜ ì‚¬ëŒì´ ì˜¤ëŠ˜ì€ ë“ ë“ í•œ ì¡°ë ¥ìê°€ ë  ìˆ˜ ìˆì–´ìš”.",
-      tags: ["ì¸ì—°", "í˜‘ë ¥", "ì‹ ë¢°"]
+      text: "Æò¼Ò ½ºÃÄ Áö³ª´ø »ç¶÷ÀÌ ¿À´ÃÀº µçµçÇÑ Á¶·ÂÀÚ°¡ µÉ ¼ö ÀÖ¾î¿ä.",
+      tags: ["ÀÎ¿¬", "Çù·Â", "½Å·Ú"]
     },
     {
-      text: "ì‘ì€ ì„±ì·¨ê°€ í° ìì‹ ê°ì„ ë¶€ë¥´ëŠ” ë‚ . ì˜¤ëŠ˜ì˜ ì²´í¬ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ë³ê²Œ ì™„ë£Œí•´ìš”.",
-      tags: ["ì„±ì·¨", "ë£¨í‹´", "ìì‹ ê°"]
+      text: "ÀÛÀº ¼ºÃë°¡ Å« ÀÚ½Å°¨À» ºÎ¸£´Â ³¯. ¿À´ÃÀÇ Ã¼Å©¸®½ºÆ®¸¦ °¡º±°Ô ¿Ï·áÇØ¿ä.",
+      tags: ["¼ºÃë", "·çÆ¾", "ÀÚ½Å°¨"]
     }
   ];
 
   const menuOptions = [
-    { title: "ì–¼í° ì¹¼êµ­ìˆ˜", desc: "ì»¨ë””ì…˜ì´ ì‚´ì§ ë‹¤ìš´ëœ ë‚ ì—” ë”°ëœ»í•œ êµ­ë¬¼ë¡œ ë¦¬ì…‹.", tag: "ë”°ëœ»í•¨" },
-    { title: "ì—°ì–´ í¬ì¼€", desc: "ê°€ë³ê²Œ ë¨¹ê³  ì§‘ì¤‘ë ¥ì„ ëŒì–´ì˜¬ë¦¬ê³  ì‹¶ì„ ë•Œ.", tag: "ê°€ë²¼ì›€" },
-    { title: "íŠ¸ëŸ¬í”Œ í¬ë¦¼ íŒŒìŠ¤íƒ€", desc: "ì˜¤ëŠ˜ì€ ìŠ¤ìŠ¤ë¡œì—ê²Œ ì‘ì€ ì„ ë¬¼ì„ ì£¼ëŠ” ëŠë‚Œìœ¼ë¡œ.", tag: "ìœ„ë¡œ" },
-    { title: "ìˆ¯ë¶ˆ ë‹­ê°ˆë¹„", desc: "ì—ë„ˆì§€ê°€ í•„ìš”í•  ë•Œ í™•ì‹¤í•œ í•œ ë¼.", tag: "í™œë ¥" },
-    { title: "ìƒˆìš° ë¡œì œ ë¦¬ì¡°ë˜", desc: "ë¶€ë“œëŸ¬ìš´ í¬ë¦¼ê³¼ ì‚´ì§ ë§¤ì½¤í•œ ê¸°ë¶„ ì „í™˜.", tag: "ê¸°ë¶„ì „í™˜" },
-    { title: "ë¶ˆê³ ê¸° ë¹„ë¹”ë°¥", desc: "ì†ì„ ë“ ë“ í•˜ê²Œ ì±„ìš°ê³  ì‹¶ì„ ë•Œ ë”± ì¢‹ì•„ìš”.", tag: "ë“ ë“ í•¨" },
-    { title: "ì¹˜í‚¨ ìƒëŸ¬ë“œ", desc: "ê°€ë³ì§€ë§Œ ë‹¨ë°±ì§ˆì€ ì±™ê¸°ê³  ì‹¶ì€ ë‚ .", tag: "ê· í˜•" },
-    { title: "ë§¤ì½¤ ì œìœ¡ë®ë°¥", desc: "í™œë ¥ì´ í•„ìš”í•œ ì˜¤í›„ì— ê¸°ë¶„ì„ ëŒì–´ì˜¬ë ¤ìš”.", tag: "í™œë ¥" }
+    { title: "¾óÅ« Ä®±¹¼ö", desc: "ÄÁµğ¼ÇÀÌ »ìÂ¦ ´Ù¿îµÈ ³¯¿£ µû¶æÇÑ ±¹¹°·Î ¸®¼Â.", tag: "µû¶æÇÔ" },
+    { title: "¿¬¾î Æ÷ÄÉ", desc: "°¡º±°Ô ¸Ô°í ÁıÁß·ÂÀ» ²ø¾î¿Ã¸®°í ½ÍÀ» ¶§.", tag: "°¡º­¿ò" },
+    { title: "Æ®·¯ÇÃ Å©¸² ÆÄ½ºÅ¸", desc: "¿À´ÃÀº ½º½º·Î¿¡°Ô ÀÛÀº ¼±¹°À» ÁÖ´Â ´À³¦À¸·Î.", tag: "À§·Î" },
+    { title: "½¡ºÒ ´ß°¥ºñ", desc: "¿¡³ÊÁö°¡ ÇÊ¿äÇÒ ¶§ È®½ÇÇÑ ÇÑ ³¢.", tag: "È°·Â" },
+    { title: "»õ¿ì ·ÎÁ¦ ¸®Á¶¶Ç", desc: "ºÎµå·¯¿î Å©¸²°ú »ìÂ¦ ¸ÅÄŞÇÑ ±âºĞ ÀüÈ¯.", tag: "±âºĞÀüÈ¯" },
+    { title: "ºÒ°í±â ºñºö¹ä", desc: "¼ÓÀ» µçµçÇÏ°Ô Ã¤¿ì°í ½ÍÀ» ¶§ µü ÁÁ¾Æ¿ä.", tag: "µçµçÇÔ" },
+    { title: "Ä¡Å² »ø·¯µå", desc: "°¡º±Áö¸¸ ´Ü¹éÁúÀº Ã¬±â°í ½ÍÀº ³¯.", tag: "±ÕÇü" },
+    { title: "¸ÅÄŞ Á¦À°µ¤¹ä", desc: "È°·ÂÀÌ ÇÊ¿äÇÑ ¿ÀÈÄ¿¡ ±âºĞÀ» ²ø¾î¿Ã·Á¿ä.", tag: "È°·Â" }
   ];
 
   function applyTheme(theme) {
@@ -538,6 +611,46 @@
     `).join("");
   }
 
+  async function initAnimalTest() {
+    if (model) return;
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    const flip = true;
+    webcam = new tmImage.Webcam(220, 220, flip);
+    await webcam.setup();
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+
+    const webcamContainer = document.getElementById("webcam-container");
+    webcamContainer.innerHTML = "";
+    webcamContainer.appendChild(webcam.canvas);
+
+    labelContainer = document.getElementById("label-container");
+    labelContainer.innerHTML = "";
+    for (let i = 0; i < maxPredictions; i++) {
+      labelContainer.appendChild(document.createElement("div"));
+    }
+  }
+
+  async function loop() {
+    webcam.update();
+    await predict();
+    window.requestAnimationFrame(loop);
+  }
+
+  async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+    for (let i = 0; i < maxPredictions; i++) {
+      const classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+      labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+  }
+
   function colorClass(n) {
     if (n <= 10) return "n1";
     if (n <= 20) return "n2";
@@ -574,8 +687,8 @@
 
       card.innerHTML = `
         <div class="game-header">
-          <span>ê²Œì„ ${i}</span>
-          <span>${bonusNum ? "ë³´ë„ˆìŠ¤ í¬í•¨" : ""}</span>
+          <span>°ÔÀÓ ${i}</span>
+          <span>${bonusNum ? "º¸³Ê½º Æ÷ÇÔ" : ""}</span>
         </div>
         <div class="numbers">
           ${mainNums.map(n =>
@@ -590,18 +703,21 @@
     }
 
     footer.textContent =
-      `ì¶”ì²œ ì™„ë£Œ Â· ${new Date().toLocaleString("ko-KR")} Â· ì´ 5ê²Œì„`;
+      `ÃßÃµ ¿Ï·á ¡¤ ${new Date().toLocaleString("ko-KR")} ¡¤ ÃÑ 5°ÔÀÓ`;
 
     document.getElementById("copyBtn").onclick = () => {
       const text = allGames.map(g =>
         g.mainNums.join(", ") + (g.bonusNum ? ` + ${g.bonusNum}` : "")
       ).join("\n");
       navigator.clipboard.writeText(text);
-      alert("ì „ì²´ ë²ˆí˜¸ë¥¼ ë³µì‚¬í–ˆì–´ìš”.");
+      alert("ÀüÃ¼ ¹øÈ£¸¦ º¹»çÇß¾î¿ä.");
     };
   }
 
   document.getElementById("pickBtn").onclick = renderGames;
+  fortuneBtn.addEventListener("click", pickFortune);
+  menuPickBtn.addEventListener("click", renderMenu);
+  aiStartBtn.addEventListener("click", initAnimalTest);
 
   themeToggle.onclick = () => {
     const isLight = themeRoot.getAttribute("data-theme") === "light";
@@ -609,9 +725,6 @@
     applyTheme(next);
     localStorage.setItem("theme", next);
   };
-
-  fortuneBtn.addEventListener("click", pickFortune);
-  menuPickBtn.addEventListener("click", renderMenu);
 
   initTheme();
   pickFortune();
