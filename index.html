@@ -730,18 +730,18 @@
     let currentLang = localStorage.getItem("lang") || "ko";
 
     const zodiacSigns = [
-      { value: "aries", ko: "양자리", en: "Aries" },
-      { value: "taurus", ko: "황소자리", en: "Taurus" },
-      { value: "gemini", ko: "쌍둥이자리", en: "Gemini" },
-      { value: "cancer", ko: "게자리", en: "Cancer" },
-      { value: "leo", ko: "사자자리", en: "Leo" },
-      { value: "virgo", ko: "처녀자리", en: "Virgo" },
-      { value: "libra", ko: "천칭자리", en: "Libra" },
-      { value: "scorpio", ko: "전갈자리", en: "Scorpio" },
-      { value: "sagittarius", ko: "사수자리", en: "Sagittarius" },
-      { value: "capricorn", ko: "염소자리", en: "Capricorn" },
-      { value: "aquarius", ko: "물병자리", en: "Aquarius" },
-      { value: "pisces", ko: "물고기자리", en: "Pisces" }
+      { value: "aries", ko: "양자리", en: "Aries", range_ko: "3/21 ~ 4/19", range_en: "Mar 21 - Apr 19" },
+      { value: "taurus", ko: "황소자리", en: "Taurus", range_ko: "4/20 ~ 5/20", range_en: "Apr 20 - May 20" },
+      { value: "gemini", ko: "쌍둥이자리", en: "Gemini", range_ko: "5/21 ~ 6/21", range_en: "May 21 - Jun 21" },
+      { value: "cancer", ko: "게자리", en: "Cancer", range_ko: "6/22 ~ 7/22", range_en: "Jun 22 - Jul 22" },
+      { value: "leo", ko: "사자자리", en: "Leo", range_ko: "7/23 ~ 8/22", range_en: "Jul 23 - Aug 22" },
+      { value: "virgo", ko: "처녀자리", en: "Virgo", range_ko: "8/23 ~ 9/22", range_en: "Aug 23 - Sep 22" },
+      { value: "libra", ko: "천칭자리", en: "Libra", range_ko: "9/23 ~ 10/22", range_en: "Sep 23 - Oct 22" },
+      { value: "scorpio", ko: "전갈자리", en: "Scorpio", range_ko: "10/23 ~ 11/22", range_en: "Oct 23 - Nov 22" },
+      { value: "sagittarius", ko: "사수자리", en: "Sagittarius", range_ko: "11/23 ~ 12/21", range_en: "Nov 23 - Dec 21" },
+      { value: "capricorn", ko: "염소자리", en: "Capricorn", range_ko: "12/22 ~ 1/19", range_en: "Dec 22 - Jan 19" },
+      { value: "aquarius", ko: "물병자리", en: "Aquarius", range_ko: "1/20 ~ 2/18", range_en: "Jan 20 - Feb 18" },
+      { value: "pisces", ko: "물고기자리", en: "Pisces", range_ko: "2/19 ~ 3/20", range_en: "Feb 19 - Mar 20" }
     ];
 
     const ASTRO_ENDPOINT = "https://aztro.sameerkumar.website/";
@@ -759,6 +759,74 @@
       Aquarius: "물병자리",
       Pisces: "물고기자리"
     };
+
+    const fallbackMoods = {
+      ko: ["차분함", "활기", "집중", "여유", "호기심", "정리", "전환", "도전"],
+      en: ["Calm", "Energy", "Focus", "Ease", "Curiosity", "Clarity", "Shift", "Bold"]
+    };
+    const fallbackColors = {
+      ko: ["코랄", "네이비", "민트", "라벤더", "카멜", "오프화이트", "올리브", "머스터드"],
+      en: ["Coral", "Navy", "Mint", "Lavender", "Camel", "Off-white", "Olive", "Mustard"]
+    };
+    const fallbackTimes = {
+      ko: ["오전 9시", "오전 11시", "오후 2시", "오후 4시", "오후 7시", "밤 9시"],
+      en: ["9 AM", "11 AM", "2 PM", "4 PM", "7 PM", "9 PM"]
+    };
+    const fallbackTemplates = {
+      ko: [
+        "작은 선택이 큰 흐름을 바꾸는 날이에요. 한 걸음만 더 확인해보세요.",
+        "오늘은 속도를 조금 늦추면 보이는 것이 늘어납니다.",
+        "가벼운 대화가 좋은 기회를 데려올 수 있어요.",
+        "정리와 정돈이 운을 끌어오는 열쇠가 됩니다.",
+        "직감이 살아나는 날, 지나친 고민은 줄이세요.",
+        "새로운 시도가 생각보다 수월하게 흘러갑니다."
+      ],
+      en: [
+        "Small choices shift the flow today. Double-check one more step.",
+        "Slow down a little and you will see more.",
+        "Light conversations can open a good opportunity.",
+        "Tidying up is the key to inviting luck.",
+        "Your intuition is sharp—avoid overthinking.",
+        "A new attempt moves more smoothly than expected."
+      ]
+    };
+
+    function getZodiacRange(signValue) {
+      const sign = zodiacSigns.find(item => item.value === signValue);
+      if (!sign) return "";
+      return currentLang === "ko" ? sign.range_ko : sign.range_en;
+    }
+
+    function getDailySeed(signValue) {
+      const dayKey = new Date().toISOString().slice(0, 10);
+      let hash = 0;
+      const raw = `${signValue}-${dayKey}`;
+      for (let i = 0; i < raw.length; i++) {
+        hash = (hash * 31 + raw.charCodeAt(i)) % 100000;
+      }
+      return hash;
+    }
+
+    function buildFallbackHoroscope(signValue) {
+      const seed = getDailySeed(signValue);
+      const moodList = fallbackMoods[currentLang];
+      const colorList = fallbackColors[currentLang];
+      const timeList = fallbackTimes[currentLang];
+      const descList = fallbackTemplates[currentLang];
+      const signIndex = zodiacSigns.findIndex(item => item.value === signValue);
+      const compatibilityIndex = (signIndex + (seed % 11) + 1) % zodiacSigns.length;
+      const compatibilityValue = zodiacSigns[compatibilityIndex].en;
+
+      return {
+        description: descList[seed % descList.length],
+        date_range: getZodiacRange(signValue),
+        compatibility: compatibilityValue,
+        lucky_number: String((seed % 89) + 11),
+        lucky_time: timeList[seed % timeList.length],
+        color: colorList[(seed + 2) % colorList.length],
+        mood: moodList[(seed + 3) % moodList.length]
+      };
+    }
 
     const fallbackMenuOptions = [
       {
@@ -997,17 +1065,19 @@
 
       try {
         const data = await fetchHoroscope(signValue, "today");
-        fortuneText.textContent = data.description || i18n[currentLang].zodiac_error;
-        renderHoroscopeTags(data, signLabel);
-        if (focusCompatibilityValue) focusCompatibilityValue.textContent = localizeCompatibility(data.compatibility);
-        if (focusLuckyNumberValue) focusLuckyNumberValue.textContent = data.lucky_number || "-";
-        if (focusLuckyTimeValue) focusLuckyTimeValue.textContent = data.lucky_time || "-";
+        const normalized = data && data.description ? data : buildFallbackHoroscope(signValue);
+        fortuneText.textContent = normalized.description || i18n[currentLang].zodiac_error;
+        renderHoroscopeTags(normalized, signLabel);
+        if (focusCompatibilityValue) focusCompatibilityValue.textContent = localizeCompatibility(normalized.compatibility);
+        if (focusLuckyNumberValue) focusLuckyNumberValue.textContent = normalized.lucky_number || "-";
+        if (focusLuckyTimeValue) focusLuckyTimeValue.textContent = normalized.lucky_time || "-";
       } catch (error) {
-        fortuneText.textContent = i18n[currentLang].zodiac_error;
-        fortuneTags.innerHTML = `<span class="tag">${escapeHTML(signLabel)}</span>`;
-        if (focusCompatibilityValue) focusCompatibilityValue.textContent = "-";
-        if (focusLuckyNumberValue) focusLuckyNumberValue.textContent = "-";
-        if (focusLuckyTimeValue) focusLuckyTimeValue.textContent = "-";
+        const fallback = buildFallbackHoroscope(signValue);
+        fortuneText.textContent = fallback.description || i18n[currentLang].zodiac_error;
+        renderHoroscopeTags(fallback, signLabel);
+        if (focusCompatibilityValue) focusCompatibilityValue.textContent = localizeCompatibility(fallback.compatibility);
+        if (focusLuckyNumberValue) focusLuckyNumberValue.textContent = fallback.lucky_number || "-";
+        if (focusLuckyTimeValue) focusLuckyTimeValue.textContent = fallback.lucky_time || "-";
       }
     }
 
