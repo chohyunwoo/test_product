@@ -163,22 +163,35 @@
       font-size: 13px;
     }
 
-    .webcam-wrap {
-      width: 100%;
-      display: grid;
-      place-items: center;
-      padding: 8px 0 2px;
-    }
-
-    #webcam-container canvas {
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-    }
-
     .labels {
       display: grid;
       gap: 8px;
       font-size: 14px;
+    }
+
+    .upload-box {
+      border: 1px dashed var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .upload-box input[type="file"] {
+      width: 100%;
+    }
+
+    .preview {
+      width: 220px;
+      height: 220px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      object-fit: cover;
+      background: var(--card-2);
+      display: none;
     }
 
     @media (max-width: 900px) {
@@ -203,14 +216,17 @@
   <section class="card">
     <div class="section-head">
       <h2>강아지상 vs 고양이상</h2>
-      <p>카메라를 켜고 본인의 동물상을 확인해보세요.</p>
+      <p>사진을 업로드하면 동물상을 분석해줘요.</p>
     </div>
     <div class="ai-grid" style="margin-top:16px;">
       <div class="ai-card">
-        <h3>실시간 분석</h3>
-        <p>Start 버튼을 누르면 카메라가 켜지고 결과가 표시돼요.</p>
-        <button id="aiStartBtn" class="btn-main" type="button">Start</button>
-        <div class="webcam-wrap" id="webcam-container"></div>
+        <h3>사진 업로드</h3>
+        <p>정면에 가까운 얼굴 사진일수록 정확도가 높아요.</p>
+        <div class="upload-box">
+          <input id="imageInput" type="file" accept="image/*" />
+          <img id="preview" class="preview" alt="업로드한 이미지 미리보기" />
+        </div>
+        <button id="analyzeBtn" class="btn-main" type="button">분석하기</button>
       </div>
       <div class="ai-card">
         <h3>예측 결과</h3>
@@ -226,10 +242,13 @@
 <script>
   const themeToggle = document.getElementById("themeToggle");
   const themeRoot = document.documentElement;
-  const aiStartBtn = document.getElementById("aiStartBtn");
+  const imageInput = document.getElementById("imageInput");
+  const preview = document.getElementById("preview");
+  const analyzeBtn = document.getElementById("analyzeBtn");
+  const labelContainer = document.getElementById("label-container");
 
   const URL = "https://teachablemachine.withgoogle.com/models/0JKL623Vr/";
-  let model, webcam, labelContainer, maxPredictions;
+  let model, maxPredictions;
 
   function applyTheme(theme) {
     if (theme === "light") {
@@ -252,47 +271,42 @@
     applyTheme(prefersLight ? "light" : "dark");
   }
 
-  async function initAnimalTest() {
+  async function ensureModel() {
     if (model) return;
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
-
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
+  }
 
-    const flip = true;
-    webcam = new tmImage.Webcam(220, 220, flip);
-    await webcam.setup();
-    await webcam.play();
-    window.requestAnimationFrame(loop);
-
-    const webcamContainer = document.getElementById("webcam-container");
-    webcamContainer.innerHTML = "";
-    webcamContainer.appendChild(webcam.canvas);
-
-    labelContainer = document.getElementById("label-container");
+  function renderLabels(prediction) {
     labelContainer.innerHTML = "";
-    for (let i = 0; i < maxPredictions; i++) {
-      labelContainer.appendChild(document.createElement("div"));
-    }
-  }
-
-  async function loop() {
-    webcam.update();
-    await predict();
-    window.requestAnimationFrame(loop);
-  }
-
-  async function predict() {
-    const prediction = await model.predict(webcam.canvas);
     for (let i = 0; i < maxPredictions; i++) {
       const classPrediction =
         prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-      labelContainer.childNodes[i].innerHTML = classPrediction;
+      const row = document.createElement("div");
+      row.textContent = classPrediction;
+      labelContainer.appendChild(row);
     }
   }
 
-  aiStartBtn.addEventListener("click", initAnimalTest);
+  analyzeBtn.addEventListener("click", async () => {
+    if (!imageInput.files || imageInput.files.length === 0) {
+      alert("이미지를 먼저 업로드해주세요.");
+      return;
+    }
+    await ensureModel();
+    const prediction = await model.predict(preview);
+    renderLabels(prediction);
+  });
+
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files && imageInput.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    preview.src = url;
+    preview.style.display = "block";
+  });
   themeToggle.onclick = () => {
     const isLight = themeRoot.getAttribute("data-theme") === "light";
     const next = isLight ? "dark" : "light";
