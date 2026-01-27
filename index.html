@@ -457,6 +457,7 @@
     </div>
     <div>
       <a class="btn-sub" href="animal.html" data-i18n="nav_animal">동물상 테스트</a>
+      <a class="btn-sub" href="menu.html" data-i18n="nav_menu">메뉴 추천</a>
       <a class="btn-sub" href="about.html" data-i18n="nav_about">사이트 소개</a>
       <select id="langSelect" class="lang-select" aria-label="Language selector">
         <option value="ko">한국어</option>
@@ -526,19 +527,6 @@
     <div id="footer" class="footer"></div>
   </section>
 
-  <section class="section" id="menu">
-    <div class="section-head">
-      <h2 data-i18n="menu_title">오늘의 메뉴 추천</h2>
-      <p data-i18n="menu_desc">TheMealDB 레시피에서 오늘의 메뉴를 랜덤으로 추천해요. 마음에 드는 메뉴를 골라보세요.</p>
-    </div>
-
-    <div class="controls">
-      <button id="menuPickBtn" class="btn-sub" type="button" data-i18n="menu_reroll">다시 추천하기</button>
-    </div>
-
-    <div id="menuGrid" class="menu-grid"></div>
-  </section>
-
   <section class="section" id="note">
     <div class="section-head">
       <h2 data-i18n="note_title">오늘의 별자리 큐레이션 노트</h2>
@@ -578,6 +566,7 @@
       <a href="about.html" data-i18n="footer_about">사이트 소개</a>
       <a href="privacy.html" data-i18n="footer_privacy">개인정보 처리방침</a>
       <a href="terms.html" data-i18n="footer_terms">이용약관</a>
+      <a href="menu.html" data-i18n="footer_menu">메뉴 추천</a>
       <a href="menu-request.html" data-i18n="footer_menu_request">메뉴 추가 요청</a>
     </div>
     <div data-i18n="footer_contact_note">문의는 제휴 문의 폼을 통해 접수받고 있습니다.</div>
@@ -610,6 +599,7 @@
         badge_today: "오늘",
         brand_title: "오늘의 운세",
         nav_animal: "동물상 테스트",
+        nav_menu: "메뉴 추천",
         nav_about: "사이트 소개",
         fortune_title: "오늘의 별자리 운세",
         fortune_tag: "별자리 가이드",
@@ -635,12 +625,6 @@
         lotto_pick: "5게임 추천받기",
         lotto_copy: "전체 복사",
         lotto_bonus: "보너스 번호 포함",
-        menu_title: "오늘의 메뉴 추천",
-        menu_desc: "TheMealDB 레시피에서 오늘의 메뉴를 랜덤으로 추천해요. 마음에 드는 메뉴를 골라보세요.",
-        menu_reroll: "다시 추천하기",
-        menu_loading: "레시피를 불러오는 중...",
-        menu_error: "레시피를 불러오지 못해 기본 추천으로 대체했어요.",
-        menu_source: "레시피 보기",
         note_title: "오늘의 별자리 큐레이션 노트",
         note_desc: "별자리 운세는 매일 업데이트되는 데이터로 구성되며, 참고용 안내로 제공됩니다.",
         note_line_1: "오늘의 별자리 운세는 날짜별로 새롭게 반영되며, 핵심 키워드를 중심으로 요약됩니다.",
@@ -656,6 +640,7 @@
         footer_about: "사이트 소개",
         footer_privacy: "개인정보 처리방침",
         footer_terms: "이용약관",
+        footer_menu: "메뉴 추천",
         footer_menu_request: "메뉴 추가 요청",
         footer_contact_note: "문의는 제휴 문의 폼을 통해 접수받고 있습니다.",
         footer_copyright: "© 2026 TodayLab. All rights reserved.",
@@ -673,6 +658,7 @@
         badge_today: "Today",
         brand_title: "Today's Fortune",
         nav_animal: "Animal Face Test",
+        nav_menu: "Menu Picks",
         nav_about: "About",
         fortune_title: "Today's Zodiac Horoscope",
         fortune_tag: "Zodiac Guide",
@@ -698,12 +684,6 @@
         lotto_pick: "Get 5 Picks",
         lotto_copy: "Copy All",
         lotto_bonus: "Include bonus number",
-        menu_title: "Today's Menu Picks",
-        menu_desc: "Random picks powered by TheMealDB recipes. Choose one for today.",
-        menu_reroll: "Pick Again",
-        menu_loading: "Loading recipes...",
-        menu_error: "Couldn't reach the recipe API, showing fallback picks.",
-        menu_source: "View recipe",
         note_title: "Horoscope Curation Note",
         note_desc: "Horoscopes are built from daily updates and provided for reference.",
         note_line_1: "Today's horoscope is refreshed by date and summarized with key themes.",
@@ -719,6 +699,7 @@
         footer_about: "About",
         footer_privacy: "Privacy Policy",
         footer_terms: "Terms",
+        footer_menu: "Menu Picks",
         footer_menu_request: "Menu Request",
         footer_contact_note: "Please submit inquiries via the partnership form.",
         footer_copyright: "© 2026 TodayLab. All rights reserved.",
@@ -1245,7 +1226,7 @@
         renderHoroscope();
       });
     }
-    menuPickBtn.addEventListener("click", renderMenu);
+    if (menuPickBtn) menuPickBtn.addEventListener("click", renderMenu);
 
     themeToggle.onclick = () => {
       const isLight = themeRoot.getAttribute("data-theme") === "light";

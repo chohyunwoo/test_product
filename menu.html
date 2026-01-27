@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>메뉴 추천</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TheMealDB 레시피를 기반으로 오늘의 메뉴를 추천합니다." />
+  <style>
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+    @import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&display=swap");
+
+    :root {
+      --bg: #0b1020;
+      --card: #141b2d;
+      --card-2: #0f172a;
+      --card-border: rgba(148,163,184,.18);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --primary: linear-gradient(90deg, #f59e0b, #22c55e);
+      --bg-grad-1: #0ea5e933;
+      --bg-grad-2: #f9731633;
+      --btn-sub-bg: #0f172a;
+      --btn-sub-text: var(--text);
+      --shadow: 0 20px 50px rgba(15,23,42,.35);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-2: #f1f5f9;
+      --card-border: rgba(15,23,42,.12);
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: linear-gradient(90deg, #f97316, #0ea5e9);
+      --bg-grad-1: #f59e0b22;
+      --bg-grad-2: #38bdf822;
+      --btn-sub-bg: #ffffff;
+      --btn-sub-text: #0f172a;
+      --shadow: 0 12px 30px rgba(15,23,42,.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(800px 400px at 15% 0%, var(--bg-grad-1), transparent),
+                  radial-gradient(900px 500px at 85% 100%, var(--bg-grad-2), transparent),
+                  var(--bg);
+      color: var(--text);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    }
+
+    h1, h2, h3, .brand {
+      font-family: "Sora", "Pretendard", "Noto Sans KR", sans-serif;
+      margin: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 30px 0 80px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .top-bar {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .brand-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #0b1020;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      display: grid;
+      gap: 16px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-sub {
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .lang-select {
+      appearance: none;
+      padding: 12px 36px 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      font-weight: 600;
+      cursor: pointer;
+      background-image: linear-gradient(45deg, transparent 50%, var(--btn-sub-text) 50%),
+                        linear-gradient(135deg, var(--btn-sub-text) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 18px, calc(100% - 12px) 18px;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .menu-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: grid;
+      gap: 8px;
+    }
+
+    .menu-thumb {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--card-2);
+    }
+
+    .menu-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--card-2);
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .menu-link {
+      width: fit-content;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      font-weight: 700;
+    }
+
+    .menu-alert {
+      border-style: dashed;
+      background: var(--card-2);
+    }
+
+    .menu-card h3 {
+      font-size: 18px;
+    }
+
+    .menu-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .site-footer {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .footer-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--card-2);
+      border: 1px solid var(--card-border);
+    }
+  </style>
+</head>
+<body>
+
+<main class="app">
+  <header class="top-bar">
+    <div class="brand">
+      <span class="brand-badge" data-i18n="badge_menu">MENU</span>
+      <span data-i18n="brand_title">메뉴 추천</span>
+    </div>
+    <div>
+      <a class="btn-sub" href="index.html" data-i18n="nav_home">홈으로</a>
+      <a class="btn-sub" href="animal.html" data-i18n="nav_animal">동물상 테스트</a>
+      <a class="btn-sub" href="about.html" data-i18n="nav_about">사이트 소개</a>
+      <select id="langSelect" class="lang-select" aria-label="Language selector">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+      </select>
+      <button id="themeToggle" class="btn-sub" type="button">Dark</button>
+    </div>
+  </header>
+
+  <section class="section" id="menu">
+    <div class="section-head">
+      <h2 data-i18n="menu_title">오늘의 메뉴 추천</h2>
+      <p data-i18n="menu_desc">TheMealDB 레시피에서 오늘의 메뉴를 랜덤으로 추천해요. 마음에 드는 메뉴를 골라보세요.</p>
+    </div>
+
+    <div class="controls">
+      <button id="menuPickBtn" class="btn-sub" type="button" data-i18n="menu_reroll">다시 추천하기</button>
+    </div>
+
+    <div id="menuGrid" class="menu-grid"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="about.html" data-i18n="footer_about">사이트 소개</a>
+      <a href="privacy.html" data-i18n="footer_privacy">개인정보 처리방침</a>
+      <a href="terms.html" data-i18n="footer_terms">이용약관</a>
+      <a href="menu-request.html" data-i18n="footer_menu_request">메뉴 추가 요청</a>
+    </div>
+    <div data-i18n="footer_copyright">© 2026 TodayLab. All rights reserved.</div>
+  </footer>
+</main>
+
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+  const themeRoot = document.documentElement;
+  const menuGrid = document.getElementById("menuGrid");
+  const menuPickBtn = document.getElementById("menuPickBtn");
+  const langSelect = document.getElementById("langSelect");
+
+  const i18n = {
+    ko: {
+      title: "메뉴 추천",
+      description: "TheMealDB 레시피를 기반으로 오늘의 메뉴를 추천합니다.",
+      badge_menu: "MENU",
+      brand_title: "메뉴 추천",
+      nav_home: "홈으로",
+      nav_animal: "동물상 테스트",
+      nav_about: "사이트 소개",
+      menu_title: "오늘의 메뉴 추천",
+      menu_desc: "TheMealDB 레시피에서 오늘의 메뉴를 랜덤으로 추천해요. 마음에 드는 메뉴를 골라보세요.",
+      menu_reroll: "다시 추천하기",
+      menu_loading: "레시피를 불러오는 중...",
+      menu_error: "레시피를 불러오지 못해 기본 추천으로 대체했어요.",
+      menu_source: "레시피 보기",
+      footer_about: "사이트 소개",
+      footer_privacy: "개인정보 처리방침",
+      footer_terms: "이용약관",
+      footer_menu_request: "메뉴 추가 요청",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    },
+    en: {
+      title: "Menu Picks",
+      description: "Daily menu picks powered by TheMealDB recipes.",
+      badge_menu: "MENU",
+      brand_title: "Menu Picks",
+      nav_home: "Home",
+      nav_animal: "Animal Face Test",
+      nav_about: "About",
+      menu_title: "Today's Menu Picks",
+      menu_desc: "Random picks powered by TheMealDB recipes. Choose one for today.",
+      menu_reroll: "Pick Again",
+      menu_loading: "Loading recipes...",
+      menu_error: "Couldn't reach the recipe API, showing fallback picks.",
+      menu_source: "View recipe",
+      footer_about: "About",
+      footer_privacy: "Privacy Policy",
+      footer_terms: "Terms",
+      footer_menu_request: "Menu Request",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    }
+  };
+
+  let currentLang = localStorage.getItem("lang") || "ko";
+
+  const fallbackMenuOptions = [
+    {
+      title: { ko: "매운 칼국수", en: "Spicy Kalguksu" },
+      desc: { ko: "기운이 떨어질 때 따뜻하게 회복하기 좋아요.", en: "Warm soup to reset on low-energy days." },
+      tag: { ko: "따뜻함", en: "Warm" }
+    },
+    {
+      title: { ko: "연어 포케", en: "Salmon Poke" },
+      desc: { ko: "집중이 필요한 날에 가볍게 즐기기 좋아요.", en: "Light but satisfying when you need focus." },
+      tag: { ko: "가볍게", en: "Light" }
+    },
+    {
+      title: { ko: "트러플 크림 파스타", en: "Truffle Cream Pasta" },
+      desc: { ko: "오늘은 작은 사치를 즐겨도 좋아요.", en: "A small treat for yourself today." },
+      tag: { ko: "위로", en: "Comfort" }
+    },
+    {
+      title: { ko: "숯불 닭갈비", en: "Charcoal Dakgalbi" },
+      desc: { ko: "에너지가 필요할 때 과감한 선택이에요.", en: "A bold meal when you need energy." },
+      tag: { ko: "에너지", en: "Energy" }
+    },
+    {
+      title: { ko: "새우 로제 리소토", en: "Shrimp Rose Risotto" },
+      desc: { ko: "부드럽고 살짝 매콤해 기분 전환에 좋아요.", en: "Creamy with a hint of spice for a mood lift." },
+      tag: { ko: "리프레시", en: "Refresh" }
+    },
+    {
+      title: { ko: "불고기 비빔밥", en: "Bulgogi Bibimbap" },
+      desc: { ko: "든든한 한 그릇이 생각날 때 좋아요.", en: "Perfect when you want a hearty bowl." },
+      tag: { ko: "든든함", en: "Hearty" }
+    },
+    {
+      title: { ko: "치킨 샐러드", en: "Chicken Salad" },
+      desc: { ko: "가볍지만 단백질이 풍부해 균형에 좋아요.", en: "Light yet protein-rich for balance." },
+      tag: { ko: "균형", en: "Balance" }
+    },
+    {
+      title: { ko: "매운 돼지덮밥", en: "Spicy Pork Rice Bowl" },
+      desc: { ko: "매콤하게 오후 에너지를 끌어올려보세요.", en: "Boost your afternoon with a spicy kick." },
+      tag: { ko: "활력", en: "Energy" }
+    }
+  ];
+
+  const MEALDB_RANDOM_ENDPOINT = "https://www.themealdb.com/api/json/v1/1/random.php";
+
+  function escapeHTML(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function extractIngredients(meal, limit = 4) {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const value = meal[`strIngredient${i}`];
+      if (value && value.trim()) ingredients.push(value.trim());
+      if (ingredients.length >= limit) break;
+    }
+    return ingredients;
+  }
+
+  function formatMeal(meal) {
+    const ingredients = extractIngredients(meal, 4);
+    const tags = [meal.strCategory, meal.strArea].filter(Boolean);
+    return {
+      title: { ko: meal.strMeal, en: meal.strMeal },
+      desc: {
+        ko: ingredients.length ? `핵심 재료: ${ingredients.join(", ")}` : "오늘 한 번 도전해볼 만한 레시피예요.",
+        en: ingredients.length ? `Key ingredients: ${ingredients.join(", ")}` : "A recipe worth trying today."
+      },
+      tags,
+      image: meal.strMealThumb || "",
+      link: meal.strSource || meal.strYoutube || ""
+    };
+  }
+
+  async function fetchRandomMeal() {
+    const response = await fetch(MEALDB_RANDOM_ENDPOINT);
+    if (!response.ok) throw new Error("Meal API error");
+    const data = await response.json();
+    return data && data.meals ? data.meals[0] : null;
+  }
+
+  async function fetchMenuPicks(count = 4) {
+    const picks = [];
+    const seen = new Set();
+    let attempts = 0;
+
+    while (picks.length < count && attempts < count * 3) {
+      attempts += 1;
+      const meal = await fetchRandomMeal();
+      if (!meal || seen.has(meal.idMeal)) continue;
+      seen.add(meal.idMeal);
+      picks.push(formatMeal(meal));
+    }
+
+    return picks;
+  }
+
+  function renderMenuCard(item) {
+    const title = escapeHTML(item.title[currentLang] || item.title.en || "");
+    const desc = escapeHTML(item.desc[currentLang] || item.desc.en || "");
+    const tags = item.tags && item.tags.length
+      ? item.tags
+      : [currentLang === "ko" ? "레시피" : "Recipe"];
+    const imgMarkup = item.image
+      ? `<img class="menu-thumb" src="${escapeHTML(item.image)}" alt="${title}" loading="lazy" />`
+      : `<div class="menu-thumb"></div>`;
+    const tagMarkup = tags
+      .map(tag => `<span class="tag">${escapeHTML(tag)}</span>`)
+      .join("");
+    const linkMarkup = item.link
+      ? `<a class="menu-link" href="${escapeHTML(item.link)}" target="_blank" rel="noopener">${i18n[currentLang].menu_source}</a>`
+      : "";
+
+    return `
+      <div class="menu-card">
+        ${imgMarkup}
+        <h3>${title}</h3>
+        <p>${desc}</p>
+        <div class="menu-meta">${tagMarkup}</div>
+        ${linkMarkup}
+      </div>
+    `;
+  }
+
+  function shuffle(list) {
+    const copy = list.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  async function renderMenu() {
+    if (!menuGrid) return;
+
+    menuGrid.innerHTML = `
+      <div class="menu-card menu-alert">
+        <p>${i18n[currentLang].menu_loading}</p>
+      </div>
+    `;
+
+    let picks = [];
+    try {
+      picks = await fetchMenuPicks(4);
+    } catch (error) {
+      picks = [];
+    }
+
+    if (!picks.length) {
+      const fallback = shuffle(fallbackMenuOptions).slice(0, 4).map(item => ({
+        title: item.title,
+        desc: item.desc,
+        tags: [item.tag[currentLang]],
+        image: "",
+        link: ""
+      }));
+
+      menuGrid.innerHTML = `
+        <div class="menu-card menu-alert">
+          <p>${i18n[currentLang].menu_error}</p>
+        </div>
+      ` + fallback.map(renderMenuCard).join("");
+      return;
+    }
+
+    menuGrid.innerHTML = picks.map(renderMenuCard).join("");
+  }
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      themeRoot.setAttribute("data-theme", "light");
+      themeToggle.textContent = i18n[currentLang].theme_light;
+    } else {
+      themeRoot.removeAttribute("data-theme");
+      themeToggle.textContent = i18n[currentLang].theme_dark;
+    }
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      applyTheme(saved);
+      return;
+    }
+    const prefersLight = window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches;
+    applyTheme(prefersLight ? "light" : "dark");
+  }
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("lang", lang);
+    document.documentElement.setAttribute("lang", lang);
+    if (langSelect) langSelect.value = lang;
+
+    document.title = i18n[lang].title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", i18n[lang].description);
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      if (i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+
+    const theme = localStorage.getItem("theme");
+    if (theme === "light" || theme === "dark") applyTheme(theme);
+    renderMenu();
+  }
+
+  if (menuPickBtn) menuPickBtn.addEventListener("click", renderMenu);
+
+  themeToggle.onclick = () => {
+    const isLight = themeRoot.getAttribute("data-theme") === "light";
+    const next = isLight ? "dark" : "light";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  };
+
+  if (langSelect) {
+    langSelect.addEventListener("change", (event) => {
+      applyLanguage(event.target.value);
+    });
+  }
+
+  initTheme();
+  applyLanguage(currentLang);
+</script>
+
+</body>
+</html>
