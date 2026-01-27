@@ -384,28 +384,11 @@
       <p>기분과 날씨에 어울리는 메뉴를 골랐어요. 오늘은 이 중 하나로 정해보세요.</p>
     </div>
 
-    <div class="menu-grid">
-      <div class="menu-card">
-        <h3>얼큰 칼국수</h3>
-        <p>컨디션이 살짝 다운된 날엔 따뜻한 국물로 리셋.</p>
-        <span class="tag">따뜻함</span>
-      </div>
-      <div class="menu-card">
-        <h3>연어 포케</h3>
-        <p>가볍게 먹고 집중력을 끌어올리고 싶을 때.</p>
-        <span class="tag">가벼움</span>
-      </div>
-      <div class="menu-card">
-        <h3>트러플 크림 파스타</h3>
-        <p>오늘은 스스로에게 작은 선물을 주는 느낌으로.</p>
-        <span class="tag">위로</span>
-      </div>
-      <div class="menu-card">
-        <h3>숯불 닭갈비</h3>
-        <p>에너지가 필요할 때 확실한 한 끼.</p>
-        <span class="tag">활력</span>
-      </div>
+    <div class="controls">
+      <button id="menuPickBtn" class="btn-sub" type="button">다시 추천하기</button>
     </div>
+
+    <div id="menuGrid" class="menu-grid"></div>
   </section>
 </main>
 
@@ -418,6 +401,8 @@
   const fortuneText = document.getElementById("fortuneText");
   const fortuneTags = document.getElementById("fortuneTags");
   const fortuneBtn = document.getElementById("fortuneBtn");
+  const menuGrid = document.getElementById("menuGrid");
+  const menuPickBtn = document.getElementById("menuPickBtn");
 
   const fortunes = [
     {
@@ -436,6 +421,17 @@
       text: "작은 성취가 큰 자신감을 부르는 날. 오늘의 체크리스트를 가볍게 완료해요.",
       tags: ["성취", "루틴", "자신감"]
     }
+  ];
+
+  const menuOptions = [
+    { title: "얼큰 칼국수", desc: "컨디션이 살짝 다운된 날엔 따뜻한 국물로 리셋.", tag: "따뜻함" },
+    { title: "연어 포케", desc: "가볍게 먹고 집중력을 끌어올리고 싶을 때.", tag: "가벼움" },
+    { title: "트러플 크림 파스타", desc: "오늘은 스스로에게 작은 선물을 주는 느낌으로.", tag: "위로" },
+    { title: "숯불 닭갈비", desc: "에너지가 필요할 때 확실한 한 끼.", tag: "활력" },
+    { title: "새우 로제 리조또", desc: "부드러운 크림과 살짝 매콤한 기분 전환.", tag: "기분전환" },
+    { title: "불고기 비빔밥", desc: "속을 든든하게 채우고 싶을 때 딱 좋아요.", tag: "든든함" },
+    { title: "치킨 샐러드", desc: "가볍지만 단백질은 챙기고 싶은 날.", tag: "균형" },
+    { title: "매콤 제육덮밥", desc: "활력이 필요한 오후에 기분을 끌어올려요.", tag: "활력" }
   ];
 
   function applyTheme(theme) {
@@ -465,6 +461,26 @@
     fortuneTags.innerHTML = selected.tags
       .map(tag => `<span class="tag">${tag}</span>`)
       .join("");
+  }
+
+  function shuffle(list) {
+    const copy = list.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function renderMenu() {
+    const picks = shuffle(menuOptions).slice(0, 4);
+    menuGrid.innerHTML = picks.map(item => `
+      <div class="menu-card">
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+        <span class="tag">${item.tag}</span>
+      </div>
+    `).join("");
   }
 
   function colorClass(n) {
@@ -540,9 +556,11 @@
   };
 
   fortuneBtn.addEventListener("click", pickFortune);
+  menuPickBtn.addEventListener("click", renderMenu);
 
   initTheme();
   pickFortune();
+  renderMenu();
   renderGames();
 </script>
 
