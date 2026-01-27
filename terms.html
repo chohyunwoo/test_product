@@ -180,6 +180,7 @@
         <option value="ko">한국어</option>
         <option value="en">English</option>
       </select>
+      <button id="themeToggle" class="btn-sub" type="button">Dark</button>
     </div>
   </header>
 
@@ -219,6 +220,8 @@
 
 <script>
   const langSelect = document.getElementById("langSelect");
+  const themeToggle = document.getElementById("themeToggle");
+  const themeRoot = document.documentElement;
 
   const i18n = {
     ko: {
@@ -240,7 +243,9 @@
       footer_about: "사이트 소개",
       footer_privacy: "개인정보 처리방침",
       footer_menu_request: "메뉴 추가 요청",
-      footer_copyright: "© 2026 TodayLab. All rights reserved."
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
     },
     en: {
       title: "Terms",
@@ -261,11 +266,37 @@
       footer_about: "About",
       footer_privacy: "Privacy Policy",
       footer_menu_request: "Menu Request",
-      footer_copyright: "© 2026 TodayLab. All rights reserved."
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
     }
   };
 
+  let currentLang = localStorage.getItem("lang") || "ko";
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      themeRoot.setAttribute("data-theme", "light");
+      themeToggle.textContent = i18n[currentLang].theme_light;
+    } else {
+      themeRoot.removeAttribute("data-theme");
+      themeToggle.textContent = i18n[currentLang].theme_dark;
+    }
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      applyTheme(saved);
+      return;
+    }
+    const prefersLight = window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches;
+    applyTheme(prefersLight ? "light" : "dark");
+  }
+
   function applyLanguage(lang) {
+    currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
     if (langSelect) langSelect.value = lang;
@@ -277,6 +308,9 @@
       const key = el.dataset.i18n;
       if (i18n[lang][key]) el.textContent = i18n[lang][key];
     });
+
+    const theme = localStorage.getItem("theme");
+    if (theme === "light" || theme === "dark") applyTheme(theme);
   }
 
   if (langSelect) {
@@ -285,7 +319,17 @@
     });
   }
 
-  applyLanguage(localStorage.getItem("lang") || "ko");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const isLight = themeRoot.getAttribute("data-theme") === "light";
+      const next = isLight ? "dark" : "light";
+      applyTheme(next);
+      localStorage.setItem("theme", next);
+    });
+  }
+
+  initTheme();
+  applyLanguage(currentLang);
 </script>
 
 </body>
