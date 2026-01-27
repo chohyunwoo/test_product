@@ -307,6 +307,37 @@
       font-size: 13px;
     }
 
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--card-2);
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
     }
@@ -389,6 +420,29 @@
     </div>
 
     <div id="menuGrid" class="menu-grid"></div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-head">
+      <h2>재휴 문의</h2>
+      <p>간단한 정보만 남겨주시면 빠르게 연락드릴게요.</p>
+    </div>
+
+    <form class="card form-grid" action="https://formspree.io/f/xgokpwwl" method="POST">
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" name="name" type="text" placeholder="홍길동" required />
+      </div>
+      <div class="field">
+        <label for="email">이메일</label>
+        <input id="email" name="email" type="email" placeholder="name@example.com" required />
+      </div>
+      <div class="field">
+        <label for="message">문의 내용</label>
+        <textarea id="message" name="message" placeholder="문의 내용을 입력해주세요." required></textarea>
+      </div>
+      <button class="btn-main" type="submit">문의 보내기</button>
+    </form>
   </section>
 </main>
 
