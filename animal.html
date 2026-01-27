@@ -247,7 +247,7 @@
   const analyzeBtn = document.getElementById("analyzeBtn");
   const labelContainer = document.getElementById("label-container");
 
-  const URL = "https://teachablemachine.withgoogle.com/models/0JKL623Vr/";
+  const MODEL_URL = "https://teachablemachine.withgoogle.com/models/0JKL623Vr/";
   let model, maxPredictions;
 
   function applyTheme(theme) {
@@ -273,8 +273,8 @@
 
   async function ensureModel() {
     if (model) return;
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+    const modelURL = MODEL_URL + "model.json";
+    const metadataURL = MODEL_URL + "metadata.json";
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
   }
@@ -290,22 +290,28 @@
     }
   }
 
-  analyzeBtn.addEventListener("click", async () => {
+  async function analyzeImage() {
     if (!imageInput.files || imageInput.files.length === 0) {
-      alert("이미지를 먼저 업로드해주세요.");
-      return;
+      return false;
     }
     await ensureModel();
     const prediction = await model.predict(preview);
     renderLabels(prediction);
+    return true;
+  }
+
+  analyzeBtn.addEventListener("click", async () => {
+    const ok = await analyzeImage();
+    if (!ok) alert("이미지를 먼저 업로드해주세요.");
   });
 
   imageInput.addEventListener("change", () => {
     const file = imageInput.files && imageInput.files[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
+    const url = window.URL.createObjectURL(file);
     preview.src = url;
     preview.style.display = "block";
+    analyzeImage();
   });
   themeToggle.onclick = () => {
     const isLight = themeRoot.getAttribute("data-theme") === "light";
