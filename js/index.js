@@ -12,6 +12,8 @@
     const langSelect = document.getElementById("langSelect");
     const birthDateInput = document.getElementById("birthDateInput");
     const birthDateBtn = document.getElementById("birthDateBtn");
+    const birthInteraction = document.getElementById("birthInteraction");
+    const birthLabel = document.querySelector(".birth-trigger");
     const luckScoreValue = document.getElementById("luckScoreValue");
     const luckScoreFill = document.getElementById("luckScoreFill");
     const focusCompatibilityValue = document.getElementById("focusCompatibilityValue");
@@ -380,6 +382,16 @@
       renderHoroscope();
     }
 
+    function openBirthPicker() {
+      if (!birthDateInput) return;
+      if (typeof birthDateInput.showPicker === "function") {
+        birthDateInput.showPicker();
+        return;
+      }
+      birthDateInput.focus();
+      birthDateInput.click();
+    }
+
 
     function escapeHTML(value) {
       return String(value)
@@ -714,6 +726,18 @@
     }
     if (birthDateBtn) {
       birthDateBtn.addEventListener("click", applyZodiacFromBirthDate);
+    }
+    if (birthInteraction) {
+      birthInteraction.addEventListener("click", openBirthPicker);
+      birthInteraction.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openBirthPicker();
+        }
+      });
+    }
+    if (birthLabel) {
+      birthLabel.addEventListener("click", openBirthPicker);
     }
     if (menuPickBtn) menuPickBtn.addEventListener("click", renderMenu);
 

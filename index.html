@@ -71,9 +71,11 @@
         <button id="zodiacBtn" class="btn-main" type="button" data-i18n="fortune_btn">운세 보기</button>
       </div>
       <div class="birth-controls">
-        <label for="birthDateInput" class="birth-label" data-i18n="birth_label">생일로 별자리 찾기</label>
+        <label for="birthDateInput" class="birth-label birth-trigger" data-i18n="birth_label">생일로 별자리 찾기</label>
         <div class="birth-row">
-          <input id="birthDateInput" class="date-field" type="date" aria-label="Birth date" />
+          <div class="birth-interaction" id="birthInteraction" role="button" tabindex="0" aria-label="Birthday picker">
+            <input id="birthDateInput" class="date-field" type="date" aria-label="Birth date" />
+          </div>
           <button id="birthDateBtn" class="btn-sub" type="button" data-i18n="birth_btn">생일 적용</button>
         </div>
         <p class="birth-hint" data-i18n="birth_hint">생일을 입력하면 별자리가 자동으로 선택됩니다.</p>
