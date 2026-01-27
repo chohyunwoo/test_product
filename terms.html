@@ -133,11 +133,6 @@
       line-height: 1.7;
     }
 
-    .muted {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
     .site-footer {
       padding: 18px 20px;
       background: var(--card);
@@ -186,26 +181,17 @@
 
   <section class="card">
     <h1 data-i18n="use_title">서비스 이용</h1>
-    <p data-i18n="use_desc">본 사이트는 엔터테인먼트 및 참고용 정보를 제공합니다. 제공되는 정보는 절대적인 판단 기준이 아니며, 이용 결과에 대한 책임은 사용자에게 있습니다.</p>
+    <p data-i18n="use_desc">본 사이트는 엔터테인먼트와 참고용 정보를 제공합니다. 제공되는 정보는 일반적인 안내이며, 이용 결과에 대한 책임은 사용자에게 있습니다.</p>
   </section>
 
   <section class="card">
     <h2 data-i18n="content_title">콘텐츠 이용</h2>
-    <p data-i18n="content_desc">사이트의 모든 콘텐츠는 저작권 보호를 받습니다. 사전 허가 없이 무단 복제, 배포, 재가공을 금지합니다.</p>
+    <p data-i18n="content_desc">사이트의 모든 콘텐츠는 저작권 보호를 받습니다. 사전 동의 없이 무단 복제, 배포, 상업적 이용을 금지합니다.</p>
   </section>
 
   <section class="card">
     <h2 data-i18n="change_title">서비스 변경</h2>
     <p data-i18n="change_desc">운영자는 서비스 개선을 위해 기능을 변경하거나 중단할 수 있습니다.</p>
-  </section>
-
-  <section class="card">
-    <h2 data-i18n="contact_title">문의</h2>
-    <p data-i18n="contact_desc">이용약관 관련 문의는 메인 페이지의 문의 폼을 통해 접수해주세요.</p>
-  </section>
-
-  <section class="card">
-    <p class="muted" data-i18n="effective_date">본 약관은 2026년 1월 27일부터 적용됩니다.</p>
   </section>
 
   <footer class="site-footer">
@@ -232,14 +218,11 @@
       nav_home: "홈으로",
       nav_animal: "동물상 테스트",
       use_title: "서비스 이용",
-      use_desc: "본 사이트는 엔터테인먼트 및 참고용 정보를 제공합니다. 제공되는 정보는 절대적인 판단 기준이 아니며, 이용 결과에 대한 책임은 사용자에게 있습니다.",
+      use_desc: "본 사이트는 엔터테인먼트와 참고용 정보를 제공합니다. 제공되는 정보는 일반적인 안내이며, 이용 결과에 대한 책임은 사용자에게 있습니다.",
       content_title: "콘텐츠 이용",
-      content_desc: "사이트의 모든 콘텐츠는 저작권 보호를 받습니다. 사전 허가 없이 무단 복제, 배포, 재가공을 금지합니다.",
+      content_desc: "사이트의 모든 콘텐츠는 저작권 보호를 받습니다. 사전 동의 없이 무단 복제, 배포, 상업적 이용을 금지합니다.",
       change_title: "서비스 변경",
       change_desc: "운영자는 서비스 개선을 위해 기능을 변경하거나 중단할 수 있습니다.",
-      contact_title: "문의",
-      contact_desc: "이용약관 관련 문의는 메인 페이지의 문의 폼을 통해 접수해주세요.",
-      effective_date: "본 약관은 2026년 1월 27일부터 적용됩니다.",
       footer_about: "사이트 소개",
       footer_privacy: "개인정보 처리방침",
       footer_menu_request: "메뉴 추가 요청",
@@ -255,14 +238,11 @@
       nav_home: "Home",
       nav_animal: "Animal Face Test",
       use_title: "Service Use",
-      use_desc: "This site provides entertainment and reference information. Use of the content is at your own discretion and responsibility.",
-      content_title: "Content Use",
-      content_desc: "All content is protected by copyright. Unauthorized copying, distribution, or modification is prohibited.",
+      use_desc: "This site provides entertainment and reference information. Users are responsible for how they use it.",
+      content_title: "Content Usage",
+      content_desc: "All content is protected by copyright. Unauthorized copying, distribution, or commercial use is prohibited.",
       change_title: "Service Changes",
       change_desc: "We may change or discontinue features to improve the service.",
-      contact_title: "Contact",
-      contact_desc: "For terms-related inquiries, please use the contact form on the main page.",
-      effective_date: "These terms are effective as of Jan 27, 2026.",
       footer_about: "About",
       footer_privacy: "Privacy Policy",
       footer_menu_request: "Menu Request",
@@ -300,6 +280,7 @@
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
     if (langSelect) langSelect.value = lang;
+
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", i18n[lang].description);
@@ -319,14 +300,12 @@
     });
   }
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const isLight = themeRoot.getAttribute("data-theme") === "light";
-      const next = isLight ? "dark" : "light";
-      applyTheme(next);
-      localStorage.setItem("theme", next);
-    });
-  }
+  themeToggle.onclick = () => {
+    const isLight = themeRoot.getAttribute("data-theme") === "light";
+    const next = isLight ? "dark" : "light";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  };
 
   initTheme();
   applyLanguage(currentLang);
