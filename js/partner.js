@@ -4,10 +4,10 @@
 
   const i18n = {
     ko: {
-      title: "개인정보 처리방침",
-      description: "개인정보 처리방침 안내 페이지입니다.",
-      badge_policy: "POLICY",
-      brand_title: "개인정보 처리방침",
+      title: "제휴 문의",
+      description: "사업자/협업 목적의 제휴 문의를 접수하는 페이지입니다.",
+      badge_partner: "PARTNER",
+      brand_title: "제휴 문의",
       nav_home: "홈으로",
       nav_animal: "동물상 테스트",
       nav_menu: "메뉴 추천",
@@ -17,16 +17,20 @@
       settings_label: "설정",
       settings_language: "언어",
       settings_theme: "테마",
-      collect_title: "개인정보 수집 및 이용",
-      collect_desc: "본 사이트는 제휴 문의 폼을 통해 이름, 이메일, 문의 내용을 수집할 수 있습니다. 수집된 정보는 문의 응답을 위해서만 사용됩니다.",
-      collect_note: "문의는 Formspree 서비스를 통해 전달되며, 자세한 처리 방식은 Formspree 정책을 따릅니다.",
-      image_title: "동물상 테스트 이미지 처리",
-      image_desc: "동물상 테스트는 브라우저에서 이미지 분석을 수행합니다. 업로드된 파일은 서버에 저장하지 않습니다.",
-      retention_title: "보관 및 삭제",
-      retention_desc: "문의 응답이 완료되면 관련 정보는 합리적인 기간 내 삭제됩니다.",
-      contact_title: "문의",
-      contact_desc: "개인정보 관련 문의는 메인 페이지의 문의 폼을 통해 접수해주세요.",
+      intro_title: "제휴 문의",
+      intro_desc: "사업자/협업 목적의 문의를 남겨주시면 빠르게 연락드릴게요.",
+      form_company_label: "회사명",
+      form_company_placeholder: "회사명을 입력하세요",
+      form_name_label: "담당자 이름",
+      form_name_placeholder: "홍길동",
+      form_email_label: "이메일",
+      form_purpose_label: "협업 목적",
+      form_purpose_placeholder: "예: 제휴/광고/콘텐츠 협업",
+      form_message_label: "문의 내용",
+      form_message_placeholder: "협업 내용을 자세히 적어주세요.",
+      form_submit: "문의 보내기",
       footer_about: "사이트 소개",
+      footer_privacy: "개인정보 처리방침",
       footer_terms: "이용약관",
       footer_menu_request: "메뉴 추가 요청",
       footer_partner: "제휴 문의",
@@ -35,10 +39,10 @@
       theme_dark: "Dark"
     },
     en: {
-      title: "Privacy Policy",
-      description: "Privacy policy information page.",
-      badge_policy: "POLICY",
-      brand_title: "Privacy Policy",
+      title: "Partnership Inquiry",
+      description: "Submit a partnership inquiry for business collaboration.",
+      badge_partner: "PARTNER",
+      brand_title: "Partnership Inquiry",
       nav_home: "Home",
       nav_animal: "Animal Face Test",
       nav_menu: "Menu Picks",
@@ -48,16 +52,20 @@
       settings_label: "Settings",
       settings_language: "Language",
       settings_theme: "Theme",
-      collect_title: "Data Collection & Use",
-      collect_desc: "We may collect name, email, and message through the inquiry form. This information is used only to respond to inquiries.",
-      collect_note: "Messages are delivered via Formspree and follow Formspree's policies.",
-      image_title: "Image Processing",
-      image_desc: "The animal face test runs in the browser. Uploaded files are not stored on servers.",
-      retention_title: "Retention & Deletion",
-      retention_desc: "Inquiry data is deleted within a reasonable period after resolution.",
-      contact_title: "Contact",
-      contact_desc: "For privacy inquiries, please use the contact form on the main page.",
+      intro_title: "Partnership Inquiry",
+      intro_desc: "Leave a business inquiry and we will get back to you soon.",
+      form_company_label: "Company",
+      form_company_placeholder: "Your company name",
+      form_name_label: "Contact name",
+      form_name_placeholder: "Your name",
+      form_email_label: "Email",
+      form_purpose_label: "Purpose",
+      form_purpose_placeholder: "e.g., Partnership / Ads / Collaboration",
+      form_message_label: "Message",
+      form_message_placeholder: "Tell us about your inquiry.",
+      form_submit: "Send Inquiry",
       footer_about: "About",
+      footer_privacy: "Privacy Policy",
       footer_terms: "Terms",
       footer_menu_request: "Menu Request",
       footer_partner: "Partnership",
@@ -95,7 +103,6 @@
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
     if (langSelect) langSelect.value = lang;
-
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", i18n[lang].description);
@@ -103,6 +110,11 @@
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.dataset.i18n;
       if (i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      const key = el.dataset.i18nPlaceholder;
+      if (i18n[lang][key]) el.setAttribute("placeholder", i18n[lang][key]);
     });
 
     const theme = localStorage.getItem("theme");
@@ -115,12 +127,14 @@
     });
   }
 
-  themeToggle.onclick = () => {
-    const isLight = themeRoot.getAttribute("data-theme") === "light";
-    const next = isLight ? "dark" : "light";
-    applyTheme(next);
-    localStorage.setItem("theme", next);
-  };
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const isLight = themeRoot.getAttribute("data-theme") === "light";
+      const next = isLight ? "dark" : "light";
+      applyTheme(next);
+      localStorage.setItem("theme", next);
+    });
+  }
 
   initTheme();
   applyLanguage(currentLang);
