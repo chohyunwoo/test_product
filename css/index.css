@@ -146,9 +146,16 @@
       flex-wrap: wrap;
     }
 
-    .birth-row .select-field {
+    .birth-row .date-field {
       min-width: 180px;
       flex: 1;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-sub-bg);
+      color: var(--btn-sub-text);
+      font-weight: 600;
+      cursor: pointer;
     }
 
     .birth-hint {
