@@ -141,6 +141,44 @@
       margin-bottom: 18px;
     }
 
+    .luck-score {
+      display: grid;
+      gap: 10px;
+      margin: 8px 0 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--card-2);
+      border: 1px solid var(--card-border);
+    }
+
+    .luck-score-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .luck-score-value {
+      font-weight: 900;
+      color: var(--accent);
+      font-size: 16px;
+    }
+
+    .luck-score-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148,163,184,.2);
+      overflow: hidden;
+    }
+
+    .luck-score-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.6s ease;
+    }
+
     .tag {
       padding: 6px 10px;
       border-radius: 999px;
@@ -473,8 +511,15 @@
         <h1 data-i18n="fortune_title">오늘의 별자리 운세</h1>
         <span class="tag" data-i18n="fortune_tag">별자리 가이드</span>
       </div>
-      <div class="tag" id="luckScoreTag" data-i18n="luck_score_label">오늘의 운빨 지수</div>
-      <div class="fortune-text" id="luckScoreValue">-</div>
+      <div class="luck-score">
+        <div class="luck-score-header">
+          <span class="tag" id="luckScoreTag" data-i18n="luck_score_label">오늘의 운빨 지수</span>
+          <span class="luck-score-value" id="luckScoreValue">-</span>
+        </div>
+        <div class="luck-score-bar" aria-hidden="true">
+          <div class="luck-score-fill" id="luckScoreFill"></div>
+        </div>
+      </div>
       <div id="fortuneText" class="fortune-text"></div>
       <div id="fortuneTags" class="fortune-tags"></div>
       <div class="fortune-controls">
@@ -588,6 +633,7 @@
     const menuPickBtn = document.getElementById("menuPickBtn");
     const langSelect = document.getElementById("langSelect");
     const luckScoreValue = document.getElementById("luckScoreValue");
+    const luckScoreFill = document.getElementById("luckScoreFill");
     const focusCompatibilityValue = document.getElementById("focusCompatibilityValue");
     const focusLuckyNumberValue = document.getElementById("focusLuckyNumberValue");
     const focusLuckyTimeValue = document.getElementById("focusLuckyTimeValue");
@@ -871,7 +917,11 @@
     }
 
     function getTodayKey() {
-      return new Date().toISOString().slice(0, 10);
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     }
 
     function buildLuckScore() {
@@ -894,7 +944,9 @@
         localStorage.setItem(luckScoreStorageKey, score);
         localStorage.setItem(luckScoreDateKey, today);
       }
-      luckScoreValue.textContent = `${score} / 100`;
+      const numericScore = Math.max(0, Math.min(100, Number(score)));
+      luckScoreValue.textContent = `${numericScore} / 100`;
+      if (luckScoreFill) luckScoreFill.style.width = `${numericScore}%`;
     }
 
 
