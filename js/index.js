@@ -66,19 +66,26 @@
         lotto_desc: "버튼을 누르면 1~45 사이의 번호 6개를 중복 없이 5게임 추천합니다.",
         lotto_tab_ko: "한국 로또",
         lotto_tab_de: "독일 로또",
-        lotto_tab_jp: "일본 로또 6",
+        lotto_tab_jp: "일본 복권",
         lotto_pick: "5게임 추천받기",
         lotto_copy: "전체 복사",
         lotto_bonus: "보너스 번호 포함",
+        lotto_bonus_label: "보너스",
         lotto_de_title: "6aus49 + Superzahl",
         lotto_de_desc: "1~49 사이 숫자 6개와 Superzahl(0~9) 1개를 랜덤으로 생성합니다.",
         lotto_de_pick: "번호 생성",
         lotto_de_copy: "결과 복사",
         lotto_de_super: "Superzahl",
-        lotto_jp_title: "Japan Loto 6",
-        lotto_jp_desc: "1~43 사이 숫자 6개를 랜덤으로 생성합니다.",
+        lotto_jp_title: "일본 복권",
+        lotto_jp_desc: "복권 종류를 선택해 번호를 생성하세요.",
+        lotto_jp_type_label: "복권 종류",
         lotto_jp_pick: "번호 생성",
         lotto_jp_copy: "결과 복사",
+        lotto_jp_loto6: "로또 6",
+        lotto_jp_loto7: "로또 7",
+        lotto_jp_mini: "미니 로또",
+        lotto_jp_numbers3: "넘버스 3",
+        lotto_jp_numbers4: "넘버스 4",
         note_title: "오늘의 별자리 큐레이션 노트",
         note_desc: "별자리 운세는 매일 업데이트되는 데이터로 구성되며, 참고용 안내로 제공됩니다.",
         note_line_1: "오늘의 별자리 운세는 날짜별로 새롭게 반영되며, 핵심 키워드를 중심으로 요약됩니다.",
@@ -188,16 +195,16 @@
         copy_success: "Alle Zahlen wurden kopiert."
       },
       ja: {
-        title: "今日の運勢 · ロト抽選 · メニュー 추천 · 動物顔テスト",
+        title: "今日の運勢 · ロト抽選 · メニュー提案 · 動物顔テスト",
         description: "今日の運勢、ロト番号、メニュー提案、動物顔テストを一度に楽しめます。",
         badge_today: "今日",
         brand_title: "運勢を見てあなたの運を試してみましょう",
         nav_animal: "動物顔テスト",
-        nav_menu: "メニュー 추천",
+        nav_menu: "メニュー提案",
         nav_about: "サイト紹介",
         menu_label: "メニュー",
         menu_animal: "動物顔テスト",
-        menu_menu: "メニュー 추천",
+        menu_menu: "メニュー提案",
         menu_loading: "メニューを読み込み中...",
         menu_error: "メニューの読み込みに失敗しました。",
         menu_source: "出典",
@@ -231,24 +238,31 @@
         lotto_desc: "ボタンを押すと1〜45の数字から重複なしで5ゲームを抽選します。",
         lotto_tab_ko: "韓国ロト",
         lotto_tab_de: "ドイツロト",
-        lotto_tab_jp: "日本ロト6",
+        lotto_tab_jp: "日本宝くじ",
         lotto_pick: "5ゲーム生成",
         lotto_copy: "すべてコピー",
         lotto_bonus: "ボーナス番号を含む",
+        lotto_bonus_label: "ボーナス",
         lotto_de_title: "6aus49 + Superzahl",
         lotto_de_desc: "1〜49の数字6個とSuperzahl(0〜9)を生成します。",
         lotto_de_pick: "番号生成",
         lotto_de_copy: "結果コピー",
         lotto_de_super: "Superzahl",
-        lotto_jp_title: "Japan Loto 6",
-        lotto_jp_desc: "1〜43の数字6個をランダムに生成します。",
+        lotto_jp_title: "日本宝くじ",
+        lotto_jp_desc: "種類を選択して番号を生成してください。",
+        lotto_jp_type_label: "宝くじの種類",
         lotto_jp_pick: "番号生成",
         lotto_jp_copy: "結果コピー",
+        lotto_jp_loto6: "ロト6",
+        lotto_jp_loto7: "ロト7",
+        lotto_jp_mini: "ミニロト",
+        lotto_jp_numbers3: "ナンバーズ3",
+        lotto_jp_numbers4: "ナンバーズ4",
         note_title: "今日の星座メモ",
         note_desc: "星座運勢は日次更新の参考情報です。",
         note_line_1: "今日の運勢は日付に合わせて更新され、要点をまとめています。",
         note_line_2: "占いは参考として楽しみ、最終判断はご自身で。",
-        contact_title: "提携문의",
+        contact_title: "提携問い合わせ",
         contact_desc: "簡単な情報を残していただければすぐにご連絡します。",
         contact_name_label: "名前",
         contact_name_placeholder: "名前",
@@ -259,9 +273,9 @@
         footer_about: "サイト紹介",
         footer_privacy: "プライバシーポリシー",
         footer_terms: "利用規約",
-        footer_menu: "メニュー 추천",
+        footer_menu: "メニュー提案",
         footer_menu_request: "メニュー追加依頼",
-        footer_partner: "提携문의",
+        footer_partner: "提携問い合わせ",
         footer_contact_note: "お問い合わせはフォームから受け付けています。",
         footer_copyright: "© 2026 TodayLab. All rights reserved.",
         theme_light: "Light",
@@ -316,19 +330,26 @@
         lotto_desc: "Tap the button to draw 5 games of 6 numbers between 1 and 45 without duplicates.",
         lotto_tab_ko: "Korean Lotto",
         lotto_tab_de: "German Lotto",
-        lotto_tab_jp: "Japan Loto 6",
+        lotto_tab_jp: "Japan Lottery",
         lotto_pick: "Get 5 Picks",
         lotto_copy: "Copy All",
         lotto_bonus: "Include bonus number",
+        lotto_bonus_label: "Bonus",
         lotto_de_title: "6aus49 + Superzahl",
         lotto_de_desc: "Pick 6 numbers from 1-49 plus one Superzahl (0-9).",
         lotto_de_pick: "Generate numbers",
         lotto_de_copy: "Copy result",
         lotto_de_super: "Superzahl",
-        lotto_jp_title: "Japan Loto 6",
-        lotto_jp_desc: "Pick 6 numbers from 1 to 43.",
+        lotto_jp_title: "Japan Lottery",
+        lotto_jp_desc: "Select a lottery type and generate numbers.",
+        lotto_jp_type_label: "Lottery type",
         lotto_jp_pick: "Generate numbers",
         lotto_jp_copy: "Copy result",
+        lotto_jp_loto6: "Loto 6",
+        lotto_jp_loto7: "Loto 7",
+        lotto_jp_mini: "Mini Loto",
+        lotto_jp_numbers3: "Numbers 3",
+        lotto_jp_numbers4: "Numbers 4",
         note_title: "Horoscope Curation Note",
         note_desc: "Horoscopes are built from daily updates and provided for reference.",
         note_line_1: "Today's horoscope is refreshed by date and summarized with key themes.",
@@ -901,14 +922,56 @@
       },
       {
         key: "jp",
-        type: "linePick",
+        type: "groupPick",
         tabKey: "lotto_tab_jp",
         titleKey: "lotto_jp_title",
         descriptionKey: "lotto_jp_desc",
+        typeLabelKey: "lotto_jp_type_label",
         pickKey: "lotto_jp_pick",
         copyKey: "lotto_jp_copy",
-        mainCount: 6,
-        range: 43
+        variants: [
+          {
+            key: "loto6",
+            labelKey: "lotto_jp_loto6",
+            type: "COMBINATION",
+            mainCount: 6,
+            range: 43,
+            bonusCount: 1,
+            bonusRange: 43
+          },
+          {
+            key: "loto7",
+            labelKey: "lotto_jp_loto7",
+            type: "COMBINATION",
+            mainCount: 7,
+            range: 37,
+            bonusCount: 2,
+            bonusRange: 37
+          },
+          {
+            key: "mini",
+            labelKey: "lotto_jp_mini",
+            type: "COMBINATION",
+            mainCount: 5,
+            range: 31,
+            bonusCount: 1,
+            bonusRange: 31
+          },
+          {
+            key: "numbers3",
+            labelKey: "lotto_jp_numbers3",
+            type: "DIGIT",
+            digitCount: 3,
+            digitRange: 10
+          },
+          {
+            key: "numbers4",
+            labelKey: "lotto_jp_numbers4",
+            type: "DIGIT",
+            digitCount: 4,
+            digitRange: 10
+          }
+        ]
       }
     ];
 
@@ -1107,6 +1170,141 @@
           state.elements.copyBtn.addEventListener("click", () => {
             if (!state.data.currentPick) return;
             const text = lottoRenderers.linePick.buildLinePickText(config, state.data.currentPick);
+            navigator.clipboard.writeText(text);
+            alert(i18n[currentLang].copy_success);
+          });
+        }
+      }
+    ,
+      groupPick: {
+        buildPanel(config) {
+          const panel = document.createElement("div");
+          panel.className = "lotto-panel";
+          panel.dataset.lottoPanel = config.key;
+
+          const head = document.createElement("div");
+          head.className = "lotto-de-head";
+
+          const title = document.createElement("div");
+          title.className = "lotto-de-title";
+          if (config.titleKey) {
+            title.dataset.i18n = config.titleKey;
+            title.textContent = i18n[currentLang][config.titleKey] || "";
+          }
+
+          const desc = document.createElement("p");
+          desc.className = "lotto-de-desc";
+          if (config.descriptionKey) {
+            desc.dataset.i18n = config.descriptionKey;
+            desc.textContent = i18n[currentLang][config.descriptionKey] || "";
+          }
+
+          head.appendChild(title);
+          head.appendChild(desc);
+
+          const typeRow = document.createElement("div");
+          typeRow.className = "controls";
+
+          const typeLabel = document.createElement("span");
+          typeLabel.className = "tag";
+          typeLabel.dataset.i18n = config.typeLabelKey;
+          typeLabel.textContent = i18n[currentLang][config.typeLabelKey] || "";
+
+          const typeSelect = document.createElement("select");
+          typeSelect.className = "select-field";
+          typeSelect.setAttribute("aria-label", i18n[currentLang][config.typeLabelKey] || "Lottery type");
+
+          config.variants.forEach((variant) => {
+            const option = document.createElement("option");
+            option.value = variant.key;
+            option.dataset.i18n = variant.labelKey;
+            option.textContent = i18n[currentLang][variant.labelKey] || "";
+            typeSelect.appendChild(option);
+          });
+
+          typeRow.appendChild(typeLabel);
+          typeRow.appendChild(typeSelect);
+
+          const controls = document.createElement("div");
+          controls.className = "controls";
+          const pickBtn = document.createElement("button");
+          pickBtn.type = "button";
+          pickBtn.className = "btn-main";
+          pickBtn.dataset.i18n = config.pickKey;
+          pickBtn.textContent = i18n[currentLang][config.pickKey] || "";
+          const copyBtn = document.createElement("button");
+          copyBtn.type = "button";
+          copyBtn.className = "btn-sub";
+          copyBtn.dataset.i18n = config.copyKey;
+          copyBtn.textContent = i18n[currentLang][config.copyKey] || "";
+
+          controls.appendChild(pickBtn);
+          controls.appendChild(copyBtn);
+
+          const result = document.createElement("div");
+          result.className = "de-result";
+          result.setAttribute("aria-live", "polite");
+          result.textContent = "-";
+
+          panel.appendChild(head);
+          panel.appendChild(typeRow);
+          panel.appendChild(controls);
+          panel.appendChild(result);
+
+          return {
+            panel,
+            elements: { typeSelect, pickBtn, copyBtn, result },
+            data: { currentType: config.variants[0]?.key || "", picks: new Map() }
+          };
+        },
+        buildResultText(variant, pick) {
+          if (!pick || !variant) return "-";
+          if (variant.type === "DIGIT") {
+            return pick.digits.join(", ");
+          }
+          const mainText = pick.mainNums.join(", ");
+          if (!variant.bonusCount) return mainText;
+          const bonusLabel = i18n[currentLang].lotto_bonus_label || "Bonus";
+          return `${mainText} + ${bonusLabel}: ${pick.bonusNums.join(", ")}`;
+        },
+        render(config, state) {
+          if (!state.elements.result) return;
+          const variant = config.variants.find(v => v.key === state.data.currentType) || config.variants[0];
+          const pick = state.data.picks.get(variant?.key);
+          state.elements.result.textContent = lottoRenderers.groupPick.buildResultText(variant, pick);
+        },
+        bind(config, state) {
+          state.elements.typeSelect.addEventListener("change", (event) => {
+            state.data.currentType = event.target.value;
+            lottoRenderers.groupPick.render(config, state);
+          });
+
+          state.elements.pickBtn.addEventListener("click", () => {
+            const variant = config.variants.find(v => v.key === state.data.currentType) || config.variants[0];
+            if (!variant) return;
+            if (variant.type === "DIGIT") {
+              const digits = Array.from({ length: variant.digitCount }, () =>
+                Math.floor(Math.random() * variant.digitRange)
+              );
+              state.data.picks.set(variant.key, { digits });
+            } else {
+              const mainNums = pickNumbers(variant.mainCount, variant.range);
+              let bonusNums = [];
+              if (variant.bonusCount) {
+                const exclude = new Set(mainNums);
+                bonusNums = pickNumbers(variant.bonusCount, variant.bonusRange, exclude);
+              }
+              state.data.picks.set(variant.key, { mainNums, bonusNums });
+            }
+            lottoRenderers.groupPick.render(config, state);
+          });
+
+          state.elements.copyBtn.addEventListener("click", () => {
+            const variant = config.variants.find(v => v.key === state.data.currentType) || config.variants[0];
+            if (!variant) return;
+            const pick = state.data.picks.get(variant.key);
+            if (!pick) return;
+            const text = lottoRenderers.groupPick.buildResultText(variant, pick);
             navigator.clipboard.writeText(text);
             alert(i18n[currentLang].copy_success);
           });
