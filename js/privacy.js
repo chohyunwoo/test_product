@@ -1,4 +1,4 @@
-﻿const langSelect = document.getElementById("langSelect");
+﻿const langSelectTop = document.getElementById("langSelectTop");
   const themeToggle = document.getElementById("themeToggle");
   const themeRoot = document.documentElement;
 
@@ -33,6 +33,74 @@
       footer_terms: "이용약관",
       footer_menu_request: "메뉴 추가 요청",
       footer_partner: "제휴 문의",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    },
+    de: {
+      title: "Datenschutz",
+      description: "Informationen zur Datenschutzerklärung.",
+      badge_policy: "POLICY",
+      brand_title: "Datenschutz",
+      nav_home: "Zur Startseite",
+      nav_animal: "Tiergesichtstest",
+      nav_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      settings_label: "Einstellungen",
+      settings_language: "Sprache",
+      settings_theme: "Design",
+      collect_title: "Datenerhebung und Nutzung",
+      collect_desc: "Über das Anfrageformular können Name, E-Mail und Nachricht erfasst werden. Die Daten dienen nur zur Beantwortung.",
+      collect_note: "Anfragen werden über Formspree übermittelt und folgen deren Richtlinien.",
+      image_title: "Bildverarbeitung",
+      image_desc: "Der Tiergesichtstest läuft im Browser. Dateien werden nicht gespeichert.",
+      retention_title: "Aufbewahrung und Löschung",
+      retention_desc: "Anfragedaten werden nach Abschluss in angemessener Frist gelöscht.",
+      contact_title: "Kontakt",
+      contact_desc: "Für Datenschutzfragen bitte das Formular auf der Startseite nutzen.",
+      footer_about: "Über die Seite",
+      footer_terms: "Nutzungsbedingungen",
+      footer_menu_request: "Menü-Anfrage",
+      footer_partner: "Partnerschaft",
+      footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+      theme_light: "Hell",
+      theme_dark: "Dunkel"
+    },
+    ja: {
+      title: "プライバシーポリシー",
+      description: "プライバシーポリシーの案内ページです。",
+      badge_policy: "POLICY",
+      brand_title: "プライバシーポリシー",
+      nav_home: "ホームへ",
+      nav_animal: "動物顔テスト",
+      nav_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      settings_label: "設定",
+      settings_language: "言語",
+      settings_theme: "テーマ",
+      collect_title: "個人情報の収集と利用",
+      collect_desc: "問い合わせフォームで名前・メール・内容を収集する場合があります。回答のためだけに使用します。",
+      collect_note: "問い合わせはFormspreeで送信され、同社の方針に従います。",
+      image_title: "画像処理",
+      image_desc: "動物顔テストはブラウザ内で処理し、画像は保存しません。",
+      retention_title: "保管と削除",
+      retention_desc: "問い合わせ対応後、合理的な期間内に削除します。",
+      contact_title: "お問い合わせ",
+      contact_desc: "プライバシーに関する問い合わせはメインページのフォームからお願いします。",
+      footer_about: "サイト紹介",
+      footer_terms: "利用規約",
+      footer_menu_request: "メニュー追加依頼",
+      footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark"
@@ -94,7 +162,7 @@
     currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    if (langSelect) langSelect.value = lang;
+    if (langSelectTop) langSelectTop.value = lang;
 
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -109,8 +177,8 @@
     if (theme === "light" || theme === "dark") applyTheme(theme);
   }
 
-  if (langSelect) {
-    langSelect.addEventListener("change", (event) => {
+  if (langSelectTop) {
+    langSelectTop.addEventListener("change", (event) => {
       applyLanguage(event.target.value);
     });
   }
@@ -124,5 +192,6 @@
 
   initTheme();
   applyLanguage(currentLang);
+
 
 

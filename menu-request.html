@@ -49,22 +49,13 @@
       </details>
     </div>
     <div class="header-right">
-      <details class="settings-menu">
-        <summary class="btn-sub settings-summary" data-i18n="settings_label">설정</summary>
-        <div class="settings-panel">
-          <div class="settings-row">
-            <span class="settings-label" data-i18n="settings_language">언어</span>
-            <select id="langSelect" class="lang-select" aria-label="Language selector">
-              <option value="ko">한국어</option>
-              <option value="en">English</option>
-            </select>
-          </div>
-          <div class="settings-row">
-            <span class="settings-label" data-i18n="settings_theme">테마</span>
-            <button id="themeToggle" class="btn-sub theme-icon" type="button">🌙</button>
-          </div>
-        </div>
-      </details>
+      <select id="langSelectTop" class="lang-select top-lang-select" aria-label="Language selector">
+        <option value="ko">한국어</option>
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+      <button id="themeToggle" class="btn-sub theme-icon" type="button" aria-label="Theme toggle">🌙</button>
     </div>
   </header>
 

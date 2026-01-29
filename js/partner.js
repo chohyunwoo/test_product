@@ -1,4 +1,4 @@
-﻿const langSelect = document.getElementById("langSelect");
+﻿const langSelectTop = document.getElementById("langSelectTop");
   const themeToggle = document.getElementById("themeToggle");
   const themeRoot = document.documentElement;
 
@@ -37,6 +37,82 @@
       footer_terms: "이용약관",
       footer_menu_request: "메뉴 추가 요청",
       footer_partner: "제휴 문의",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    },
+    de: {
+      title: "Partnerschaft",
+      description: "Kontakt für geschäftliche Kooperationen.",
+      badge_partner: "PARTNER",
+      brand_title: "Partnerschaft",
+      nav_home: "Zur Startseite",
+      nav_animal: "Tiergesichtstest",
+      nav_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      settings_label: "Einstellungen",
+      settings_language: "Sprache",
+      settings_theme: "Design",
+      intro_title: "Partnerschaft",
+      intro_desc: "Hinterlasse deine Anfrage, wir melden uns schnell.",
+      form_company_label: "Firma",
+      form_company_placeholder: "Firmenname",
+      form_name_label: "Ansprechpartner",
+      form_name_placeholder: "Name",
+      form_email_label: "E-Mail",
+      form_purpose_label: "Zweck",
+      form_purpose_placeholder: "z. B. Partnerschaft / Werbung / Kooperation",
+      form_message_label: "Nachricht",
+      form_message_placeholder: "Bitte Details zur Kooperation angeben.",
+      form_submit: "Anfrage senden",
+      footer_about: "Über die Seite",
+      footer_privacy: "Datenschutz",
+      footer_terms: "Nutzungsbedingungen",
+      footer_menu_request: "Menü-Anfrage",
+      footer_partner: "Partnerschaft",
+      footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+      theme_light: "Hell",
+      theme_dark: "Dunkel"
+    },
+    ja: {
+      title: "提携問い合わせ",
+      description: "事業・協業に関する問い合わせページです。",
+      badge_partner: "PARTNER",
+      brand_title: "提携問い合わせ",
+      nav_home: "ホームへ",
+      nav_animal: "動物顔テスト",
+      nav_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      settings_label: "設定",
+      settings_language: "言語",
+      settings_theme: "テーマ",
+      intro_title: "提携問い合わせ",
+      intro_desc: "協業のご相談をいただければ迅速にご連絡します。",
+      form_company_label: "会社名",
+      form_company_placeholder: "会社名を入力",
+      form_name_label: "担当者名",
+      form_name_placeholder: "山田太郎",
+      form_email_label: "メール",
+      form_purpose_label: "協業目的",
+      form_purpose_placeholder: "例: 提携 / 広告 / コンテンツ協業",
+      form_message_label: "問い合わせ内容",
+      form_message_placeholder: "協業内容を詳しくご記入ください。",
+      form_submit: "送信",
+      footer_about: "サイト紹介",
+      footer_privacy: "プライバシーポリシー",
+      footer_terms: "利用規約",
+      footer_menu_request: "メニュー追加依頼",
+      footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark"
@@ -102,7 +178,7 @@
     currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    if (langSelect) langSelect.value = lang;
+    if (langSelectTop) langSelectTop.value = lang;
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", i18n[lang].description);
@@ -121,8 +197,8 @@
     if (theme === "light" || theme === "dark") applyTheme(theme);
   }
 
-  if (langSelect) {
-    langSelect.addEventListener("change", (event) => {
+  if (langSelectTop) {
+    langSelectTop.addEventListener("change", (event) => {
       applyLanguage(event.target.value);
     });
   }
@@ -138,5 +214,6 @@
 
   initTheme();
   applyLanguage(currentLang);
+
 
 

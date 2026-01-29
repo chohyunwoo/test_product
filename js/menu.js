@@ -2,7 +2,7 @@
   const themeRoot = document.documentElement;
   const menuGrid = document.getElementById("menuGrid");
   const menuPickBtn = document.getElementById("menuPickBtn");
-  const langSelect = document.getElementById("langSelect");
+  const langSelectTop = document.getElementById("langSelectTop");
 
   const i18n = {
     ko: {
@@ -34,6 +34,72 @@
       footer_terms: "이용약관",
       footer_menu_request: "메뉴 추가 요청",
       footer_partner: "제휴 문의",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    },
+    de: {
+      title: "Menü-Empfehlung",
+      description: "Menüvorschläge basierend auf TheMealDB-Rezepten.",
+      badge_menu: "MENU",
+      brand_title: "Menü-Empfehlung",
+      nav_home: "Zur Startseite",
+      nav_animal: "Tiergesichtstest",
+      nav_menu: "Menü-Empfehlung",
+      nav_about: "Über die Seite",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      settings_label: "Einstellungen",
+      settings_language: "Sprache",
+      settings_theme: "Design",
+      menu_title: "Menü des Tages",
+      menu_desc: "Zufällige Empfehlungen aus TheMealDB. Wähle dein heutiges Menü.",
+      menu_reroll: "Neu empfehlen",
+      menu_loading: "Rezepte werden geladen...",
+      menu_error: "Rezepte nicht verfügbar, Standardvorschläge werden gezeigt.",
+      menu_source: "Rezept ansehen",
+      footer_about: "Über die Seite",
+      footer_privacy: "Datenschutz",
+      footer_terms: "Nutzungsbedingungen",
+      footer_menu_request: "Menü-Anfrage",
+      footer_partner: "Partnerschaft",
+      footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+      theme_light: "Hell",
+      theme_dark: "Dunkel"
+    },
+    ja: {
+      title: "メニュー提案",
+      description: "TheMealDBのレシピから今日のメニューを提案します。",
+      badge_menu: "MENU",
+      brand_title: "メニュー提案",
+      nav_home: "ホームへ",
+      nav_animal: "動物顔テスト",
+      nav_menu: "メニュー提案",
+      nav_about: "サイト紹介",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      settings_label: "設定",
+      settings_language: "言語",
+      settings_theme: "テーマ",
+      menu_title: "今日のメニュー提案",
+      menu_desc: "TheMealDBのレシピからランダムに提案します。気に入ったメニューを選んでください。",
+      menu_reroll: "もう一度提案",
+      menu_loading: "レシピを読み込み中...",
+      menu_error: "レシピ取得に失敗したため、代替メニューを表示します。",
+      menu_source: "レシピを見る",
+      footer_about: "サイト紹介",
+      footer_privacy: "プライバシーポリシー",
+      footer_terms: "利用規約",
+      footer_menu_request: "メニュー追加依頼",
+      footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark"
@@ -272,7 +338,7 @@
     currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    if (langSelect) langSelect.value = lang;
+    if (langSelectTop) langSelectTop.value = lang;
 
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -297,13 +363,14 @@
     localStorage.setItem("theme", next);
   };
 
-  if (langSelect) {
-    langSelect.addEventListener("change", (event) => {
+  if (langSelectTop) {
+    langSelectTop.addEventListener("change", (event) => {
       applyLanguage(event.target.value);
     });
   }
 
   initTheme();
   applyLanguage(currentLang);
+
 
 

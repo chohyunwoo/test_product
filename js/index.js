@@ -56,6 +56,7 @@
         zodiac_mood: "오늘의 기분",
         zodiac_sign: "별자리",
         zodiac_range: "기간",
+        zodiac_no_data: "해당 언어에 맞는 운세 데이터가 없어요.",
         focus_compatibility_label: "궁합",
         focus_compatibility_tag: "오늘의 궁합",
         focus_lucky_number_label: "행운 숫자",
@@ -148,6 +149,7 @@
         zodiac_mood: "Tagesstimmung",
         zodiac_sign: "Sternzeichen",
         zodiac_range: "Zeitraum",
+        zodiac_no_data: "Für diese Sprache gibt es keine Horoskopdaten.",
         focus_compatibility_label: "Kompatibilität",
         focus_compatibility_tag: "Beste Übereinstimmung",
         focus_lucky_number_label: "Glückszahl",
@@ -228,6 +230,7 @@
         zodiac_mood: "今日の気分",
         zodiac_sign: "星座",
         zodiac_range: "期間",
+        zodiac_no_data: "この言語の運勢データはありません。",
         focus_compatibility_label: "相性",
         focus_compatibility_tag: "今日の相性",
         focus_lucky_number_label: "ラッキーナンバー",
@@ -320,6 +323,7 @@
         zodiac_mood: "Today's mood",
         zodiac_sign: "Zodiac",
         zodiac_range: "Date range",
+        zodiac_no_data: "No horoscope data for this language.",
         focus_compatibility_label: "Compatibility",
         focus_compatibility_tag: "Best match",
         focus_lucky_number_label: "Lucky number",
@@ -801,6 +805,22 @@
       if (!fortuneText || !fortuneTags) return;
       const signValue = zodiacSelect ? zodiacSelect.value : zodiacSigns[0].value;
       const signLabel = getZodiacLabel(signValue);
+
+      const hasHoroscopeData = Boolean(
+        fallbackMoods[currentLang]
+        && fallbackColors[currentLang]
+        && fallbackTimes[currentLang]
+        && fallbackTemplates[currentLang]
+      );
+
+      if (!hasHoroscopeData) {
+        fortuneText.textContent = i18n[currentLang].zodiac_no_data || i18n.ko.zodiac_no_data;
+        fortuneTags.innerHTML = `<span class="tag">${escapeHTML(signLabel)}</span>`;
+        if (focusCompatibilityValue) focusCompatibilityValue.textContent = "-";
+        if (focusLuckyNumberValue) focusLuckyNumberValue.textContent = "-";
+        if (focusLuckyTimeValue) focusLuckyTimeValue.textContent = "-";
+        return;
+      }
 
       fortuneText.textContent = i18n[currentLang].zodiac_loading;
       fortuneTags.innerHTML = `<span class="tag">${escapeHTML(signLabel)}</span>`;

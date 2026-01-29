@@ -1,4 +1,4 @@
-﻿const langSelect = document.getElementById("langSelect");
+﻿const langSelectTop = document.getElementById("langSelectTop");
   const themeToggle = document.getElementById("themeToggle");
   const themeRoot = document.documentElement;
 
@@ -31,6 +31,70 @@
       footer_terms: "이용약관",
       footer_menu_request: "메뉴 추가 요청",
       footer_partner: "제휴 문의",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    },
+    de: {
+      title: "Über die Seite",
+      description: "Einführung in Zweck, Funktionen und Betrieb der Seite.",
+      badge_info: "INFO",
+      brand_title: "Über die Seite",
+      nav_home: "Zur Startseite",
+      nav_animal: "Tiergesichtstest",
+      nav_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      settings_label: "Einstellungen",
+      settings_language: "Sprache",
+      settings_theme: "Design",
+      intro_title: "Worum geht es auf dieser Seite?",
+      intro_desc: "Ein Entertainment-Hub für Tageshoroskope, Lottozahlen, Menüideen und einen Tiergesichtstest.",
+      intro_note: "Alle Funktionen sind zur Unterhaltung und als Orientierung gedacht.",
+      feature_title: "Hauptfunktionen",
+      feature_list: "- Tageshoroskop: Horoskop nach Sternzeichen.<br />- Lotto: Zufallszahlen zwischen 1 und 45.<br />- Menü: Ideen für den Alltag.<br />- Tiergesichtstest: Foto hochladen und Ähnlichkeiten sehen.",
+      contact_title: "Kontakt",
+      contact_desc: "Für Partnerschaften bitte das Formular auf der Startseite nutzen.",
+      footer_privacy: "Datenschutz",
+      footer_terms: "Nutzungsbedingungen",
+      footer_menu_request: "Menü-Anfrage",
+      footer_partner: "Partnerschaft",
+      footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+      theme_light: "Hell",
+      theme_dark: "Dunkel"
+    },
+    ja: {
+      title: "サイト紹介",
+      description: "サイトの目的、機能、運営についての紹介ページです。",
+      badge_info: "INFO",
+      brand_title: "サイト紹介",
+      nav_home: "ホームへ",
+      nav_animal: "動物顔テスト",
+      nav_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      settings_label: "設定",
+      settings_language: "言語",
+      settings_theme: "テーマ",
+      intro_title: "このサイトについて",
+      intro_desc: "今日の運勢、ロト番号、メニュー提案、動物顔テストを楽しめるエンタメサービスです。",
+      intro_note: "すべての機能は参考・娯楽として提供しています。",
+      feature_title: "主な機能",
+      feature_list: "- 今日の運勢: 星座に基づく運勢。<br />- ロト: 1〜45のランダム番号。<br />- メニュー: 日常の食事アイデア。<br />- 動物顔テスト: 写真で類似度を分析。",
+      contact_title: "お問い合わせ",
+      contact_desc: "提携のご相談はメインページのフォームからお願いします。",
+      footer_privacy: "プライバシーポリシー",
+      footer_terms: "利用規約",
+      footer_menu_request: "メニュー追加依頼",
+      footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark"
@@ -90,7 +154,7 @@
     currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    if (langSelect) langSelect.value = lang;
+    if (langSelectTop) langSelectTop.value = lang;
 
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -110,8 +174,8 @@
     if (theme === "light" || theme === "dark") applyTheme(theme);
   }
 
-  if (langSelect) {
-    langSelect.addEventListener("change", (event) => {
+  if (langSelectTop) {
+    langSelectTop.addEventListener("change", (event) => {
       applyLanguage(event.target.value);
     });
   }
@@ -125,5 +189,6 @@
 
   initTheme();
   applyLanguage(currentLang);
+
 
 

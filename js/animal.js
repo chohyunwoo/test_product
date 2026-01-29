@@ -4,7 +4,7 @@
   const preview = document.getElementById("preview");
   const analyzeBtn = document.getElementById("analyzeBtn");
   const labelContainer = document.getElementById("label-container");
-  const langSelect = document.getElementById("langSelect");
+  const langSelectTop = document.getElementById("langSelectTop");
 
   const i18n = {
     ko: {
@@ -43,6 +43,80 @@
       theme_light: "Light",
       theme_dark: "Dark",
       upload_alert: "이미지를 먼저 업로드해주세요."
+    },
+    de: {
+      title: "Tiergesichtstest",
+      description: "Lade ein Foto hoch, um Hund vs. Katze zu sehen.",
+      badge_ai: "AI",
+      brand_title: "Tiergesichtstest",
+      nav_home: "Zur Startseite",
+      nav_about: "Über die Seite",
+      nav_animal: "Tiergesichtstest",
+      nav_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      settings_label: "Einstellungen",
+      settings_language: "Sprache",
+      settings_theme: "Design",
+      hero_title: "Hunde- vs. Katzengesicht",
+      hero_desc: "Lade ein Foto hoch und wir analysieren deinen Typ.",
+      upload_title: "Foto hochladen",
+      upload_desc: "Frontaufnahmen liefern die beste Genauigkeit.",
+      upload_alt: "Vorschau des hochgeladenen Bildes",
+      analyze_btn: "Analysieren",
+      result_title: "Vorhersage",
+      result_desc: "Die höchste Wahrscheinlichkeit steht oben.",
+      footer_about: "Über die Seite",
+      footer_privacy: "Datenschutz",
+      footer_terms: "Nutzungsbedingungen",
+      footer_menu_request: "Menü-Anfrage",
+      footer_partner: "Partnerschaft",
+      footer_note: "Fotos werden im Browser analysiert und nicht gespeichert.",
+      footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+      theme_light: "Hell",
+      theme_dark: "Dunkel",
+      upload_alert: "Bitte zuerst ein Bild hochladen."
+    },
+    ja: {
+      title: "動物顔テスト",
+      description: "写真をアップロードして犬顔/猫顔の確率を表示します。",
+      badge_ai: "AI",
+      brand_title: "動物顔テスト",
+      nav_home: "ホームへ",
+      nav_about: "サイト紹介",
+      nav_animal: "動物顔テスト",
+      nav_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      settings_label: "設定",
+      settings_language: "言語",
+      settings_theme: "テーマ",
+      hero_title: "犬顔 vs 猫顔",
+      hero_desc: "写真をアップロードすると動物顔を分析します。",
+      upload_title: "写真アップロード",
+      upload_desc: "正面に近い写真ほど精度が高いです。",
+      upload_alt: "アップロード画像のプレビュー",
+      analyze_btn: "分析する",
+      result_title: "予測結果",
+      result_desc: "確率が高い順に表示されます。",
+      footer_about: "サイト紹介",
+      footer_privacy: "プライバシーポリシー",
+      footer_terms: "利用規約",
+      footer_menu_request: "メニュー追加依頼",
+      footer_partner: "提携問い合わせ",
+      footer_note: "写真はブラウザ内で解析され、保存されません。",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark",
+      upload_alert: "先に画像をアップロードしてください。"
     },
     en: {
       title: "Animal Face Test",
@@ -107,7 +181,7 @@
     currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    if (langSelect) langSelect.value = lang;
+    if (langSelectTop) langSelectTop.value = lang;
 
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -176,13 +250,14 @@
     localStorage.setItem("theme", next);
   };
 
-  if (langSelect) {
-    langSelect.addEventListener("change", (event) => {
+  if (langSelectTop) {
+    langSelectTop.addEventListener("change", (event) => {
       applyLanguage(event.target.value);
     });
   }
 
   initTheme();
   applyLanguage(currentLang);
+
 
 

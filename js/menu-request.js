@@ -1,4 +1,4 @@
-﻿const langSelect = document.getElementById("langSelect");
+﻿const langSelectTop = document.getElementById("langSelectTop");
   const themeToggle = document.getElementById("themeToggle");
   const themeRoot = document.documentElement;
 
@@ -34,6 +34,76 @@
       footer_privacy: "개인정보 처리방침",
       footer_terms: "이용약관",
       footer_partner: "제휴 문의",
+      footer_copyright: "© 2026 TodayLab. All rights reserved.",
+      theme_light: "Light",
+      theme_dark: "Dark"
+    },
+    de: {
+      title: "Menü-Anfrage",
+      description: "Fordere ein neues Menü für die Empfehlungen an.",
+      badge_menu: "MENU",
+      brand_title: "Menü-Anfrage",
+      nav_home: "Zur Startseite",
+      nav_animal: "Tiergesichtstest",
+      nav_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      menu_label: "Menü",
+      menu_animal: "Tiergesichtstest",
+      menu_menu: "Menü-Empfehlung",
+      settings_label: "Einstellungen",
+      settings_language: "Sprache",
+      settings_theme: "Design",
+      intro_title: "Menü vorschlagen",
+      intro_desc: "Nenne das gewünschte Menü und den Grund.",
+      form_name_label: "Name",
+      form_name_placeholder: "Dein Name",
+      form_email_label: "E-Mail",
+      form_menu_label: "Gewünschtes Menü",
+      form_menu_placeholder: "z. B. Mala Xiang Guo",
+      form_reason_label: "Grund",
+      form_reason_placeholder: "Warum soll das Menü hinzugefügt werden?",
+      form_submit: "Anfrage senden",
+      footer_about: "Über die Seite",
+      footer_privacy: "Datenschutz",
+      footer_terms: "Nutzungsbedingungen",
+      footer_partner: "Partnerschaft",
+      footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+      theme_light: "Hell",
+      theme_dark: "Dunkel"
+    },
+    ja: {
+      title: "メニュー追加依頼",
+      description: "おすすめに追加してほしいメニューを依頼できます。",
+      badge_menu: "MENU",
+      brand_title: "メニュー追加依頼",
+      nav_home: "ホームへ",
+      nav_animal: "動物顔テスト",
+      nav_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      menu_label: "メニュー",
+      menu_animal: "動物顔テスト",
+      menu_menu: "メニュー提案",
+      settings_label: "設定",
+      settings_language: "言語",
+      settings_theme: "テーマ",
+      intro_title: "メニュー追加リクエスト",
+      intro_desc: "希望するメニューと理由を教えてください。",
+      form_name_label: "名前",
+      form_name_placeholder: "山田太郎",
+      form_email_label: "メール",
+      form_menu_label: "追加したいメニュー",
+      form_menu_placeholder: "例: 麻辣香鍋",
+      form_reason_label: "追加理由",
+      form_reason_placeholder: "追加してほしい理由を入力してください。",
+      form_submit: "送信",
+      footer_about: "サイト紹介",
+      footer_privacy: "プライバシーポリシー",
+      footer_terms: "利用規約",
+      footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark"
@@ -96,7 +166,7 @@
     currentLang = lang;
     localStorage.setItem("lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    if (langSelect) langSelect.value = lang;
+    if (langSelectTop) langSelectTop.value = lang;
     document.title = i18n[lang].title;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", i18n[lang].description);
@@ -115,8 +185,8 @@
     if (theme === "light" || theme === "dark") applyTheme(theme);
   }
 
-  if (langSelect) {
-    langSelect.addEventListener("change", (event) => {
+  if (langSelectTop) {
+    langSelectTop.addEventListener("change", (event) => {
       applyLanguage(event.target.value);
     });
   }
@@ -132,5 +202,6 @@
 
   initTheme();
   applyLanguage(currentLang);
+
 
 
