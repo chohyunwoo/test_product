@@ -1,24 +1,24 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="favicon-abstract.svg" type="image/svg+xml" />
-  <title>메뉴 추가 요청</title>
+  <title>�޴� �߰� ��û</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="메뉴 추천 리스트에 추가하고 싶은 메뉴를 요청할 수 있는 페이지입니다." />
+  <meta name="description" content="�޴� ��õ ����Ʈ�� �߰��ϰ� ���� �޴��� ��û�� �� �ִ� �������Դϴ�." />
   <link rel="canonical" href="https://test-product-9ll.pages.dev/menu-request.html" />
   <meta name="robots" content="index,follow" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="운을 시험해보세요" />
-  <meta property="og:title" content="메뉴 추가 요청" />
-  <meta property="og:description" content="메뉴 추천 리스트에 추가하고 싶은 메뉴를 요청할 수 있는 페이지입니다." />
+  <meta property="og:site_name" content="���� �����غ�����" />
+  <meta property="og:title" content="�޴� �߰� ��û" />
+  <meta property="og:description" content="�޴� ��õ ����Ʈ�� �߰��ϰ� ���� �޴��� ��û�� �� �ִ� �������Դϴ�." />
   <meta property="og:url" content="https://test-product-9ll.pages.dev/menu-request.html" />
-  <meta property="og:image" content="https://test-product-9ll.pages.dev/og-abstract.svg" />
-  <meta property="og:image:alt" content="운을 시험해보세요 아이콘" />
+  <meta property="og:image" content="https://test-product-9ll.pages.dev/og-abstract-v2.png" />
+  <meta property="og:image:alt" content="���� �����غ����� ������" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="메뉴 추가 요청" />
-  <meta name="twitter:description" content="메뉴 추천 리스트에 추가하고 싶은 메뉴를 요청할 수 있는 페이지입니다." />
-  <meta name="twitter:image" content="https://test-product-9ll.pages.dev/og-abstract.svg" />
+  <meta name="twitter:title" content="�޴� �߰� ��û" />
+  <meta name="twitter:description" content="�޴� ��õ ����Ʈ�� �߰��ϰ� ���� �޴��� ��û�� �� �ִ� �������Դϴ�." />
+  <meta name="twitter:image" content="https://test-product-9ll.pages.dev/og-abstract-v2.png" />
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QE3FVMK47"></script>
 <script>
@@ -52,61 +52,61 @@
     <div class="header-left">
       <a class="brand" href="index.html">
         <span class="brand-badge" data-i18n="badge_menu">MENU</span>
-        <span data-i18n="brand_title">메뉴 추가 요청</span>
+        <span data-i18n="brand_title">�޴� �߰� ��û</span>
       </a>
       <details class="menu-dropdown">
-        <summary class="btn-sub menu-summary" data-i18n="menu_label">메뉴</summary>
+        <summary class="btn-sub menu-summary" data-i18n="menu_label">�޴�</summary>
         <nav class="menu-panel" aria-label="Menu">
-          <a href="animal.html" data-i18n="menu_animal">동물상 테스트</a>
-          <a href="menu.html" data-i18n="menu_menu">메뉴 추천</a>
+          <a href="animal.html" data-i18n="menu_animal">������ �׽�Ʈ</a>
+          <a href="menu.html" data-i18n="menu_menu">�޴� ��õ</a>
         </nav>
       </details>
     </div>
     <div class="header-right">
       <select id="langSelectTop" class="lang-select top-lang-select" aria-label="Language selector">
-        <option value="ko">한국어</option>
+        <option value="ko">�ѱ���</option>
         <option value="de">Deutsch</option>
-        <option value="ja">日本語</option>
+        <option value="ja">������</option>
         <option value="en">English</option>
       </select>
-      <button id="themeToggle" class="btn-sub theme-icon" type="button" aria-label="Theme toggle">🌙</button>
+      <button id="themeToggle" class="btn-sub theme-icon" type="button" aria-label="Theme toggle">??</button>
     </div>
   </header>
 
   <section class="card">
-    <h1 data-i18n="intro_title">추천 메뉴 추가 신청</h1>
-    <p data-i18n="intro_desc">원하는 메뉴와 이유를 알려주시면 추천 리스트에 반영할게요.</p>
+    <h1 data-i18n="intro_title">��õ �޴� �߰� ��û</h1>
+    <p data-i18n="intro_desc">���ϴ� �޴��� ������ �˷��ֽø� ��õ ����Ʈ�� �ݿ��ҰԿ�.</p>
   </section>
 
   <form class="card form-grid" action="https://formspree.io/f/xgokpwwl" method="POST">
     <input type="hidden" name="formType" value="menu-request" />
     <div class="field">
-      <label for="name" data-i18n="form_name_label">이름</label>
-      <input id="name" name="name" type="text" placeholder="홍길동" data-i18n-placeholder="form_name_placeholder" required />
+      <label for="name" data-i18n="form_name_label">�̸�</label>
+      <input id="name" name="name" type="text" placeholder="ȫ�浿" data-i18n-placeholder="form_name_placeholder" required />
     </div>
     <div class="field">
-      <label for="email" data-i18n="form_email_label">이메일</label>
+      <label for="email" data-i18n="form_email_label">�̸���</label>
       <input id="email" name="email" type="email" placeholder="name@example.com" required />
     </div>
     <div class="field">
-      <label for="menu" data-i18n="form_menu_label">추가하고 싶은 메뉴</label>
-      <input id="menu" name="menu" type="text" placeholder="예: 마라샹궈" data-i18n-placeholder="form_menu_placeholder" required />
+      <label for="menu" data-i18n="form_menu_label">�߰��ϰ� ���� �޴�</label>
+      <input id="menu" name="menu" type="text" placeholder="��: ���󼧱�" data-i18n-placeholder="form_menu_placeholder" required />
     </div>
     <div class="field">
-      <label for="message" data-i18n="form_reason_label">추가 이유</label>
-      <textarea id="message" name="message" placeholder="추천 목록에 추가하고 싶은 이유를 적어주세요." data-i18n-placeholder="form_reason_placeholder" required></textarea>
+      <label for="message" data-i18n="form_reason_label">�߰� ����</label>
+      <textarea id="message" name="message" placeholder="��õ ��Ͽ� �߰��ϰ� ���� ������ �����ּ���." data-i18n-placeholder="form_reason_placeholder" required></textarea>
     </div>
-    <button class="btn-main" type="submit" data-i18n="form_submit">요청 보내기</button>
+    <button class="btn-main" type="submit" data-i18n="form_submit">��û ������</button>
   </form>
 
   <footer class="site-footer">
     <div class="footer-links">
-      <a href="about.html" data-i18n="footer_about">사이트 소개</a>
-      <a href="privacy.html" data-i18n="footer_privacy">개인정보 처리방침</a>
-      <a href="terms.html" data-i18n="footer_terms">이용약관</a>
-      <a href="partner.html" data-i18n="footer_partner">제휴 문의</a>
+      <a href="about.html" data-i18n="footer_about">����Ʈ �Ұ�</a>
+      <a href="privacy.html" data-i18n="footer_privacy">�������� ó����ħ</a>
+      <a href="terms.html" data-i18n="footer_terms">�̿���</a>
+      <a href="partner.html" data-i18n="footer_partner">���� ����</a>
     </div>
-    <div data-i18n="footer_copyright">© 2026 TodayLab. All rights reserved.</div>
+    <div data-i18n="footer_copyright">�� 2026 TodayLab. All rights reserved.</div>
   </footer>
 </main>
 
