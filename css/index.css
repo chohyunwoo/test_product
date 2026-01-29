@@ -652,52 +652,6 @@
   font-weight: 600;
 }
 
-.settings-menu {
-  position: relative;
-}
-
-.settings-summary {
-  list-style: none;
-  cursor: pointer;
-}
-
-.settings-summary::-webkit-details-marker {
-  display: none;
-}
-
-.settings-panel {
-  position: absolute;
-  right: 0;
-  margin-top: 10px;
-  min-width: 220px;
-  padding: 12px;
-  border-radius: 14px;
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow);
-  display: grid;
-  gap: 10px;
-  z-index: 10;
-}
-
-.settings-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.settings-label {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.settings-panel .lang-select {
-  width: 140px;
-  padding: 10px 32px 10px 12px;
-  background-position: calc(100% - 16px) 14px, calc(100% - 10px) 14px;
-}
-
 .top-lang-select {
   min-width: 140px;
 }
@@ -716,8 +670,7 @@
     justify-content: flex-end;
   }
 
-  .menu-panel,
-  .settings-panel {
+  .menu-panel {
     left: 0;
     right: auto;
   }

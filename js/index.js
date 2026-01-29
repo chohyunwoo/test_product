@@ -9,7 +9,6 @@
     const zodiacSelect = document.getElementById("zodiacSelect");
     const menuGrid = document.getElementById("menuGrid");
     const menuPickBtn = document.getElementById("menuPickBtn");
-    const langSelect = document.getElementById("langSelect");
     const langSelectTop = document.getElementById("langSelectTop");
     const birthDateInput = document.getElementById("birthDateInput");
     const birthDateBtn = document.getElementById("birthDateBtn");
@@ -605,7 +604,6 @@
       currentLang = lang;
       localStorage.setItem("lang", lang);
       document.documentElement.setAttribute("lang", lang);
-      if (langSelect) langSelect.value = lang;
       if (langSelectTop) langSelectTop.value = lang;
 
       document.title = i18n[lang].title;
@@ -1095,11 +1093,6 @@
       localStorage.setItem("theme", next);
     };
 
-    if (langSelect) {
-      langSelect.addEventListener("change", (event) => {
-        applyLanguage(event.target.value);
-      });
-    }
     if (langSelectTop) {
       langSelectTop.addEventListener("change", (event) => {
         applyLanguage(event.target.value);
