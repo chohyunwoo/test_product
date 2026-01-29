@@ -42,7 +42,9 @@
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark",
-      upload_alert: "이미지를 먼저 업로드해주세요."
+      upload_alert: "이미지를 먼저 업로드해주세요.",
+      result_label_dog: "강아지상",
+      result_label_cat: "고양이상"
     },
     de: {
       title: "Tiergesichtstest",
@@ -79,7 +81,9 @@
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
       theme_dark: "Dunkel",
-      upload_alert: "Bitte zuerst ein Bild hochladen."
+      upload_alert: "Bitte zuerst ein Bild hochladen.",
+      result_label_dog: "Hundetyp",
+      result_label_cat: "Katzentyp"
     },
     ja: {
       title: "動物顔テスト",
@@ -116,7 +120,9 @@
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark",
-      upload_alert: "先に画像をアップロードしてください。"
+      upload_alert: "先に画像をアップロードしてください。",
+      result_label_dog: "犬顔",
+      result_label_cat: "猫顔"
     },
     en: {
       title: "Animal Face Test",
@@ -153,7 +159,9 @@
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
       theme_dark: "Dark",
-      upload_alert: "Please upload an image first."
+      upload_alert: "Please upload an image first.",
+      result_label_dog: "Dog face",
+      result_label_cat: "Cat face"
     }
   };
 
@@ -174,7 +182,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {
@@ -213,11 +225,28 @@
     labelContainer.innerHTML = "";
     for (let i = 0; i < maxPredictions; i++) {
       const percent = Math.round(prediction[i].probability * 100);
-      const classPrediction = prediction[i].className + ": " + percent + "%";
+      const classPrediction = getResultLabel(prediction[i].className) + ": " + percent + "%";
       const row = document.createElement("div");
       row.textContent = classPrediction;
       labelContainer.appendChild(row);
     }
+  }
+
+  const resultLabelMap = {
+    dog: "result_label_dog",
+    Dog: "result_label_dog",
+    DOG: "result_label_dog",
+    cat: "result_label_cat",
+    Cat: "result_label_cat",
+    CAT: "result_label_cat"
+  };
+
+  function getResultLabel(className) {
+    const key = resultLabelMap[className];
+    if (key && i18n[currentLang] && i18n[currentLang][key]) {
+      return i18n[currentLang][key];
+    }
+    return className;
   }
 
   async function analyzeImage() {
