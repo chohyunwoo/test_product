@@ -36,7 +36,7 @@
       footer_partner: "제휴 문의",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "?? ??? ??? ??????",
         geo_summary: "test-product-9ll.pages.dev? ?? ??? ?? ?? ??? ?? ????.",
         geo_def_title: "?? ???? ?????",
@@ -88,7 +88,7 @@
       footer_partner: "Partnerschaft",
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
-      theme_dark: "Dunkel"
+      theme_dark: "Dunkel",
         geo_title: "Was bietet die Men?-Empfehlung?",
         geo_summary: "Die Men?-Empfehlung auf test-product-9ll.pages.dev schl?gt sofort ein Gericht vor.",
         geo_def_title: "Was ist eine Men?-Empfehlung?",
@@ -140,7 +140,7 @@
       footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "????????????????",
         geo_summary: "test-product-9ll.pages.dev?????????????????????????",
         geo_def_title: "?????????",
@@ -192,7 +192,7 @@
       footer_partner: "Partnership",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "What does menu recommendations provide?",
         geo_summary: "Menu recommendations on test-product-9ll.pages.dev suggest what to eat today.",
         geo_def_title: "What is a menu recommendation?",

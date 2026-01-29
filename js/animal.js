@@ -44,7 +44,7 @@
       theme_dark: "Dark",
       upload_alert: "이미지를 먼저 업로드해주세요.",
       result_label_dog: "강아지상",
-      result_label_cat: "고양이상"
+      result_label_cat: "고양이상",
         geo_title: "??? ???? ??? ??????",
         geo_summary: "test-product-9ll.pages.dev? ??? ???? ??? ???? ??? ??? ????.",
         geo_def_title: "??? ???? ?????",
@@ -102,7 +102,7 @@
       theme_dark: "Dunkel",
       upload_alert: "Bitte zuerst ein Bild hochladen.",
       result_label_dog: "Hundetyp",
-      result_label_cat: "Katzentyp"
+      result_label_cat: "Katzentyp",
         geo_title: "Was sagt der Tiergesicht-Test aus?",
         geo_summary: "Der Tiergesicht-Test auf test-product-9ll.pages.dev zeigt einen Tiergesicht-Typ anhand eines Bildes.",
         geo_def_title: "Was ist der Tiergesicht-Test?",
@@ -160,7 +160,7 @@
       theme_dark: "Dark",
       upload_alert: "先に画像をアップロードしてください。",
       result_label_dog: "犬顔",
-      result_label_cat: "猫顔"
+      result_label_cat: "猫顔",
         geo_title: "??????????????????",
         geo_summary: "test-product-9ll.pages.dev?????????????????????????",
         geo_def_title: "?????????",
@@ -218,7 +218,7 @@
       theme_dark: "Dark",
       upload_alert: "Please upload an image first.",
       result_label_dog: "Dog face",
-      result_label_cat: "Cat face"
+      result_label_cat: "Cat face",
         geo_title: "What does the animal-face test tell you?",
         geo_summary: "The animal-face test on test-product-9ll.pages.dev shows an animal-face type based on an image.",
         geo_def_title: "What is the animal-face test?",

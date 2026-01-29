@@ -33,7 +33,7 @@
       footer_partner: "제휴 문의",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_goal_title: "? ???? ?? ??? ?? ????",
         geo_goal_summary: "test-product-9ll.pages.dev? ?? ??? ?? ? ?? ????? ??? ??? ??.",
         geo_def_title: "test-product-9ll.pages.dev? ?????",
@@ -88,7 +88,7 @@
       footer_partner: "Partnerschaft",
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
-      theme_dark: "Dunkel"
+      theme_dark: "Dunkel",
         geo_goal_title: "Welches Ziel hat diese Seite?",
         geo_goal_summary: "test-product-9ll.pages.dev bietet kurze und schnelle Erlebnisse f?r Horoskop und Empfehlungen.",
         geo_def_title: "Was ist test-product-9ll.pages.dev?",
@@ -143,7 +143,7 @@
       footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_goal_title: "??????????????",
         geo_goal_summary: "test-product-9ll.pages.dev???????????????????????",
         geo_def_title: "test-product-9ll.pages.dev???????",
@@ -198,7 +198,7 @@
       footer_partner: "Partnership",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_goal_title: "What is the goal of this site?",
         geo_goal_summary: "test-product-9ll.pages.dev aims to deliver quick fortune and recommendation experiences.",
         geo_def_title: "What is test-product-9ll.pages.dev?",
@@ -239,7 +239,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {

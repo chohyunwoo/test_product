@@ -35,7 +35,7 @@
       footer_partner: "제휴 문의",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "???? ????? ??? ??????",
         geo_summary: "test-product-9ll.pages.dev? ???? ?? ??? ??? ????.",
         geo_def_title: "???? ?????? ?????",
@@ -85,7 +85,7 @@
       footer_partner: "Partnerschaft",
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
-      theme_dark: "Dunkel"
+      theme_dark: "Dunkel",
         geo_title: "Was erkl?rt die Datenschutzerkl?rung?",
         geo_summary: "Sie fasst zusammen, wie test-product-9ll.pages.dev Daten verarbeitet.",
         geo_def_title: "Was ist eine Datenschutzerkl?rung?",
@@ -135,7 +135,7 @@
       footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "????????????????????",
         geo_summary: "test-product-9ll.pages.dev??????????????????",
         geo_def_title: "?????????????",
@@ -185,7 +185,7 @@
       footer_partner: "Partnership",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "What does the Privacy Policy explain?",
         geo_summary: "It summarizes how test-product-9ll.pages.dev handles personal data.",
         geo_def_title: "What is a Privacy Policy?",
@@ -219,7 +219,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {

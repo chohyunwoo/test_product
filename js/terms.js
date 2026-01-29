@@ -32,7 +32,7 @@
       footer_partner: "제휴 문의",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "????? ??? ??????",
         geo_summary: "test-product-9ll.pages.dev? ?? ??? ?? ??? ????.",
         geo_def_title: "?????? ?????",
@@ -78,7 +78,7 @@
       footer_partner: "Partnerschaft",
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
-      theme_dark: "Dunkel"
+      theme_dark: "Dunkel",
         geo_title: "Was erkl?ren die Nutzungsbedingungen?",
         geo_summary: "Sie fassen Nutzungsregeln und Verantwortlichkeiten f?r test-product-9ll.pages.dev zusammen.",
         geo_def_title: "Was sind die Nutzungsbedingungen?",
@@ -124,7 +124,7 @@
       footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "??????????????",
         geo_summary: "test-product-9ll.pages.dev?????????????????",
         geo_def_title: "???????",
@@ -170,7 +170,7 @@
       footer_partner: "Partnership",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "What do the Terms explain?",
         geo_summary: "They summarize usage rules and responsibilities for test-product-9ll.pages.dev.",
         geo_def_title: "What are the Terms of Service?",
@@ -203,7 +203,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {

@@ -36,7 +36,7 @@
       footer_partner: "제휴 문의",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "?? ?? ??? ??????",
         geo_summary: "test-product-9ll.pages.dev? ?? ??? ?? ?? ??? ???.",
         geo_def_title: "?? ?? ???? ?????",
@@ -87,7 +87,7 @@
       footer_partner: "Partnerschaft",
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
-      theme_dark: "Dunkel"
+      theme_dark: "Dunkel",
         geo_title: "Was ist eine Men?-Erweiterungsanfrage?",
         geo_summary: "test-product-9ll.pages.dev nimmt Anfragen zur Aufnahme von Men?s an.",
         geo_def_title: "Was bedeutet eine Men?-Erweiterungsanfrage?",
@@ -138,7 +138,7 @@
       footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "??????????????",
         geo_summary: "test-product-9ll.pages.dev??????????????????????????",
         geo_def_title: "????????????????",
@@ -189,7 +189,7 @@
       footer_partner: "Partnership",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "What is a menu add request?",
         geo_summary: "test-product-9ll.pages.dev accepts requests to add menus to the recommendation list.",
         geo_def_title: "What does a menu add request mean?",
@@ -223,7 +223,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {

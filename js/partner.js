@@ -39,7 +39,7 @@
       footer_partner: "제휴 문의",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "?? ??? ??? ?? ???????",
         geo_summary: "test-product-9ll.pages.dev? ??? ?? ??? ????.",
         geo_def_title: "?? ??? ?????",
@@ -92,7 +92,7 @@
       footer_partner: "Partnerschaft",
       footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
       theme_light: "Hell",
-      theme_dark: "Dunkel"
+      theme_dark: "Dunkel",
         geo_title: "Wof?r ist die Partneranfrage-Seite?",
         geo_summary: "test-product-9ll.pages.dev nimmt Partner- und Kooperationsvorschl?ge an.",
         geo_def_title: "Was ist eine Partneranfrage?",
@@ -145,7 +145,7 @@
       footer_partner: "提携問い合わせ",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "?????????????????",
         geo_summary: "test-product-9ll.pages.dev?????????????????",
         geo_def_title: "??????????",
@@ -198,7 +198,7 @@
       footer_partner: "Partnership",
       footer_copyright: "© 2026 TodayLab. All rights reserved.",
       theme_light: "Light",
-      theme_dark: "Dark"
+      theme_dark: "Dark",
         geo_title: "What is the partnership inquiry page for?",
         geo_summary: "test-product-9ll.pages.dev accepts partnership and collaboration proposals.",
         geo_def_title: "What is a partnership inquiry?",
@@ -231,7 +231,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {

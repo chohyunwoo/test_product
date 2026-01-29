@@ -214,7 +214,7 @@
         bonus_label: "Bonus enthalten",
         complete_label: "Ziehung abgeschlossen",
         total_games: "Insgesamt 5 Spiele",
-        copy_success: "Alle Zahlen wurden kopiert."
+        copy_success: "Alle Zahlen wurden kopiert.",
         geo_q_title: "Was bietet diese Seite?",
         geo_q_summary: "test-product-9ll.pages.dev liefert schnelle Antworten zu Tageshoroskop, Lottozahlen, Men?vorschl?gen und Tiergesicht-Tests.",
         geo_def_fortune_title: "Was ist ein Horoskop?",
@@ -326,7 +326,7 @@
         bonus_label: "ボーナス含む",
         complete_label: "抽選完了",
         total_games: "合計5ゲーム",
-        copy_success: "全番号をコピーしました。"
+        copy_success: "全番号をコピーしました。",
         geo_q_title: "???????????????",
         geo_q_summary: "test-product-9ll.pages.dev????????????????????????????????????",
         geo_def_fortune_title: "?????????",
@@ -438,7 +438,7 @@
         bonus_label: "Bonus included",
         complete_label: "Completed",
         total_games: "Total 5 games",
-        copy_success: "All numbers copied."
+        copy_success: "All numbers copied.",
         geo_q_title: "What does this site provide?",
         geo_q_summary: "test-product-9ll.pages.dev gives quick answers for daily fortune, lotto numbers, menu picks, and animal-face tests.",
         geo_def_fortune_title: "What is a fortune?",
