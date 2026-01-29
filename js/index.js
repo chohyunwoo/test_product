@@ -18,6 +18,8 @@
     const focusCompatibilityValue = document.getElementById("focusCompatibilityValue");
     const focusLuckyNumberValue = document.getElementById("focusLuckyNumberValue");
     const focusLuckyTimeValue = document.getElementById("focusLuckyTimeValue");
+    const lottoTabsContainer = document.getElementById("lottoTabs");
+    const lottoPanelsContainer = document.getElementById("lottoPanels");
 
     const i18n = {
       ko: {
@@ -59,9 +61,16 @@
         focus_lucky_time_tag: "오늘의 시간",
         lotto_title: "로또 추첨",
         lotto_desc: "버튼을 누르면 1~45 사이의 번호 6개를 중복 없이 5게임 추천합니다.",
+        lotto_tab_ko: "한국 로또",
+        lotto_tab_de: "독일 로또",
         lotto_pick: "5게임 추천받기",
         lotto_copy: "전체 복사",
         lotto_bonus: "보너스 번호 포함",
+        lotto_de_title: "6aus49 + Superzahl",
+        lotto_de_desc: "1~49 사이 숫자 6개와 Superzahl(0~9) 1개를 랜덤으로 생성합니다.",
+        lotto_de_pick: "번호 생성",
+        lotto_de_copy: "결과 복사",
+        lotto_de_super: "Superzahl",
         note_title: "오늘의 별자리 큐레이션 노트",
         note_desc: "별자리 운세는 매일 업데이트되는 데이터로 구성되며, 참고용 안내로 제공됩니다.",
         note_line_1: "오늘의 별자리 운세는 날짜별로 새롭게 반영되며, 핵심 키워드를 중심으로 요약됩니다.",
@@ -129,9 +138,16 @@
         focus_lucky_time_tag: "Today's time",
         lotto_title: "Lotto Picks",
         lotto_desc: "Tap the button to draw 5 games of 6 numbers between 1 and 45 without duplicates.",
+        lotto_tab_ko: "Korean Lotto",
+        lotto_tab_de: "German Lotto",
         lotto_pick: "Get 5 Picks",
         lotto_copy: "Copy All",
         lotto_bonus: "Include bonus number",
+        lotto_de_title: "6aus49 + Superzahl",
+        lotto_de_desc: "Pick 6 numbers from 1-49 plus one Superzahl (0-9).",
+        lotto_de_pick: "Generate numbers",
+        lotto_de_copy: "Copy result",
+        lotto_de_super: "Superzahl",
         note_title: "Horoscope Curation Note",
         note_desc: "Horoscopes are built from daily updates and provided for reference.",
         note_line_1: "Today's horoscope is refreshed by date and summarized with key themes.",
@@ -512,7 +528,7 @@
       renderMenu();
       renderZodiacOptions();
       renderHoroscope();
-      renderGames();
+      renderActiveLotto();
       renderLuckScore();
     }
 
@@ -646,63 +662,302 @@
       return "n5";
     }
 
-    function pickNumbers(count, exclude = []) {
+    function pickNumbers(count, max, exclude = new Set()) {
       const pool = [];
-      for (let i = 1; i <= 45; i++) {
-        if (!exclude.includes(i)) pool.push(i);
+      for (let i = 1; i <= max; i++) {
+        if (!exclude.has(i)) pool.push(i);
       }
       for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
       }
-      return pool.slice(0, count);
+      return pool.slice(0, count).sort((a, b) => a - b);
     }
 
-    function renderGames() {
-      grid.innerHTML = "";
-
-      const allGames = [];
-
-      for (let i = 1; i <= 5; i++) {
-        const mainNums = pickNumbers(6).sort((a,b)=>a-b);
-        const bonusNum = bonusCheck.checked ? pickNumbers(1, mainNums)[0] : null;
-
-        allGames.push({ mainNums, bonusNum });
-
-        const card = document.createElement("div");
-        card.className = "game-card";
-
-        card.innerHTML = `
-          <div class="game-header">
-            <span>${i18n[currentLang].game_label} ${i}</span>
-            <span>${bonusNum ? i18n[currentLang].bonus_label : ""}</span>
-          </div>
-          <div class="numbers">
-            ${mainNums.map(n =>
-              `<div class="ball ${colorClass(n)}">${n}</div>`
-            ).join("")}
-            ${bonusNum ? `<span class="plus">+</span>
-              <div class="ball bonus">${bonusNum}</div>` : ""}
-          </div>
-        `;
-
-        grid.appendChild(card);
+    const lottoConfig = [
+      {
+        key: "ko",
+        type: "multiGame",
+        tabKey: "lotto_tab_ko",
+        descriptionKey: "lotto_desc",
+        pickKey: "lotto_pick",
+        copyKey: "lotto_copy",
+        bonusLabelKey: "lotto_bonus",
+        games: 5,
+        range: 45,
+        mainCount: 6,
+        bonusEnabled: true
+      },
+      {
+        key: "de",
+        type: "linePick",
+        tabKey: "lotto_tab_de",
+        titleKey: "lotto_de_title",
+        descriptionKey: "lotto_de_desc",
+        pickKey: "lotto_de_pick",
+        copyKey: "lotto_de_copy",
+        mainCount: 6,
+        range: 49,
+        superzahlRange: 10,
+        superLabelKey: "lotto_de_super"
       }
+    ];
 
-      const dateLocale = currentLang === "ko" ? "ko-KR" : "en-US";
-      footer.textContent =
-        `${i18n[currentLang].complete_label} · ${new Date().toLocaleString(dateLocale)} · ${i18n[currentLang].total_games}`;
+    const lottoState = {
+      activeMode: null,
+      panels: new Map()
+    };
 
-      document.getElementById("copyBtn").onclick = () => {
-        const text = allGames.map(g =>
-          g.mainNums.join(", ") + (g.bonusNum ? ` + ${g.bonusNum}` : "")
-        ).join("\n");
-        navigator.clipboard.writeText(text);
-        alert(i18n[currentLang].copy_success);
-      };
+    const lottoRenderers = {
+      multiGame: {
+        buildPanel(config) {
+          const panel = document.createElement("div");
+          panel.className = "lotto-panel";
+          panel.dataset.lottoPanel = config.key;
+
+          const controls = document.createElement("div");
+          controls.className = "controls";
+
+          const pickBtn = document.createElement("button");
+          pickBtn.type = "button";
+          pickBtn.className = "btn-main";
+          pickBtn.dataset.i18n = config.pickKey;
+          pickBtn.textContent = i18n[currentLang][config.pickKey] || "";
+
+          const copyBtn = document.createElement("button");
+          copyBtn.type = "button";
+          copyBtn.className = "btn-sub";
+          copyBtn.dataset.i18n = config.copyKey;
+          copyBtn.textContent = i18n[currentLang][config.copyKey] || "";
+
+          const checkboxLabel = document.createElement("label");
+          checkboxLabel.className = "checkbox";
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = true;
+          const checkboxText = document.createElement("span");
+          checkboxText.dataset.i18n = config.bonusLabelKey;
+          checkboxText.textContent = i18n[currentLang][config.bonusLabelKey] || "";
+
+          checkboxLabel.appendChild(checkbox);
+          checkboxLabel.appendChild(checkboxText);
+
+          controls.appendChild(pickBtn);
+          controls.appendChild(copyBtn);
+          controls.appendChild(checkboxLabel);
+
+          const gridEl = document.createElement("div");
+          gridEl.className = "grid";
+          const footerEl = document.createElement("div");
+          footerEl.className = "footer";
+
+          panel.appendChild(controls);
+          panel.appendChild(gridEl);
+          panel.appendChild(footerEl);
+
+          return {
+            panel,
+            elements: { pickBtn, copyBtn, checkbox, gridEl, footerEl },
+            data: { games: [] }
+          };
+        },
+        render(config, state, options = {}) {
+          const { gridEl, footerEl, checkbox } = state.elements;
+          if (!gridEl || !footerEl || !checkbox) return;
+
+          gridEl.innerHTML = "";
+          const allGames = [];
+
+          for (let i = 1; i <= config.games; i++) {
+            const mainNums = pickNumbers(config.mainCount, config.range);
+            const bonusNum = config.bonusEnabled && checkbox.checked
+              ? pickNumbers(1, config.range, new Set(mainNums))[0]
+              : null;
+
+            allGames.push({ mainNums, bonusNum });
+
+            const card = document.createElement("div");
+            card.className = "game-card";
+            card.innerHTML = `
+              <div class="game-header">
+                <span>${i18n[currentLang].game_label} ${i}</span>
+                <span>${bonusNum ? i18n[currentLang].bonus_label : ""}</span>
+              </div>
+              <div class="numbers">
+                ${mainNums.map(n =>
+                  `<div class="ball ${colorClass(n)}">${n}</div>`
+                ).join("")}
+                ${bonusNum ? `<span class="plus">+</span>
+                  <div class="ball bonus">${bonusNum}</div>` : ""}
+              </div>
+            `;
+
+            gridEl.appendChild(card);
+          }
+
+          state.data.games = allGames;
+
+          const dateLocale = currentLang === "ko" ? "ko-KR" : "en-US";
+          footerEl.textContent =
+            `${i18n[currentLang].complete_label} · ${new Date().toLocaleString(dateLocale)} · ${i18n[currentLang].total_games}`;
+
+          state.elements.copyBtn.onclick = () => {
+            const text = allGames.map(g =>
+              g.mainNums.join(", ") + (g.bonusNum ? ` + ${g.bonusNum}` : "")
+            ).join("\n");
+            navigator.clipboard.writeText(text);
+            alert(i18n[currentLang].copy_success);
+          };
+
+          if (options.scrollToTop) {
+            gridEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        },
+        bind(config, state) {
+          state.elements.pickBtn.addEventListener("click", () => {
+            lottoRenderers.multiGame.render(config, state, { scrollToTop: false });
+          });
+        }
+      },
+      linePick: {
+        buildPanel(config) {
+          const panel = document.createElement("div");
+          panel.className = "lotto-panel";
+          panel.dataset.lottoPanel = config.key;
+
+          const head = document.createElement("div");
+          head.className = "lotto-de-head";
+
+          const title = document.createElement("div");
+          title.className = "lotto-de-title";
+          if (config.titleKey) {
+            title.dataset.i18n = config.titleKey;
+            title.textContent = i18n[currentLang][config.titleKey] || "";
+          }
+
+          const desc = document.createElement("p");
+          desc.className = "lotto-de-desc";
+          if (config.descriptionKey) {
+            desc.dataset.i18n = config.descriptionKey;
+            desc.textContent = i18n[currentLang][config.descriptionKey] || "";
+          }
+
+          head.appendChild(title);
+          head.appendChild(desc);
+
+          const controls = document.createElement("div");
+          controls.className = "controls";
+          const pickBtn = document.createElement("button");
+          pickBtn.type = "button";
+          pickBtn.className = "btn-main";
+          pickBtn.dataset.i18n = config.pickKey;
+          pickBtn.textContent = i18n[currentLang][config.pickKey] || "";
+          const copyBtn = document.createElement("button");
+          copyBtn.type = "button";
+          copyBtn.className = "btn-sub";
+          copyBtn.dataset.i18n = config.copyKey;
+          copyBtn.textContent = i18n[currentLang][config.copyKey] || "";
+
+          controls.appendChild(pickBtn);
+          controls.appendChild(copyBtn);
+
+          const result = document.createElement("div");
+          result.className = "de-result";
+          result.setAttribute("aria-live", "polite");
+          result.textContent = "-";
+
+          panel.appendChild(head);
+          panel.appendChild(controls);
+          panel.appendChild(result);
+
+          return {
+            panel,
+            elements: { pickBtn, copyBtn, result },
+            data: { currentPick: null }
+          };
+        },
+        render(config, state) {
+          if (!state.elements.result) return;
+          if (!state.data.currentPick) {
+            state.elements.result.textContent = "-";
+            return;
+          }
+          const superLabel = i18n[currentLang][config.superLabelKey] || "Superzahl";
+          const { mainNums, superzahl } = state.data.currentPick;
+          state.elements.result.textContent = `${mainNums.join(", ")} + ${superLabel}: ${superzahl}`;
+        },
+        bind(config, state) {
+          state.elements.pickBtn.addEventListener("click", () => {
+            const mainNums = pickNumbers(config.mainCount, config.range);
+            const superzahl = Math.floor(Math.random() * config.superzahlRange);
+            state.data.currentPick = { mainNums, superzahl };
+            lottoRenderers.linePick.render(config, state);
+          });
+          state.elements.copyBtn.addEventListener("click", () => {
+            if (!state.data.currentPick) return;
+            const superLabel = i18n[currentLang][config.superLabelKey] || "Superzahl";
+            const text = `${state.data.currentPick.mainNums.join(", ")} + ${superLabel}: ${state.data.currentPick.superzahl}`;
+            navigator.clipboard.writeText(text);
+            alert(i18n[currentLang].copy_success);
+          });
+        }
+      }
+    };
+
+    function renderLottoUI() {
+      if (!lottoTabsContainer || !lottoPanelsContainer) return;
+
+      lottoTabsContainer.innerHTML = "";
+      lottoPanelsContainer.innerHTML = "";
+      lottoState.panels.clear();
+
+      lottoConfig.forEach((config) => {
+        const tab = document.createElement("button");
+        tab.type = "button";
+        tab.className = "lotto-tab";
+        tab.dataset.lottoTab = config.key;
+        tab.dataset.i18n = config.tabKey;
+        tab.textContent = i18n[currentLang][config.tabKey] || "";
+        tab.addEventListener("click", () => setLottoMode(config.key));
+        lottoTabsContainer.appendChild(tab);
+
+        const renderer = lottoRenderers[config.type];
+        if (!renderer) return;
+        const panelState = renderer.buildPanel(config);
+        lottoPanelsContainer.appendChild(panelState.panel);
+        renderer.bind(config, panelState);
+        lottoState.panels.set(config.key, { config, renderer, state: panelState });
+      });
+
+      const savedMode = localStorage.getItem("lottoMode");
+      const initialMode = savedMode && lottoState.panels.has(savedMode)
+        ? savedMode
+        : lottoConfig[0].key;
+      setLottoMode(initialMode);
     }
 
-    document.getElementById("pickBtn").onclick = renderGames;
+    function setLottoMode(mode) {
+      if (!lottoTabsContainer || !lottoPanelsContainer) return;
+      lottoState.activeMode = mode;
+      const tabs = lottoTabsContainer.querySelectorAll(".lotto-tab");
+      const panels = lottoPanelsContainer.querySelectorAll(".lotto-panel");
+
+      tabs.forEach((tab) => {
+        tab.classList.toggle("is-active", tab.dataset.lottoTab === mode);
+      });
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.lottoPanel === mode;
+        panel.classList.toggle("is-active", isActive);
+        panel.hidden = !isActive;
+      });
+      localStorage.setItem("lottoMode", mode);
+    }
+
+    function renderActiveLotto() {
+      const active = lottoState.panels.get(lottoState.activeMode);
+      if (!active) return;
+      active.renderer.render(active.config, active.state);
+    }
     if (zodiacBtn) zodiacBtn.addEventListener("click", renderHoroscope);
     if (zodiacSelect) {
       zodiacSelect.addEventListener("change", (event) => {
@@ -741,6 +996,7 @@
       });
     }
 
+    renderLottoUI();
     initTheme();
     applyLanguage(currentLang);
 

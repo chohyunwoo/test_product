@@ -286,6 +286,71 @@
       align-items: center;
     }
 
+    .lotto-tabs {
+      display: inline-flex;
+      gap: 10px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: var(--card-2);
+      width: fit-content;
+    }
+
+    .lotto-tab {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .12s ease, color .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .lotto-tab:hover {
+      color: var(--text);
+    }
+
+    .lotto-tab.is-active {
+      background: var(--primary);
+      color: #0b1020;
+      border-color: rgba(15,23,42,.12);
+    }
+
+    .lotto-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .lotto-panel[hidden] {
+      display: none;
+    }
+
+    .lotto-de-head {
+      display: grid;
+      gap: 6px;
+    }
+
+    .lotto-de-title {
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .lotto-de-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .de-result {
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px dashed var(--card-border);
+      background: var(--card-2);
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
     .btn-main {
       flex: 1;
       padding: 14px 20px;
