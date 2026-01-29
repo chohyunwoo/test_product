@@ -261,7 +261,11 @@
 
   function initTheme() {
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {\n      applyTheme("dark");\n      return;\n    }\n    applyTheme("light");
+    if (saved === "dark") {
+      applyTheme("dark");
+      return;
+    }
+    applyTheme("light");
   }
 
   function applyLanguage(lang) {
