@@ -23,7 +23,7 @@
 
     const i18n = {
       ko: {
-        title: "오늘의 운세 · 로또 추첨 · 메뉴 추천 · 동물상 테스트",
+        title: "운을 시험해보세요",
         description: "오늘의 운세, 로또 번호 추천, 메뉴 추천, 동물상 테스트까지 한 번에 즐길 수 있는 엔터테인먼트 사이트입니다.",
         badge_today: "오늘",
         brand_title: "운세를 보고 당신의 운을 시험해보세요",
@@ -116,7 +116,7 @@
         copy_success: "전체 번호가 복사됐어요."
       },
       de: {
-        title: "Tageshoroskop · Lotto · Menü · Tiergesichtstest",
+        title: "Teste dein Glück",
         description: "Ein Entertainment-Hub für Tageshoroskope, Lottozahlen, Menüideen und den Tiergesichtstest.",
         badge_today: "Heute",
         brand_title: "Schau dir dein Horoskop an und teste dein Glück",
@@ -198,7 +198,7 @@
         copy_success: "Alle Zahlen wurden kopiert."
       },
       ja: {
-        title: "今日の運勢 · ロト抽選 · メニュー提案 · 動物顔テスト",
+        title: "運を試してみよう",
         description: "今日の運勢、ロト番号、メニュー提案、動物顔テストを一度に楽しめます。",
         badge_today: "今日",
         brand_title: "運勢を見てあなたの運を試してみましょう",
@@ -291,7 +291,7 @@
         copy_success: "全番号をコピーしました。"
       },
       en: {
-        title: "Today Fortune · Lotto Picks · Menu Picks · Animal Face Test",
+        title: "Test your luck",
         description: "A fun hub for daily fortune, lotto numbers, menu picks, and animal-face test in one place.",
         badge_today: "Today",
         brand_title: "Check your fortune and test your luck",
