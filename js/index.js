@@ -66,6 +66,7 @@
         lotto_desc: "버튼을 누르면 1~45 사이의 번호 6개를 중복 없이 5게임 추천합니다.",
         lotto_tab_ko: "한국 로또",
         lotto_tab_de: "독일 로또",
+        lotto_tab_jp: "일본 로또 6",
         lotto_pick: "5게임 추천받기",
         lotto_copy: "전체 복사",
         lotto_bonus: "보너스 번호 포함",
@@ -74,6 +75,10 @@
         lotto_de_pick: "번호 생성",
         lotto_de_copy: "결과 복사",
         lotto_de_super: "Superzahl",
+        lotto_jp_title: "Japan Loto 6",
+        lotto_jp_desc: "1~43 사이 숫자 6개를 랜덤으로 생성합니다.",
+        lotto_jp_pick: "번호 생성",
+        lotto_jp_copy: "결과 복사",
         note_title: "오늘의 별자리 큐레이션 노트",
         note_desc: "별자리 운세는 매일 업데이트되는 데이터로 구성되며, 참고용 안내로 제공됩니다.",
         note_line_1: "오늘의 별자리 운세는 날짜별로 새롭게 반영되며, 핵심 키워드를 중심으로 요약됩니다.",
@@ -182,6 +187,91 @@
         total_games: "Insgesamt 5 Spiele",
         copy_success: "Alle Zahlen wurden kopiert."
       },
+      ja: {
+        title: "今日の運勢 · ロト抽選 · メニュー 추천 · 動物顔テスト",
+        description: "今日の運勢、ロト番号、メニュー提案、動物顔テストを一度に楽しめます。",
+        badge_today: "今日",
+        brand_title: "運勢を見てあなたの運を試してみましょう",
+        nav_animal: "動物顔テスト",
+        nav_menu: "メニュー 추천",
+        nav_about: "サイト紹介",
+        menu_label: "メニュー",
+        menu_animal: "動物顔テスト",
+        menu_menu: "メニュー 추천",
+        menu_loading: "メニューを読み込み中...",
+        menu_error: "メニューの読み込みに失敗しました。",
+        menu_source: "出典",
+        fortune_title: "今日の星座運勢",
+        fortune_tag: "星座ガイド",
+        luck_score_label: "今日の運勢スコア",
+        settings_label: "設定",
+        settings_language: "言語",
+        settings_theme: "テーマ",
+        birth_label: "誕生日で星座を探す",
+        birth_btn: "誕生日適用",
+        birth_placeholder: "誕生日を選択してください",
+        birth_hint: "誕生日を入力すると星座が自動選択されます。",
+        fortune_btn: "運勢を見る",
+        zodiac_loading: "運勢を読み込み中...",
+        zodiac_error: "運勢を読み込めませんでした。後でもう一度お試しください。",
+        zodiac_compatibility: "相性",
+        zodiac_lucky_number: "ラッキーナンバー",
+        zodiac_lucky_time: "ラッキータイム",
+        zodiac_color: "ラッキーカラー",
+        zodiac_mood: "今日の気分",
+        zodiac_sign: "星座",
+        zodiac_range: "期間",
+        focus_compatibility_label: "相性",
+        focus_compatibility_tag: "今日の相性",
+        focus_lucky_number_label: "ラッキーナンバー",
+        focus_lucky_number_tag: "今日の数字",
+        focus_lucky_time_label: "ラッキータイム",
+        focus_lucky_time_tag: "今日の時間",
+        lotto_title: "ロト抽選",
+        lotto_desc: "ボタンを押すと1〜45の数字から重複なしで5ゲームを抽選します。",
+        lotto_tab_ko: "韓国ロト",
+        lotto_tab_de: "ドイツロト",
+        lotto_tab_jp: "日本ロト6",
+        lotto_pick: "5ゲーム生成",
+        lotto_copy: "すべてコピー",
+        lotto_bonus: "ボーナス番号を含む",
+        lotto_de_title: "6aus49 + Superzahl",
+        lotto_de_desc: "1〜49の数字6個とSuperzahl(0〜9)を生成します。",
+        lotto_de_pick: "番号生成",
+        lotto_de_copy: "結果コピー",
+        lotto_de_super: "Superzahl",
+        lotto_jp_title: "Japan Loto 6",
+        lotto_jp_desc: "1〜43の数字6個をランダムに生成します。",
+        lotto_jp_pick: "番号生成",
+        lotto_jp_copy: "結果コピー",
+        note_title: "今日の星座メモ",
+        note_desc: "星座運勢は日次更新の参考情報です。",
+        note_line_1: "今日の運勢は日付に合わせて更新され、要点をまとめています。",
+        note_line_2: "占いは参考として楽しみ、最終判断はご自身で。",
+        contact_title: "提携문의",
+        contact_desc: "簡単な情報を残していただければすぐにご連絡します。",
+        contact_name_label: "名前",
+        contact_name_placeholder: "名前",
+        contact_email_label: "メール",
+        contact_message_label: "問い合わせ内容",
+        contact_message_placeholder: "お問い合わせ内容を入力してください。",
+        contact_submit: "送信",
+        footer_about: "サイト紹介",
+        footer_privacy: "プライバシーポリシー",
+        footer_terms: "利用規約",
+        footer_menu: "メニュー 추천",
+        footer_menu_request: "メニュー追加依頼",
+        footer_partner: "提携문의",
+        footer_contact_note: "お問い合わせはフォームから受け付けています。",
+        footer_copyright: "© 2026 TodayLab. All rights reserved.",
+        theme_light: "Light",
+        theme_dark: "Dark",
+        game_label: "ゲーム",
+        bonus_label: "ボーナス含む",
+        complete_label: "抽選完了",
+        total_games: "合計5ゲーム",
+        copy_success: "全番号をコピーしました。"
+      },
       en: {
         title: "Today Fortune · Lotto Picks · Menu Picks · Animal Face Test",
         description: "A fun hub for daily fortune, lotto numbers, menu picks, and animal-face test in one place.",
@@ -226,6 +316,7 @@
         lotto_desc: "Tap the button to draw 5 games of 6 numbers between 1 and 45 without duplicates.",
         lotto_tab_ko: "Korean Lotto",
         lotto_tab_de: "German Lotto",
+        lotto_tab_jp: "Japan Loto 6",
         lotto_pick: "Get 5 Picks",
         lotto_copy: "Copy All",
         lotto_bonus: "Include bonus number",
@@ -234,6 +325,10 @@
         lotto_de_pick: "Generate numbers",
         lotto_de_copy: "Copy result",
         lotto_de_super: "Superzahl",
+        lotto_jp_title: "Japan Loto 6",
+        lotto_jp_desc: "Pick 6 numbers from 1 to 43.",
+        lotto_jp_pick: "Generate numbers",
+        lotto_jp_copy: "Copy result",
         note_title: "Horoscope Curation Note",
         note_desc: "Horoscopes are built from daily updates and provided for reference.",
         note_line_1: "Today's horoscope is refreshed by date and summarized with key themes.",
@@ -803,6 +898,17 @@
         range: 49,
         superzahlRange: 10,
         superLabelKey: "lotto_de_super"
+      },
+      {
+        key: "jp",
+        type: "linePick",
+        tabKey: "lotto_tab_jp",
+        titleKey: "lotto_jp_title",
+        descriptionKey: "lotto_jp_desc",
+        pickKey: "lotto_jp_pick",
+        copyKey: "lotto_jp_copy",
+        mainCount: 6,
+        range: 43
       }
     ];
 
@@ -979,27 +1085,28 @@
             data: { currentPick: null }
           };
         },
+        buildLinePickText(config, pick) {
+          if (!pick) return "-";
+          if (!config.superzahlRange) return pick.mainNums.join(", ");
+          const superLabel = i18n[currentLang][config.superLabelKey] || "Superzahl";
+          return `${pick.mainNums.join(", ")} + ${superLabel}: ${pick.superzahl}`;
+        },
         render(config, state) {
           if (!state.elements.result) return;
-          if (!state.data.currentPick) {
-            state.elements.result.textContent = "-";
-            return;
-          }
-          const superLabel = i18n[currentLang][config.superLabelKey] || "Superzahl";
-          const { mainNums, superzahl } = state.data.currentPick;
-          state.elements.result.textContent = `${mainNums.join(", ")} + ${superLabel}: ${superzahl}`;
+          state.elements.result.textContent = lottoRenderers.linePick.buildLinePickText(config, state.data.currentPick);
         },
         bind(config, state) {
           state.elements.pickBtn.addEventListener("click", () => {
             const mainNums = pickNumbers(config.mainCount, config.range);
-            const superzahl = Math.floor(Math.random() * config.superzahlRange);
+            const superzahl = config.superzahlRange
+              ? Math.floor(Math.random() * config.superzahlRange)
+              : null;
             state.data.currentPick = { mainNums, superzahl };
             lottoRenderers.linePick.render(config, state);
           });
           state.elements.copyBtn.addEventListener("click", () => {
             if (!state.data.currentPick) return;
-            const superLabel = i18n[currentLang][config.superLabelKey] || "Superzahl";
-            const text = `${state.data.currentPick.mainNums.join(", ")} + ${superLabel}: ${state.data.currentPick.superzahl}`;
+            const text = lottoRenderers.linePick.buildLinePickText(config, state.data.currentPick);
             navigator.clipboard.writeText(text);
             alert(i18n[currentLang].copy_success);
           });
