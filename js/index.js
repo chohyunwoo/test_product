@@ -160,6 +160,7 @@
         lotto_desc: "Klicke den Button, um 5 Spiele mit 6 Zahlen von 1 bis 45 ohne Duplikate zu ziehen.",
         lotto_tab_ko: "Korea-Lotto",
         lotto_tab_de: "Deutschland-Lotto",
+        lotto_tab_jp: "Japan-Lotto",
         lotto_pick: "5 Tipps ziehen",
         lotto_copy: "Alle kopieren",
         lotto_bonus: "Bonuszahl einschließen",
