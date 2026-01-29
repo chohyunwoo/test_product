@@ -10,6 +10,7 @@
     const menuGrid = document.getElementById("menuGrid");
     const menuPickBtn = document.getElementById("menuPickBtn");
     const langSelect = document.getElementById("langSelect");
+    const langSelectTop = document.getElementById("langSelectTop");
     const birthDateInput = document.getElementById("birthDateInput");
     const birthDateBtn = document.getElementById("birthDateBtn");
     const birthPickerBtn = document.getElementById("birthPickerBtn");
@@ -33,6 +34,9 @@
         menu_label: "메뉴",
         menu_animal: "동물상 테스트",
         menu_menu: "메뉴 추천",
+        menu_loading: "메뉴를 불러오는 중...",
+        menu_error: "메뉴를 불러오지 못했어요.",
+        menu_source: "출처",
         fortune_title: "오늘의 별자리 운세",
         fortune_tag: "별자리 가이드",
         luck_score_label: "오늘의 운빨 지수",
@@ -99,6 +103,86 @@
         total_games: "총 5게임",
         copy_success: "전체 번호가 복사됐어요."
       },
+      de: {
+        title: "Tageshoroskop · Lotto · Menü · Tiergesichtstest",
+        description: "Ein Entertainment-Hub für Tageshoroskope, Lottozahlen, Menüideen und den Tiergesichtstest.",
+        badge_today: "Heute",
+        brand_title: "Tageshoroskop",
+        nav_animal: "Tiergesichtstest",
+        nav_menu: "Menü-Empfehlung",
+        nav_about: "Über die Seite",
+        menu_label: "Menü",
+        menu_animal: "Tiergesichtstest",
+        menu_menu: "Menü-Empfehlung",
+        menu_loading: "Menü wird geladen...",
+        menu_error: "Menü konnte nicht geladen werden.",
+        menu_source: "Quelle",
+        fortune_title: "Heutiges Sternzeichen-Horoskop",
+        fortune_tag: "Sternzeichen-Guide",
+        luck_score_label: "Heutiger Glücks-Score",
+        settings_label: "Einstellungen",
+        settings_language: "Sprache",
+        settings_theme: "Design",
+        birth_label: "Sternzeichen per Geburtstag",
+        birth_btn: "Geburtstag anwenden",
+        birth_placeholder: "Geburtstag auswählen",
+        birth_hint: "Geburtstag eingeben, Sternzeichen wird automatisch gewählt.",
+        fortune_btn: "Horoskop ansehen",
+        zodiac_loading: "Horoskop wird geladen...",
+        zodiac_error: "Horoskop konnte nicht geladen werden. Bitte später erneut versuchen.",
+        zodiac_compatibility: "Kompatibilität",
+        zodiac_lucky_number: "Glückszahl",
+        zodiac_lucky_time: "Glückszeit",
+        zodiac_color: "Glücksfarbe",
+        zodiac_mood: "Tagesstimmung",
+        zodiac_sign: "Sternzeichen",
+        zodiac_range: "Zeitraum",
+        focus_compatibility_label: "Kompatibilität",
+        focus_compatibility_tag: "Beste Übereinstimmung",
+        focus_lucky_number_label: "Glückszahl",
+        focus_lucky_number_tag: "Heutige Zahl",
+        focus_lucky_time_label: "Glückszeit",
+        focus_lucky_time_tag: "Heutige Zeit",
+        lotto_title: "Lotto-Ziehung",
+        lotto_desc: "Klicke den Button, um 5 Spiele mit 6 Zahlen von 1 bis 45 ohne Duplikate zu ziehen.",
+        lotto_tab_ko: "Korea-Lotto",
+        lotto_tab_de: "Deutschland-Lotto",
+        lotto_pick: "5 Tipps ziehen",
+        lotto_copy: "Alle kopieren",
+        lotto_bonus: "Bonuszahl einschließen",
+        lotto_de_title: "6aus49 + Superzahl",
+        lotto_de_desc: "6 Zahlen von 1 bis 49 plus eine Superzahl (0 bis 9) werden zufällig erzeugt.",
+        lotto_de_pick: "Zahlen generieren",
+        lotto_de_copy: "Ergebnis kopieren",
+        lotto_de_super: "Superzahl",
+        note_title: "Tagesnotiz zum Sternzeichen",
+        note_desc: "Horoskope werden täglich aktualisiert und dienen als Orientierung.",
+        note_line_1: "Das Tageshoroskop wird datumsbasiert aktualisiert und auf Kernpunkte verdichtet.",
+        note_line_2: "Die Deutung dient der Unterhaltung; persönliche Entscheidungen haben Vorrang.",
+        contact_title: "Kooperationsanfrage",
+        contact_desc: "Hinterlasse kurz deine Infos, wir melden uns schnell.",
+        contact_name_label: "Name",
+        contact_name_placeholder: "Name",
+        contact_email_label: "E-Mail",
+        contact_message_label: "Nachricht",
+        contact_message_placeholder: "Bitte gib deine Anfrage ein.",
+        contact_submit: "Anfrage senden",
+        footer_about: "Über die Seite",
+        footer_privacy: "Datenschutz",
+        footer_terms: "Nutzungsbedingungen",
+        footer_menu: "Menü-Empfehlung",
+        footer_menu_request: "Menü-Anfrage",
+        footer_partner: "Partnerschaft",
+        footer_contact_note: "Anfragen bitte über das Formular senden.",
+        footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
+        theme_light: "Hell",
+        theme_dark: "Dunkel",
+        game_label: "Spiel",
+        bonus_label: "Bonus enthalten",
+        complete_label: "Ziehung abgeschlossen",
+        total_games: "Insgesamt 5 Spiele",
+        copy_success: "Alle Zahlen wurden kopiert."
+      },
       en: {
         title: "Today Fortune · Lotto Picks · Menu Picks · Animal Face Test",
         description: "A fun hub for daily fortune, lotto numbers, menu picks, and animal-face test in one place.",
@@ -110,6 +194,9 @@
         menu_label: "Menu",
         menu_animal: "Animal Face Test",
         menu_menu: "Menu Picks",
+        menu_loading: "Loading menu picks...",
+        menu_error: "Unable to load menu picks.",
+        menu_source: "Source",
         fortune_title: "Today's Zodiac Horoscope",
         fortune_tag: "Zodiac Guide",
         luck_score_label: "Today's Luck Score",
@@ -184,18 +271,18 @@
     const userIdKey = "luckUserId";
 
     const zodiacSigns = [
-      { value: "aries", ko: "양자리", en: "Aries", range_ko: "3/21 ~ 4/19", range_en: "Mar 21 - Apr 19" },
-      { value: "taurus", ko: "황소자리", en: "Taurus", range_ko: "4/20 ~ 5/20", range_en: "Apr 20 - May 20" },
-      { value: "gemini", ko: "쌍둥이자리", en: "Gemini", range_ko: "5/21 ~ 6/21", range_en: "May 21 - Jun 21" },
-      { value: "cancer", ko: "게자리", en: "Cancer", range_ko: "6/22 ~ 7/22", range_en: "Jun 22 - Jul 22" },
-      { value: "leo", ko: "사자자리", en: "Leo", range_ko: "7/23 ~ 8/22", range_en: "Jul 23 - Aug 22" },
-      { value: "virgo", ko: "처녀자리", en: "Virgo", range_ko: "8/23 ~ 9/22", range_en: "Aug 23 - Sep 22" },
-      { value: "libra", ko: "천칭자리", en: "Libra", range_ko: "9/23 ~ 10/22", range_en: "Sep 23 - Oct 22" },
-      { value: "scorpio", ko: "전갈자리", en: "Scorpio", range_ko: "10/23 ~ 11/22", range_en: "Oct 23 - Nov 22" },
-      { value: "sagittarius", ko: "사수자리", en: "Sagittarius", range_ko: "11/23 ~ 12/21", range_en: "Nov 23 - Dec 21" },
-      { value: "capricorn", ko: "염소자리", en: "Capricorn", range_ko: "12/22 ~ 1/19", range_en: "Dec 22 - Jan 19" },
-      { value: "aquarius", ko: "물병자리", en: "Aquarius", range_ko: "1/20 ~ 2/18", range_en: "Jan 20 - Feb 18" },
-      { value: "pisces", ko: "물고기자리", en: "Pisces", range_ko: "2/19 ~ 3/20", range_en: "Feb 19 - Mar 20" }
+      { value: "aries", ko: "양자리", de: "Widder", en: "Aries", range_ko: "3/21 ~ 4/19", range_en: "Mar 21 - Apr 19" },
+      { value: "taurus", ko: "황소자리", de: "Stier", en: "Taurus", range_ko: "4/20 ~ 5/20", range_en: "Apr 20 - May 20" },
+      { value: "gemini", ko: "쌍둥이자리", de: "Zwillinge", en: "Gemini", range_ko: "5/21 ~ 6/21", range_en: "May 21 - Jun 21" },
+      { value: "cancer", ko: "게자리", de: "Krebs", en: "Cancer", range_ko: "6/22 ~ 7/22", range_en: "Jun 22 - Jul 22" },
+      { value: "leo", ko: "사자자리", de: "Löwe", en: "Leo", range_ko: "7/23 ~ 8/22", range_en: "Jul 23 - Aug 22" },
+      { value: "virgo", ko: "처녀자리", de: "Jungfrau", en: "Virgo", range_ko: "8/23 ~ 9/22", range_en: "Aug 23 - Sep 22" },
+      { value: "libra", ko: "천칭자리", de: "Waage", en: "Libra", range_ko: "9/23 ~ 10/22", range_en: "Sep 23 - Oct 22" },
+      { value: "scorpio", ko: "전갈자리", de: "Skorpion", en: "Scorpio", range_ko: "10/23 ~ 11/22", range_en: "Oct 23 - Nov 22" },
+      { value: "sagittarius", ko: "사수자리", de: "Schütze", en: "Sagittarius", range_ko: "11/23 ~ 12/21", range_en: "Nov 23 - Dec 21" },
+      { value: "capricorn", ko: "염소자리", de: "Steinbock", en: "Capricorn", range_ko: "12/22 ~ 1/19", range_en: "Dec 22 - Jan 19" },
+      { value: "aquarius", ko: "물병자리", de: "Wassermann", en: "Aquarius", range_ko: "1/20 ~ 2/18", range_en: "Jan 20 - Feb 18" },
+      { value: "pisces", ko: "물고기자리", de: "Fische", en: "Pisces", range_ko: "2/19 ~ 3/20", range_en: "Feb 19 - Mar 20" }
     ];
 
     const ASTRO_ENDPOINT = "/api/horoscope";
@@ -216,14 +303,17 @@
 
     const fallbackMoods = {
       ko: ["차분함", "활기", "집중", "여유", "호기심", "정리", "전환", "도전"],
+      de: ["Ruhe", "Energie", "Fokus", "Leichtigkeit", "Neugier", "Klarheit", "Wechsel", "Mut"],
       en: ["Calm", "Energy", "Focus", "Ease", "Curiosity", "Clarity", "Shift", "Bold"]
     };
     const fallbackColors = {
       ko: ["코랄", "네이비", "민트", "라벤더", "카멜", "오프화이트", "올리브", "머스터드"],
+      de: ["Koralle", "Navy", "Minze", "Lavendel", "Kamel", "Off-White", "Oliv", "Senf"],
       en: ["Coral", "Navy", "Mint", "Lavender", "Camel", "Off-white", "Olive", "Mustard"]
     };
     const fallbackTimes = {
       ko: ["오전 9시", "오전 11시", "오후 2시", "오후 4시", "오후 7시", "밤 9시"],
+      de: ["9 Uhr", "11 Uhr", "14 Uhr", "16 Uhr", "19 Uhr", "21 Uhr"],
       en: ["9 AM", "11 AM", "2 PM", "4 PM", "7 PM", "9 PM"]
     };
     const fallbackTemplates = {
@@ -234,6 +324,14 @@
         "정리와 정돈이 운을 끌어오는 열쇠가 됩니다.",
         "직감이 살아나는 날, 지나친 고민은 줄이세요.",
         "새로운 시도가 생각보다 수월하게 흘러갑니다."
+      ],
+      de: [
+        "Kleine Entscheidungen verändern heute den Verlauf. Prüfe einen Schritt mehr.",
+        "Nimm heute etwas Tempo raus, dann siehst du mehr.",
+        "Leichte Gespräche können eine gute Gelegenheit bringen.",
+        "Ordnung ist der Schlüssel, um Glück anzuziehen.",
+        "Dein Bauchgefühl ist stark, vermeide zu viel Grübeln.",
+        "Ein neuer Versuch läuft leichter als erwartet."
       ],
       en: [
         "Small choices shift the flow today. Double-check one more step.",
@@ -508,6 +606,7 @@
       localStorage.setItem("lang", lang);
       document.documentElement.setAttribute("lang", lang);
       if (langSelect) langSelect.value = lang;
+      if (langSelectTop) langSelectTop.value = lang;
 
       document.title = i18n[lang].title;
       const metaDesc = document.querySelector('meta[name="description"]');
@@ -537,7 +636,11 @@
       const saved = localStorage.getItem("zodiacSign") || zodiacSigns[0].value;
       zodiacSelect.innerHTML = zodiacSigns
         .map(sign => {
-          const label = currentLang === "ko" ? sign.ko : sign.en;
+          const label = currentLang === "ko"
+            ? sign.ko
+            : currentLang === "de"
+              ? sign.de
+              : sign.en;
           return `<option value="${sign.value}">${label}</option>`;
         })
         .join("");
@@ -546,7 +649,9 @@
 
     function getZodiacLabel(signValue) {
       const sign = zodiacSigns.find(item => item.value === signValue) || zodiacSigns[0];
-      return currentLang === "ko" ? sign.ko : sign.en;
+      if (currentLang === "ko") return sign.ko;
+      if (currentLang === "de") return sign.de;
+      return sign.en;
     }
 
     function localizeCompatibility(value) {
@@ -992,6 +1097,11 @@
 
     if (langSelect) {
       langSelect.addEventListener("change", (event) => {
+        applyLanguage(event.target.value);
+      });
+    }
+    if (langSelectTop) {
+      langSelectTop.addEventListener("change", (event) => {
         applyLanguage(event.target.value);
       });
     }

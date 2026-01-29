@@ -698,6 +698,10 @@
   background-position: calc(100% - 16px) 14px, calc(100% - 10px) 14px;
 }
 
+.top-lang-select {
+  min-width: 140px;
+}
+
 @media (max-width: 900px) {
   .top-bar {
     grid-template-columns: 1fr;
