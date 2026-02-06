@@ -1,4 +1,4 @@
-\ufeff(function () {
+(function () {
   const common = {
   "ko": {
     "menu_label": "\uba54\ub274",
