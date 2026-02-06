@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="css/common.css" />
   <link rel="stylesheet" href="css/about.css" />
 </head>
-<body>
+<body data-i18n-page="fortune">
 
 <main class="app">
   <header class="top-bar">
@@ -43,67 +43,82 @@
         <span>운을 시험해보세요</span>
       </a>
       <details class="menu-dropdown">
-        <summary class="btn-sub menu-summary">메뉴</summary>
+        <summary class="btn-sub menu-summary" data-i18n="menu_label">메뉴</summary>
         <nav class="menu-panel" aria-label="Menu">
-          <a href="index.html#home">오늘의 운세</a>
-          <a href="fortune.html">운세 가이드</a>
-          <a href="lotto.html">로또 가이드</a>
-          <a href="menu-guide.html">메뉴 가이드</a>
-          <a href="menu.html">메뉴 추천</a>
-          <a href="animal.html">동물상 테스트</a>
+          <a href="index.html#home" data-i18n="nav_fortune_today">오늘의 운세</a>
+          <a href="fortune.html" data-i18n="nav_fortune_guide">운세 가이드</a>
+          <a href="lotto.html" data-i18n="nav_lotto_guide">로또 가이드</a>
+          <a href="menu-guide.html" data-i18n="nav_menu_guide">메뉴 가이드</a>
+          <a href="menu.html" data-i18n="nav_menu">메뉴 추천</a>
+          <a href="animal.html" data-i18n="nav_animal">동물상 테스트</a>
         </nav>
       </details>
     </div>
+    <div class="header-right">
+      <select id="langSelectTop" class="lang-select top-lang-select" aria-label="Language selector">
+        <option value="ko">한국어</option>
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+      <button id="themeToggle" class="btn-sub theme-icon" type="button" aria-label="Theme toggle">??</button>
+    </div>
   </header>
     <section class="card">
-      <h1>운세 가이드</h1>
-      <p>운세는 하루의 흐름을 참고하기 위한 가이드입니다. 이 페이지는 별자리 운세를 어떻게 읽고 활용하면 좋은지, 어떤 기준으로 결과가 구성되는지 설명합니다.</p>
-      <p>오늘의 운세 결과는 홈에서 확인할 수 있으며, 해석 기준과 책임 범위는 별도의 기준 페이지에 정리했습니다.</p>
+      <h1 data-i18n="fortune_title">운세 가이드</h1>
+      <p data-i18n="fortune_intro_1">운세는 하루의 흐름을 참고하기 위한 가이드입니다. 이 페이지는 별자리 운세를 어떻게 읽고 활용하면 좋은지, 어떤 기준으로 결과가 구성되는지 설명합니다.</p>
+      <p data-i18n="fortune_intro_2">오늘의 운세 결과는 홈에서 확인할 수 있으며, 해석 기준과 책임 범위는 별도의 기준 페이지에 정리했습니다.</p>
     </section>
 
     <section class="card">
-      <h2>이 페이지에서 제공하는 내용</h2>
+      <h2 data-i18n="fortune_contents_title">이 페이지에서 제공하는 내용</h2>
       <ul>
-        <li>별자리 운세 해석을 이해하는 방법</li>
-        <li>오늘의 운세를 활용하는 실전 팁</li>
-        <li>운세 결과의 범위와 책임 안내</li>
+        <li data-i18n="fortune_item_1">별자리 운세 해석을 이해하는 방법</li>
+        <li data-i18n="fortune_item_2">오늘의 운세를 활용하는 실전 팁</li>
+        <li data-i18n="fortune_item_3">운세 결과의 범위와 책임 안내</li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>활용 팁</h2>
-      <p>운세는 선택을 대신하지 않습니다. 결과를 참고하되, 오늘의 컨디션과 실제 상황을 우선으로 고려해보세요.</p>
-      <p>특히 관계/금전/일정 관련 해석은 과도한 확신보다는 일정 점검과 준비를 돕는 용도로 활용하는 것이 좋습니다.</p>
+      <h2 data-i18n="fortune_tips_title">활용 팁</h2>
+      <p data-i18n="fortune_tips_p1">운세는 선택을 대신하지 않습니다. 결과를 참고하되, 오늘의 컨디션과 실제 상황을 우선으로 고려해보세요.</p>
+      <p data-i18n="fortune_tips_p2">특히 관계/금전/일정 관련 해석은 과도한 확신보다는 일정 점검과 준비를 돕는 용도로 활용하는 것이 좋습니다.</p>
     </section>
 
     <section class="card">
-      <h2>관련 페이지</h2>
+      <h2 data-i18n="fortune_related_title">관련 페이지</h2>
       <ul>
-        <li><a href="index.html#home">오늘의 별자리 운세 보기</a></li>
-        <li><a href="fortune-methodology.html">운세 해석 기준</a></li>
+        <li><a href="index.html#home" data-i18n="fortune_related_today">오늘의 별자리 운세 보기</a></li>
+        <li><a href="fortune-methodology.html" data-i18n="fortune_related_method">운세 해석 기준</a></li>
       </ul>
     </section>
 
   <footer class="site-footer">
     <div class="footer-links">
-      <a href="about.html">사이트 소개</a>
-      <a href="editorial-policy.html">콘텐츠 작성 원칙</a>
-      <a href="ads-policy.html">광고 정책</a>
-      <a href="fortune.html">운세 가이드</a>
-      <a href="lotto.html">로또 가이드</a>
-      <a href="menu-guide.html">메뉴 가이드</a>
-      <a href="menu.html">메뉴 추천</a>
-      <a href="menu-request.html">메뉴 추가 요청</a>
-      <a href="partner.html">제휴 문의</a>
-      <a href="contact.html">문의</a>
-      <a href="privacy.html">개인정보 처리방침</a>
-      <a href="terms.html">이용약관</a>
+      <a href="about.html" data-i18n="footer_about">사이트 소개</a>
+      <a href="editorial-policy.html" data-i18n="footer_editorial">콘텐츠 작성 원칙</a>
+      <a href="ads-policy.html" data-i18n="footer_ads">광고 정책</a>
+      <a href="fortune.html" data-i18n="footer_fortune">운세 가이드</a>
+      <a href="lotto.html" data-i18n="footer_lotto">로또 가이드</a>
+      <a href="menu-guide.html" data-i18n="footer_menu_guide">메뉴 가이드</a>
+      <a href="menu.html" data-i18n="footer_menu">메뉴 추천</a>
+      <a href="menu-request.html" data-i18n="footer_menu_request">메뉴 추가 요청</a>
+      <a href="partner.html" data-i18n="footer_partner">제휴 문의</a>
+      <a href="contact.html" data-i18n="footer_contact">문의</a>
+      <a href="privacy.html" data-i18n="footer_privacy">개인정보 처리방침</a>
+      <a href="terms.html" data-i18n="footer_terms">이용약관</a>
     </div>
-    <div>문의는 홈의 문의 폼 또는 제휴 문의 페이지에서 접수합니다.</div>
-    <div>© 2026 TodayLab. All rights reserved.</div>
+    <div data-i18n="footer_contact_note">문의는 홈의 문의 폼 또는 제휴 문의 페이지에서 접수합니다.</div>
+    <div data-i18n="footer_copyright">© 2026 TodayLab. All rights reserved.</div>
   </footer>
 </main>
+  <script src="js/i18n-common.js"></script>
+  <script src="js/static-page.js"></script>
 </body>
 </html>
+
+
+
+
 
 
