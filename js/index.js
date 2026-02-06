@@ -105,7 +105,7 @@
         footer_menu: "메뉴 추천",
         footer_menu_request: "메뉴 추가 요청",
         footer_partner: "제휴 문의",
-        footer_contact_note: "문의는 제휴 문의 폼을 통해 접수받고 있습니다.",
+        footer_contact_note: "문의는 홈의 문의 폼 또는 제휴 문의 페이지에서 접수합니다.",
         footer_copyright: "© 2026 TodayLab. All rights reserved.",
         theme_light: "Light",
         theme_dark: "Dark",
@@ -206,7 +206,7 @@
         footer_menu: "Menü-Empfehlung",
         footer_menu_request: "Menü-Anfrage",
         footer_partner: "Partnerschaft",
-        footer_contact_note: "Anfragen bitte über das Formular senden.",
+        footer_contact_note: "Anfragen über die Kontaktseite oder das Partnerformular.",
         footer_copyright: "© 2026 TodayLab. Alle Rechte vorbehalten.",
         theme_light: "Hell",
         theme_dark: "Dunkel",
@@ -318,7 +318,7 @@
         footer_menu: "メニュー提案",
         footer_menu_request: "メニュー追加依頼",
         footer_partner: "提携問い合わせ",
-        footer_contact_note: "お問い合わせはフォームから受け付けています。",
+        footer_contact_note: "お問い合わせはお問い合わせページまたは提携フォームから受け付けています。",
         footer_copyright: "© 2026 TodayLab. All rights reserved.",
         theme_light: "Light",
         theme_dark: "Dark",
@@ -430,7 +430,7 @@
         footer_menu: "Menu Picks",
         footer_menu_request: "Menu Request",
         footer_partner: "Partnership",
-        footer_contact_note: "Please submit inquiries via the partnership form.",
+        footer_contact_note: "Please submit inquiries via the contact page or the partnership form.",
         footer_copyright: "© 2026 TodayLab. All rights reserved.",
         theme_light: "Light",
         theme_dark: "Dark",
@@ -1504,5 +1504,6 @@
     renderLottoUI();
     initTheme();
     applyLanguage(currentLang);
+
 
 
